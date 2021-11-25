@@ -502,7 +502,7 @@ svg {
 }
 
 .video-box {
-	min-height: 50vh;
+	min-height: 60vh;
 }
 
 @media screen and (max-width:768px) {

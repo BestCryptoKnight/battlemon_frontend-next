@@ -24,7 +24,7 @@ const Home: NextPage = () => {
       <>
         <div className="media-wrap">
           <div className="img-box video-box text-center">
-            <video src="/media/main.mp4" autoPlay muted loop playsInline width="800" />
+            <video src="/media/Lemon_v_720.mp4" autoPlay muted loop playsInline />
           </div>
         </div>
 
