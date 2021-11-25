@@ -24,7 +24,7 @@ const kitchen = () => {
 						<div className="card-preview">
 							<div className="img-box">
 								<picture>
-                  <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" />
+                    <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" layout="responsive" />
 								</picture>
 							</div>
 							<a href="#"></a>
@@ -32,7 +32,7 @@ const kitchen = () => {
 						<div className="card-preview">
 							<div className="img-box">
 								<picture>
-                  <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" />
+                    <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" layout="responsive" />
 								</picture>
 							</div>
 							<a href="#"></a>
@@ -40,7 +40,7 @@ const kitchen = () => {
 						<div className="card-preview">
               <div className="img-box">
                 <picture>
-                  <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" />
+                    <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" layout="responsive" />
                 </picture>
 							</div>
 							<a href="#"></a>
@@ -48,7 +48,7 @@ const kitchen = () => {
 						<div className="card-preview">
 							<div className="img-box">
                 <picture>
-                  <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" />
+                    <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" layout="responsive" />
                 </picture>
 							</div>
 							<a href="#"></a>
@@ -56,7 +56,7 @@ const kitchen = () => {
 						<div className="card-preview">
               <div className="img-box">
                 <picture>
-                  <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" />
+                    <Image src="/img/fighters-23.png" width="269" height="357" alt="Fighter Lemon" layout="responsive" />
                 </picture>
 							</div>
 							<a href="#"></a>

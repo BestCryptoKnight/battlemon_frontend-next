@@ -23,8 +23,8 @@ const Home: NextPage = () => {
     <Layout>
       <>
         <div className="media-wrap">
-          <div className="img-box video-box">
-            <video src="/media/trailer.mp4" autoPlay muted loop playsInline />
+          <div className="img-box video-box text-center">
+            <video src="/media/main.mp4" autoPlay muted loop playsInline width="800" />
           </div>
         </div>
 

@@ -427,13 +427,16 @@ body main {
 		transform: translateY(8px)
 	}
 	.header-inner .nav {
-		width: 100vw;
-		position: absolute;
-		top: calc(100% - 36px);
-		left: 101vw;
-		padding: 22px 20px 27px;
-		-webkit-transition: .2s ease-in-out;
-		transition: .2s ease-in-out
+			width: 100vw;
+			position: absolute;
+			z-index: 100;
+			top: calc(100% - 34px);
+			left: -101vw;
+			padding: 22px 20px 27px;
+			-webkit-transition: .2s ease-in-out;
+			-o-transition: .2s ease-in-out;
+			transition: .2s ease-in-out;
+			background: #000002;
 	}
 	.nav-open .header-inner .nav {
 		left: 0
@@ -499,7 +502,7 @@ svg {
 }
 
 .video-box {
-	min-height: 60vh;
+	min-height: 50vh;
 }
 
 @media screen and (max-width:768px) {
@@ -1432,7 +1435,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 
 @media screen and (min-width:1025px) {
 	.media-wrap {
-		margin: 50px 0 130px
+		margin: -50px 0 50px
 	}
 	.card .chars-list {
 		-ms-grid-columns: 30% clamp(14px, 1.71875vw, 33px) 30% clamp(14px, 1.71875vw, 33px) 30%;
@@ -1873,4 +1876,8 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #FFFFFF;
+}
+
+.text-center {
+	text-align: center;
 }
