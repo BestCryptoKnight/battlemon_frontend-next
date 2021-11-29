@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/card/:id",
-      "destination": "/"
-    }
-  ]
-}
