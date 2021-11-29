@@ -1,12 +1,27 @@
 <script type="ts">
-  let openMenu: boolean = false;
+  let openMainMenu: boolean = false;
+  let openUserMenu: boolean = false;
   import near from '$src/utils/near'
+  import { page } from '$app/stores';
 </script>
 
-<header class:nav-open={openMenu}>
+<style>
+  .nav-list .active {
+    color: #bd937e;
+  }
+  .near-icon {
+    width: 18px; 
+    height: 18px;
+    position: relative;
+    top: 2px;
+    padding-left: 4px;
+  }
+</style>
+
+<header class:nav-open={openMainMenu}>
   <div class="container">
     <div class="header-inner">
-      <button class="nav-toggle" on:click={() => openMenu = !openMenu} class:active={openMenu}>
+      <button class="nav-toggle" on:click={() => openMainMenu = !openMainMenu} class:active={openMainMenu}>
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
@@ -19,22 +34,46 @@
       <div class="nav-wrap">
         <nav class="nav">
           <ul class="nav-list">
-            <li><a href={'#'}>Your Kitchen</a></li>
+            <li class:active={$page.path === '/kitchen'}><a href={'/kitchen'}>Your Kitchen</a></li>
             <li><a href={'#'}>Shop</a></li>
-            <li><a href={'#'}>Paid</a></li>
-            <li><a href={'#'}>Info</a></li>
+            <li class:active={$page.path === '/paid'}><a href={'/paid'}>Paid</a></li>
             <li><a href={'#'}>Game</a></li>
           </ul>
         </nav>
 
-        <button class="login-form-toggle btn">
-          {#if $near.signedIn }
-            <span>{ $near.signedAccountId }</span>
-          {:else}
-            <span on:click={() => $near.api.signIn()}>Sign In</span>
-          {/if}
-        </button>
-      </div>
+        {#if !$near.signedIn }
+          <button class="login-form-toggle btn" on:click={() => $near.api.signIn()}>
+            Sign In
+          </button>
+        {:else}
+          <div class:active={openUserMenu} class="pa-preview login-form-toggle btn" on:click={() => openUserMenu = !openUserMenu}>
+            <span class="wallet-mini">
+              <span class="wallet-val">{ $near.user.balance }</span>
+
+              <span class="svg-wrap">
+                <svg class="near-icon" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.43596 24.75C3.82197 24.75 4.20343 24.665 4.55434 24.5007C4.90525 24.3365 5.21735 24.0969 5.46937 23.7983L23.8385 2.03667C23.5975 1.64261 23.2621 1.31771 22.8641 1.09261C22.4661 0.867504 22.0186 0.749598 21.5636 0.750001C21.1797 0.750066 20.8004 0.834149 20.451 0.996586C20.1017 1.15902 19.7905 1.39604 19.5384 1.69167L1.07617 23.325C1.30799 23.757 1.64944 24.1173 2.06467 24.3681C2.4799 24.6188 2.95358 24.7507 3.43596 24.75V24.75Z" fill="url(#paint0_linear_3551:766)" />
+                  <path d="M3.49333 24.75C3.93054 24.7499 4.3614 24.6453 4.75 24.445V6.27835L19.325 23.7683C19.5827 24.0764 19.905 24.324 20.2691 24.4936C20.6331 24.6632 21.03 24.7508 21.4317 24.75H22.0067C22.7342 24.75 23.432 24.461 23.9465 23.9465C24.461 23.432 24.75 22.7342 24.75 22.0067V3.49335C24.75 2.76577 24.461 2.068 23.9465 1.55352C23.432 1.03905 22.7342 0.750018 22.0067 0.750018C21.5697 0.748415 21.1387 0.851876 20.75 1.05168V19.2267L6.175 1.73668C5.91774 1.42774 5.59565 1.1792 5.23158 1.00868C4.8675 0.838168 4.47036 0.749857 4.06833 0.750018H3.49333C2.76576 0.750018 2.06798 1.03905 1.5535 1.55352C1.03903 2.068 0.75 2.76577 0.75 3.49335V22.0067C0.75 22.7342 1.03903 23.432 1.5535 23.9465C2.06798 24.461 2.76576 24.75 3.49333 24.75V24.75Z" fill="currentColor" />
+                  <defs>
+                    <linearGradient id="paint0_linear_3551:766" x1="1.53475" y1="23.945" x2="23.9215" y2="2.02301" gradientUnits="userSpaceOnUse">
+                      <stop offset="0.21" stop-color="currentColor" />
+                      <stop offset="0.42" stop-color="currentColor" stop-opacity="0" />
+                      <stop offset="0.59" stop-color="currentColor" stop-opacity="0" />
+                      <stop offset="0.81" stop-color="currentColor" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </span>
+            </span>
+
+            <span class="name">{ $near.user.id }</span>
+
+            <div class="pa-preview-nav">
+              <a href={"#"} on:click|preventDefault ={() => { $near.api.signOut(); $near.api.signIn() }}>Сhange account</a>
+              <a href={$near.config.walletUrl + '/' + $near.user.id} rel="external" target="_blank">Account link</a>
+            </div>
+          </div>
+        {/if}
     </div>
   </div>
 </header>

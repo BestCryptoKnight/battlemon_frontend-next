@@ -9,12 +9,12 @@
   })
 </script>
 
-{#if $near.connected}
-  <Header />
-  <main>
-    <div class='container'>
+<Header />
+<main>
+  <div class='container'>
+    {#if $near.connected}
       <slot></slot>
-    </div>
-  </main>
-  <Footer />
-{/if}
+    {/if}
+  </div>
+</main>
+<Footer />

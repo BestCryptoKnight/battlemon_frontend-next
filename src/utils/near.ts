@@ -9,7 +9,7 @@ const nearStore = writable<NearProps>({
   api: undefined,
   config: undefined,
   signedIn: false,
-  signedAccountId: null
+  user: null
 })
 
 export default nearStore
@@ -20,7 +20,7 @@ interface NearProps {
   api: NearApi | undefined;
   config: NearConfig | undefined;
   signedIn: boolean;
-  signedAccountId: string | null;
+  user: { id: string, balance: string } | null;
 }
 
 async function nearConnect(): Promise<void> {
@@ -39,14 +39,15 @@ async function nearConnect(): Promise<void> {
 
   const api = new NearApi({ near, walletConnection, config, marketContract })
 
-  const accountId = await api.getAccountId()
+  const user = await api.getUser()
   nearStore.update(n => {
     return { 
-      ...n, 
+      ...n,
+      config,
       api, 
       connected: true,
-      signedIn: !!accountId,
-      signedAccountId: accountId
+      signedIn: !!user,
+      user
     }
   })
 }
