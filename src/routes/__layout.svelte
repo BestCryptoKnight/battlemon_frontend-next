@@ -9,9 +9,15 @@
   })
 </script>
 
+<svelte:head>
+  {#if false}
+	  <link rel="stylesheet" href="/css/light-theme.css">
+  {/if}
+</svelte:head>
+
 <Header />
 <main>
-  <div class='container'>
+  <div class='container' style="min-height: calc(100vh - 410px)">
     {#if $near.connected}
       <slot></slot>
     {/if}

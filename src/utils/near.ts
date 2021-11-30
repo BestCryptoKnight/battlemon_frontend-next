@@ -31,13 +31,25 @@ async function nearConnect(): Promise<void> {
   const walletConnection = new nearApi.WalletConnection(near, config.marketContract)
 
   const marketContract = new nearApi.Contract(walletConnection.account(), config.marketContract, {
-    viewMethods: [],
+    viewMethods: [
+      'list_asks'
+    ],
     changeMethods: [
       'buy'
     ]
   })
 
-  const api = new NearApi({ near, walletConnection, config, marketContract })
+  const nftContract = new nearApi.Contract(walletConnection.account(), config.nftContract, {
+    viewMethods: [
+      'nft_token',
+      'nft_tokens_for_owner'
+    ],
+    changeMethods: [
+      'nft_approve'
+    ]
+  })
+
+  const api = new NearApi({ near, walletConnection, config, marketContract, nftContract })
 
   const user = await api.getUser()
   nearStore.update(n => {

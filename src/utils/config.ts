@@ -1,5 +1,6 @@
 export const getConfig = (url: string): NearConfig => {
   const env = url.includes(':30') ? 'development' : 'production';
+  const testnetContract = "dev-1638276230505-85651159653678"
   switch (env) {
     case 'production':
       return {
@@ -8,8 +9,8 @@ export const getConfig = (url: string): NearConfig => {
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',
         explorerUrl: 'https://explorer.testnet.near.org',
-        nftContract: 'dev-1637164324288-46265801137064',
-        marketContract: 'market.dev-1637164324288-46265801137064'
+        nftContract: testnetContract,
+        marketContract: 'market.' + testnetContract
       }
     case 'development':
     default:
@@ -19,8 +20,8 @@ export const getConfig = (url: string): NearConfig => {
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',
         explorerUrl: 'https://explorer.testnet.near.org',
-        nftContract: 'dev-1637164324288-46265801137064',
-        marketContract: 'market.dev-1637164324288-46265801137064'
+        nftContract: testnetContract,
+        marketContract: 'market.' + testnetContract
       }
   }
 }

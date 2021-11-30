@@ -13,6 +13,11 @@ const config = {
 		adapter: adapter(),
 		target: '#svelte',
 		vite: {
+			define: {
+				process: { // that variable needs for near-api-js
+					env: { NEAR_NO_LOGS: true }
+				}
+			},
 			resolve: {
 				alias: {
 					$lib: resolve('src/lib'),
