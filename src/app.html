@@ -10,6 +10,29 @@
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700;800;900&display=swap"
 			rel="stylesheet">
 		<link rel="stylesheet" href="/css/base.css">
+		<script>
+			function themeColor() {
+				const theme = localStorage.getItem('theme-color')
+				const lightTheme = theme && theme == 'light'
+				const link = document.createElement('link');
+				link.type = 'text/css';
+				link.rel = 'stylesheet';
+				link.href = '/css/light-theme.css';
+				if (lightTheme) {
+					document.head.appendChild(link)
+				}
+				return link
+			}
+			
+			const themeLink = themeColor();
+			document.addEventListener('changeTheme', function (event) {
+				if (event.detail == 'light') {
+					document.head.appendChild(themeLink)
+				} else {
+					document.head.removeChild(themeLink)
+				}
+			});
+		</script>
 		<script>window.process = {env: {}} // Without process near-api-js throw error</script>
 		%svelte.head%
 	</head>

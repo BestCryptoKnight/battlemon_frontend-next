@@ -5,6 +5,7 @@
   import near from '$src/utils/near'
   import { page } from '$app/stores';
   import ClickOutside from 'svelte-click-outside';
+  import ThemeSwitcher from '$src/components/layout/ThemeSwitcher.svelte'
 </script>
 
 <style>
@@ -27,6 +28,27 @@
     width: 100%;
     z-index: 10;
   }
+  .pa-preview-nav {
+    background: #262626;
+  }
+  .pa-preview-nav, .nav {
+    z-index: 12;
+  }
+  @media screen and (max-width:768px) {
+    .nav-wrap .nav {
+      z-index: 10;
+      margin-top: 10px;
+    }
+  }
+  .header-inner {
+    align-items: center;
+  }
+  .header-inner a {
+    text-align: left;
+  }
+  .header-inner .nav-wrap {
+    margin: 0;
+  }
 </style>
 
 <ClickOutside on:clickoutside={() => openUserMenu = false} exclude={[elUserMenu]} />
@@ -42,6 +64,8 @@
       <a href="/" class="logo img-box">
         <img src="/img/logo.png" alt="Battlemon">
       </a>		
+      
+      <ThemeSwitcher />
 
       {#if $near.connected}
         <div class="nav-wrap">

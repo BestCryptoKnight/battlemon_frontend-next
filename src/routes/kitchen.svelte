@@ -10,6 +10,13 @@
   })
 </script>
 
+<style>
+  .buy-more:hover .btn {
+    background: #fff;
+    color: #212121
+  }
+</style>
+
 {#if !$near.signedIn }
   <h1>You need to sign in</h1>
 {:else}
