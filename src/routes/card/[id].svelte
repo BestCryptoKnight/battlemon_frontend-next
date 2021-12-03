@@ -4,7 +4,6 @@
   import { fromNear } from '$src/utils/api';
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
-import Filter from '$src/components/filter/Filter.svelte';
 
   let { id: token_id } = $page.params
   let modal = null, 
@@ -14,6 +13,14 @@ import Filter from '$src/components/filter/Filter.svelte';
 
   const buyNft = async () => {
     $near.api.buyNft(token_id, nft.price as number)
+  }
+
+  const sellNft = async () => {
+    alert('work in progress')
+  }
+
+  const transferNft = async () => {
+    alert('work in progress')
   }
 
   onMount(async () => {
@@ -31,6 +38,10 @@ import Filter from '$src/components/filter/Filter.svelte';
   .disabled {
     opacity: 0.2;
     pointer-events: none;
+  }
+
+  .card .btns-wrap {
+    justify-content: space-around;
   }
 </style>
 
@@ -192,14 +203,22 @@ import Filter from '$src/components/filter/Filter.svelte';
             </svg>
           </span>
         {:else}
-          <b style="color: #585656;">not sale</b>
+          {#if nft.owner_id !== $near.user.id}
+            <b style="color: #585656;">not sale</b>
+          {/if}
+
         {/if}
       </div>
 
       <div class="btns-wrap" class:disabled={!$near.signedIn}>
-        <button class="btn" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
-        <button class="btn">make offer</button>
-        <button class="btn">RENT</button>
+        {#if nft.owner_id === $near.user.id}
+          <button class="btn" on:click={sellNft}>sell</button>
+          <button class="btn" on:click={transferNft}>transfer</button>
+        {:else}
+          <button class="btn" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
+          <button class="btn">make offer</button>
+          <button class="btn" class:disabled={!nftOnSale}>rent</button>
+        {/if}
       </div>
 
       <div class="inventory-wrap" class:active={modal === "inventory"}>

@@ -9,7 +9,10 @@ const nearStore = writable<NearProps>({
   api: undefined,
   config: undefined,
   signedIn: false,
-  user: null
+  user: {
+    id: null,
+    balance: null
+  }
 })
 
 export default nearStore
@@ -20,7 +23,7 @@ interface NearProps {
   api: NearApi | undefined;
   config: NearConfig | undefined;
   signedIn: boolean;
-  user: { id: string, balance: string } | null;
+  user: { id: string | null, balance: string | null };
 }
 
 async function nearConnect(): Promise<void> {

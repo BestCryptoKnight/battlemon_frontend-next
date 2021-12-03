@@ -11,10 +11,10 @@
 </script>
 
 <style>
-  .buy-more:hover .btn {
+  /* .buy-more:hover .btn {
     background: #fff;
     color: #212121
-  }
+  } */
 </style>
 
 {#if !$near.signedIn }

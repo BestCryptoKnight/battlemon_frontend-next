@@ -111,8 +111,8 @@
               <span class="name">{ $near.user.id }</span>
 
               <div class="pa-preview-nav">
-                <a href={"#"} on:click|preventDefault ={() => { $near.api.signOut(); $near.api.signIn() }}>Сhange account</a>
-                <a href={$near.config.walletUrl + '/' + $near.user.id} rel="external" target="_blank">Account link</a>
+                <a href={"#"} on:click|preventDefault ={() => { $near.api.signOut(); $near.api.signIn() }}>Switch account</a>
+                <a href={"#"}>F.A.Q.</a>
               </div>
             </div>
           {/if}
