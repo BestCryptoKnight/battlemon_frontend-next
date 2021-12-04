@@ -35,7 +35,7 @@ class NearApi {
     this.walletConnection.signOut()
   }
 
-  async getUser(): Promise<{ id: string | null, balance: string | null }> {
+  async getUser(): Promise<User> {
     const accountId = await this.walletConnection.getAccountId()
     if (!accountId) return {
       id: null,
@@ -73,6 +73,11 @@ class NearApi {
 }
 
 export default NearApi
+
+export interface User {
+  id: string | null,
+  balance: string | null
+}
 
 interface MarketContract extends Contract {
   buy?(params: { token_id: string }, gas: string, amount: string): Promise<any>

@@ -62,7 +62,7 @@ async function nearConnect(): Promise<void> {
       config,
       api, 
       connected: true,
-      signedIn: !!user,
+      signedIn: !!user.id,
       user
     }
   })
