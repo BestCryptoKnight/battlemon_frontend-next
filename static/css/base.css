@@ -868,7 +868,6 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 .catalog-sorting .sorting li.active,
 .catalog-sorting .sorting li:hover {
 	color: var(--c-prmr);
-	font-weight: 900
 }
 
 .kitchen .catalog-sorting .sorting {

@@ -23,6 +23,14 @@
     alert('work in progress')
   }
 
+  const offerNft = async () => {
+    alert('work in progress')
+  }
+
+  const rentNft = async () => {
+    alert('work in progress')
+  }
+
   onMount(async () => {
     nft = await $near.api.nftInfo(token_id as string)
     moreNft = await $near.api.listAsks()
@@ -214,10 +222,11 @@
         {#if nft.owner_id === $near.user.id}
           <button class="btn" on:click={sellNft}>sell</button>
           <button class="btn" on:click={transferNft}>transfer</button>
+          <button class="btn" on:click={rentNft}>rent</button>
         {:else}
           <button class="btn" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
-          <button class="btn">make offer</button>
-          <button class="btn" class:disabled={!nftOnSale}>rent</button>
+          <button class="btn" on:click={offerNft}>make offer</button>
+          <button class="btn" class:disabled={!nftOnSale} on:click={rentNft}>rent</button>
         {/if}
       </div>
 
@@ -483,7 +492,7 @@
 
       <ul class="collection-list">
         {#each moreNft.filter(n => n.token_id !== nft.token_id).slice(0, 4) as nft }
-          <li>
+          <li style="max-width: 33%;">
             <Preview shortNft={nft} />
           </li>
         {/each}

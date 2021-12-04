@@ -45,6 +45,7 @@ async function nearConnect(): Promise<void> {
   const nftContract = new nearApi.Contract(walletConnection.account(), config.nftContract, {
     viewMethods: [
       'nft_token',
+      'nft_tokens',
       'nft_tokens_for_owner'
     ],
     changeMethods: [

@@ -21,5 +21,5 @@
 </style>
 
 <div class="theme-switcher">
-  <span>dark&nbsp;</span><Switch bind:checked={light} onChange={toggleTheme} /><span>&nbsp;light</span>
+  <Switch bind:checked={light} onChange={toggleTheme} />
 </div>

@@ -4,10 +4,10 @@
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
 
-  let listAsks = []
+  let listNft = []
 
   onMount(async () => {
-    listAsks = await $near.api.listAsks()
+    listNft = await $near.api.listNft({})
   })
 </script>
 
@@ -31,8 +31,8 @@
 
     
     <div class="cards-wrap">
-      {#each listAsks as ask}
-        <Preview shortNft={ask} />
+      {#each listNft as nft}
+        <Preview fullNft={nft} />
       {/each}
     </div>
   </div>

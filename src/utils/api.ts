@@ -35,15 +35,22 @@ class NearApi {
     this.walletConnection.signOut()
   }
 
-  async getUser(): Promise<{ id: string, balance: string} | null> {
+  async getUser(): Promise<{ id: string | null, balance: string | null }> {
     const accountId = await this.walletConnection.getAccountId()
-    if (!accountId) return null
+    if (!accountId) return {
+      id: null,
+      balance: null
+    }
     const userAccount = await this.near.account(accountId)
-    const balance = (await userAccount.getAccountBalance()).total
+    const balance = (await userAccount.getAccountBalance())
     return {
       id: accountId,
-      balance: fromNear(balance).toFixed(2)
+      balance: fromNear(balance.available).toFixed(2)
     }
+  }
+
+  async listNft(params: { limit?: number, from_index?: number }): Promise<any> {
+    return await this.nftContract.nft_tokens(params)
   }
 
   async listAsks(): Promise<any> {
@@ -75,5 +82,6 @@ interface MarketContract extends Contract {
 interface NftContract extends Contract {
   nft_approve?(params: { token_id: string, account_id: string, msg: { price: string } }, gas: string, amount: string): Promise<void>
   nft_token?(params: { token_id: string }): Promise<any>
+  nft_tokens?(params: { from_index?: number, limit?: number }): Promise<any>
   nft_tokens_for_owner?(params: { account_id: string }): Promise<any>
 }
