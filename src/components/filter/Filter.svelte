@@ -183,13 +183,13 @@
   </details>
 
   <details>
-    <summary>Lemon Gen</summary>
+    <summary>Gen</summary>
     <ul>
       <li>
         <label>
           <input type="checkbox" />
           <span class="checkbox"></span>
-          <span>Lemon Gen</span>
+          <span>Gen</span>
         </label>
       </li>
     </ul>

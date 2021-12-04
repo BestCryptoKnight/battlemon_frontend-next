@@ -81,7 +81,7 @@
             </picture>
           </div>
           <div class="token-text">
-            <p>Lemon gem</p>
+            <p>gen</p>
             <p>Jobs</p>
             <p>5% feature</p>
             <p>In stock</p>
@@ -94,7 +94,7 @@
             </picture>
           </div>
           <div class="token-text">
-            <p>Cenruty</p>
+            <p>Century</p>
             <p>Our time</p>
             <p>17% feature</p>
             <p>In stock</p>
@@ -146,7 +146,7 @@
             </picture>
           </div>
           <div class="token-text">
-            <p>Syber suit</p>
+            <p>Cyber suit</p>
             <p>Gold</p>
             <p>0.7% feature</p>
             <p>In stock</p>
