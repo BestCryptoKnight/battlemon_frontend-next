@@ -47,10 +47,6 @@
     opacity: 0.2;
     pointer-events: none;
   }
-
-  .card .btns-wrap {
-    justify-content: space-around;
-  }
 </style>
 
 <svelte:head>

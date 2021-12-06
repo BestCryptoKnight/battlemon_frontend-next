@@ -8,46 +8,6 @@
   import ThemeSwitcher from '$src/components/layout/ThemeSwitcher.svelte'
 </script>
 
-<style>
-  .not-logined:after {
-    content: none;
-  }
-  .nav-list .active {
-    color: #bd937e;
-  }
-  .near-icon {
-    width: 18px; 
-    height: 18px;
-    position: relative;
-    top: 2px;
-    padding-left: 4px;
-  }
-  .btn-opacity {
-    height: 41px;
-    position: absolute;
-    width: 100%;
-    z-index: 10;
-  }
-  .pa-preview-nav, .nav {
-    z-index: 12;
-  }
-  @media screen and (max-width:768px) {
-    .nav-wrap .nav {
-      z-index: 10;
-      margin-top: 10px;
-    }
-  }
-  .header-inner {
-    align-items: center;
-  }
-  .header-inner a {
-    text-align: left;
-  }
-  .header-inner .nav-wrap {
-    margin: 0;
-  }
-</style>
-
 <ClickOutside on:clickoutside={() => openUserMenu = false} exclude={[elUserMenu]} />
 <header class:nav-open={openMainMenu}>
   <div class="container">

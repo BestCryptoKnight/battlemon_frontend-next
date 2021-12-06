@@ -1,9 +1,3 @@
-<style>
-  .footer-inner ul li {
-    transition: 0.2s;
-  }
-</style>
-
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
