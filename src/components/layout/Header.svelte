@@ -28,9 +28,6 @@
     width: 100%;
     z-index: 10;
   }
-  .pa-preview-nav {
-    background: #262626;
-  }
   .pa-preview-nav, .nav {
     z-index: 12;
   }

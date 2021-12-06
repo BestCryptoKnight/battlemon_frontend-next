@@ -25,6 +25,11 @@ sup {
 	font-weight: 700
 }
 
+.buy-more:hover .btn {
+    background: #fff;
+    color: #212121
+}
+
 .card .inventory,
 .card .items,
 body {
@@ -1523,6 +1528,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center
+	margin-top: 20px;
 }
 
 .sales .stats-range .btn {
@@ -1535,10 +1541,11 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
 	justify-content: space-between;
-	width: 123px;
+	width: 146px;
 	height: 41px;
 	padding: 0 20px;
-	margin-left: 20px
+	margin: 20px 0;
+    right: 0;
 }
 
 .sales .stats-range .btn:after {
@@ -1563,6 +1570,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	border-radius: 15px;
 	padding: 20px;
 	line-height: 1.572;
+	margin: 20px 0;
 	font-size: 16px
 }
 
