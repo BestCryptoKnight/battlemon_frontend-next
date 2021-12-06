@@ -447,7 +447,7 @@ body main {
 		z-index: 10;
 		width: 100vw;
 		position: absolute;
-		top: calc(100% - 36px);
+		top: calc(100% - 34px);
 		left: -101vw;
 		padding: 22px 20px 27px;
 		-webkit-transition: .2s ease-in-out;
