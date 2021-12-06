@@ -1822,7 +1822,11 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 }
 
 .human {
-	margin-top: -10px
+	margin-top: 8px
+}
+
+.near {
+    margin-top: 10px;
 }
 
 .platforms li:not(last-child) {
@@ -1911,7 +1915,8 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	cursor: default;
 	-webkit-transition: .2s ease-in-out;
 	-o-transition: .2s ease-in-out;
-	transition: .2s ease-in-out
+	transition: .2s ease-in-out;
+	background-color: #000;
 }
 
 .pa-preview:not(.active) .pa-preview-nav {

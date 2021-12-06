@@ -1,3 +1,28 @@
+@media screen and (max-width:768px) {
+
+	.header-inner .nav,
+	header.nav-open {
+		background: #fff
+	}
+	.header-inner .nav-toggle .line {
+		height: 3px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+		-webkit-transition: -webkit-transform .3s;
+		transition: -webkit-transform .3s;
+		-o-transition: transform .3s;
+		transition: transform .3s;
+		transition: transform .3s, -webkit-transform .3s;
+		transition: transform .3s, -webkit-transform .3s;
+		background-color: #000;
+		border-radius: 2px
+	}	
+}
+	
 body {
 	color: #000;
 }
@@ -23,6 +48,11 @@ body,
 
 .catalog-filter .search:before {
 	background-image: url('/img/svg/search-black.svg')
+}
+
+.card .btn:hover {
+    background: #212121;
+    color: #fff;
 }
 
 .buy-more {
@@ -57,4 +87,27 @@ body,
 	padding: 20px;
 	line-height: 1.572;
 	font-size: 16px
+}
+
+.pa-preview-nav {
+	z-index: 12;
+	display: -ms-grid;
+	display: grid;
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+	grid-gap: 15px;
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	padding: 15px 20px;
+	border: 1px solid;
+	overflow: hidden;
+	border-radius: 18px;
+	cursor: default;
+	-webkit-transition: .2s ease-in-out;
+	-o-transition: .2s ease-in-out;
+	transition: .2s ease-in-out;
+	background-color: #fff;
 }
