@@ -447,7 +447,7 @@ body main {
 		z-index: 10;
 		width: 100vw;
 		position: absolute;
-		top: calc(100% - 36px);
+		top: calc(100% - 34px);
 		left: -101vw;
 		padding: 22px 20px 27px;
 		-webkit-transition: .2s ease-in-out;
@@ -1540,7 +1540,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center
-	margin-top: 20px;
+	padding-top: 20px;
 }
 
 .sales .stats-range .btn {
@@ -1556,7 +1556,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	width: 146px;
 	height: 41px;
 	padding: 0 20px;
-	margin: 20px 0;
+	margin: 0 0 0 20px;
     right: 0;
 }
 
@@ -1779,6 +1779,8 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 		position: absolute;
 		right: 0;
 		bottom: calc(100% + 42px)
+		display: flex;
+                align-items: center;
 	}
 	.sales-list {
 		display: -webkit-box;
