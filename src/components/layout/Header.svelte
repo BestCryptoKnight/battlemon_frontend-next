@@ -38,13 +38,13 @@
           </nav>
 
           {#if !$near.signedIn }
-            <button class="login-form-toggle btn not-logined" on:click={() => $near.api.signIn()}>
+            <button class="login-form-toggle button not-logined" on:click={() => $near.api.signIn()}>
               Sign In
             </button>
           {:else}
-            <div bind:this={elUserMenu} class:active={openUserMenu} class="pa-preview login-form-toggle btn" on:click={() => !openUserMenu ? openUserMenu = true : null}> 
+            <div bind:this={elUserMenu} class:active={openUserMenu} class="pa-preview login-form-toggle button" on:click={() => !openUserMenu ? openUserMenu = true : null}> 
               {#if openUserMenu}
-                <div class="btn-opacity" on:click={() => openUserMenu = false}>&nbsp;</div>
+                <div class="button-opacity" on:click={() => openUserMenu = false}>&nbsp;</div>
               {/if}
               <span class="wallet-mini">
                 <span class="wallet-val">{ $near.user.balance }</span>

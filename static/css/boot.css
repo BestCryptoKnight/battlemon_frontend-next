@@ -1,0 +1,49 @@
+.modal-header {
+  border: none;
+  line-height: 39px;
+  font-size: 32px;
+}
+
+.modal-content {
+  padding: 0 10px 20px;
+}
+
+.btn-close {
+  background-image: url("data:image/svg+xml,<svg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'><line x1='2.06066' y1='1.93946' x2='30.3449' y2='30.2237' stroke='white' stroke-width='3'/><line x1='1.93934' y1='30.2236' x2='30.2236' y2='1.93937' stroke='white' stroke-width='3'/></svg>");
+  opacity: 1;
+}
+
+.btn {
+  border-radius: 50px;
+  text-align: center;
+  font-family: Raleway;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  padding: 13px 25px 11px;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  background-color: #000;
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.active {
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
+  box-shadow: none;
+}
+
+.form-control, .form-control:focus {
+  border-radius: 50px;
+  background-color: #000;
+  border-color: #fff;
+  color: #fff;
+}
+
+.modal-content {
+  background: #222;
+  border-radius: 15px;
+}

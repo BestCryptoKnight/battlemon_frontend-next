@@ -49,7 +49,8 @@ async function nearConnect(): Promise<void> {
       'nft_tokens_for_owner'
     ],
     changeMethods: [
-      'nft_approve'
+      'nft_approve',
+      'nft_transfer'
     ]
   })
 

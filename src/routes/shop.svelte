@@ -30,7 +30,7 @@
     </form>
 
     
-    <div class="cards-wrap">
+    <div class="item-cards-wrap">
       {#each listNft as nft}
         <Preview fullNft={nft} />
       {/each}

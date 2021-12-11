@@ -4,7 +4,7 @@
 
   <div class="stats-range">
     <p>Sale stats range</p>
-    <div class="btn">1 day</div>
+    <div class="button">1 day</div>
   </div>
 
   <ul class="sales-list">

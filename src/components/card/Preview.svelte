@@ -12,7 +12,7 @@
   })
 </script>
 
-<div class="card-preview">
+<div class="item-card-preview">
   {#if fullNft}
     <div class="img-box">
       <picture class="lazy">

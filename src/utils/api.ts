@@ -66,6 +66,14 @@ class NearApi {
     await this.marketContract.buy({ token_id }, '200000000000000', toYoctoNear(amount))
   }
 
+  async transferNft(token_id: string, receiver_id: string): Promise<any> {
+    const params = {
+      token_id,
+      receiver_id
+    }
+    return await this.nftContract.nft_transfer(params, '200000000000000', '1')
+  }
+
   async listNftByAccount(account_id: string): Promise<any> {
     return await this.nftContract.nft_tokens_for_owner({ account_id })
   }
@@ -85,7 +93,8 @@ interface MarketContract extends Contract {
 }
 
 interface NftContract extends Contract {
-  nft_approve?(params: { token_id: string, account_id: string, msg: { price: string } }, gas: string, amount: string): Promise<void>
+  nft_approve?(params: { token_id: string, account_id: string, msg: { price: string } }, gas: string, amount: string): Promise<any>
+  nft_transfer?(params: { token_id: string, receiver_id: string }, gas: string, amount: string): Promise<any>
   nft_token?(params: { token_id: string }): Promise<any>
   nft_tokens?(params: { from_index?: number, limit?: number }): Promise<any>
   nft_tokens_for_owner?(params: { account_id: string }): Promise<any>

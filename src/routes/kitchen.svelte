@@ -28,12 +28,12 @@
         </ul>
       </form>
 
-      <div class="cards-wrap">
+      <div class="item-cards-wrap">
         {#each listNft as nft}
           <Preview fullNft={nft} />
         {/each}
         <div class="buy-more">
-          <span class="btn">{ listNft && listNft.length ? 'buy more' : 'buy first' }</span>
+          <span class="button">{ listNft && listNft.length ? 'buy more' : 'buy first' }</span>
           <a href={"/shop"}>&nbsp;</a>
         </div>
       </div>

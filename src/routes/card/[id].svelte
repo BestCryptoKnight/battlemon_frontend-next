@@ -4,12 +4,16 @@
   import { fromNear } from '$src/utils/api';
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
+  import TransferModal from '$src/components/modals/Transfer.svelte'
 
   let { id: token_id } = $page.params
   let modal = null, 
       nft = null, 
       moreNft = null, 
-      nftOnSale = null;
+      nftOnSale = null,
+      openOfferModal = null,
+      openSellModal = null,
+      openTransferModal = null;
 
   const buyNft = async () => {
     $near.api.buyNft(token_id, nft.price as number)
@@ -20,11 +24,11 @@
   }
 
   const transferNft = async () => {
-    alert('work in progress')
+    openTransferModal = true
   }
 
   const offerNft = async () => {
-    alert('work in progress')
+    openOfferModal = true
   }
 
   const rentNft = async () => {
@@ -53,8 +57,10 @@
   <title>{nft?.metadata.title || ''}</title>
 </svelte:head>
 
+<TransferModal tokenId={token_id} bind:isOpen={openTransferModal} />
+
 {#if nft && nftOnSale !== null } 
-  <section class="card">
+  <section class="item-card">
     <div class="preview">
       <div class="img-box">
         <picture class="lazy">
@@ -62,9 +68,9 @@
         </picture>
       </div>
 
-      <div class="btns-wrap">
-        <button class="btn inventory-toggle" on:click={() => modal = 'inventory'}>Inventory</button>
-        <button class="btn inventory-toggle" on:click={() => modal = 'resourses'}>NFT resources</button>
+      <div class="buttons-wrap">
+        <button class="button inventory-toggle" on:click={() => modal = 'inventory'}>Inventory</button>
+        <button class="button inventory-toggle" on:click={() => modal = 'resourses'}>NFT resources</button>
       </div>
     </div>
 
@@ -214,15 +220,15 @@
         {/if}
       </div>
 
-      <div class="btns-wrap" class:disabled={!$near.signedIn}>
+      <div class="buttons-wrap" class:disabled={!$near.signedIn}>
         {#if nft.owner_id === $near.user.id}
-          <button class="btn" on:click={sellNft}>sell</button>
-          <button class="btn" on:click={transferNft}>transfer</button>
-          <button class="btn" on:click={rentNft}>rent</button>
+          <button class="button" on:click={sellNft}>sell</button>
+          <button class="button" on:click={transferNft}>transfer</button>
+          <button class="button" on:click={rentNft}>rent</button>
         {:else}
-          <button class="btn" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
-          <button class="btn" on:click={offerNft}>make offer</button>
-          <button class="btn" class:disabled={!nftOnSale} on:click={rentNft}>rent</button>
+          <button class="button" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
+          <button class="button" on:click={offerNft}>make offer</button>
+          <button class="button" class:disabled={!nftOnSale} on:click={rentNft}>rent</button>
         {/if}
       </div>
 
@@ -271,7 +277,7 @@
         </div>
 
         <div class="inventory">
-          <div class="card-preview">
+          <div class="item-card-preview">
             <div class="img-box">
               <picture class="lazy">
                 <img src="/img/fighters-23.png" alt="Card" />
@@ -279,7 +285,7 @@
             </div>
             <a href={"#"}>&nbsp;</a>
           </div>
-          <div class="card-preview">
+          <div class="item-card-preview">
             <div class="img-box">
               <picture class="lazy">
                 <img src="/img/fighters-23.png" alt="Card" />
@@ -287,7 +293,7 @@
             </div>
             <a href={"#"}>&nbsp;</a>
           </div>
-          <div class="card-preview">
+          <div class="item-card-preview">
             <div class="img-box">
               <picture class="lazy">
                 <img src="/img/fighters-23.png" alt="Card" />
@@ -295,7 +301,7 @@
             </div>
             <a href={"#"}>&nbsp;</a>
           </div>
-          <div class="card-preview">
+          <div class="item-card-preview">
             <div class="img-box">
               <picture class="lazy">
                 <img src="/img/fighters-23.png" alt="Card" />
@@ -303,7 +309,7 @@
             </div>
             <a href={"#"}>&nbsp;</a>
           </div>
-          <div class="card-preview">
+          <div class="item-card-preview">
             <div class="img-box">
               <picture class="lazy">
                 <img src="/img/fighters-23.png" alt="Card" />
