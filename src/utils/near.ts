@@ -35,10 +35,12 @@ async function nearConnect(): Promise<void> {
 
   const marketContract = new nearApi.Contract(walletConnection.account(), config.marketContract, {
     viewMethods: [
-      'list_asks'
+      'list_asks',
+      'list_bids'
     ],
     changeMethods: [
-      'buy'
+      'buy',
+      'bid'
     ]
   })
 

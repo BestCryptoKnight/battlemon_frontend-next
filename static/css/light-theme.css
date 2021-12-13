@@ -1,3 +1,16 @@
+:root {
+  --primary: #fff;
+  --primary-lighten: #fff;
+  --opacity-bg: rgba(200, 200, 200, 0.2);
+  --inverse: #000;
+}
+
+
+.btn-close {
+  background-image: url("data:image/svg+xml,<svg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'><line x1='2.06066' y1='1.93946' x2='30.3449' y2='30.2237' stroke='black' stroke-width='3'/><line x1='1.93934' y1='30.2236' x2='30.2236' y2='1.93937' stroke='black' stroke-width='3'/></svg>");
+  opacity: 1;
+}
+
 @media screen and (max-width:768px) {
 
 	.header-inner .nav,

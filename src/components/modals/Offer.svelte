@@ -8,17 +8,16 @@
   let amount: number;
 
   const formHandler = async () => {
-    const result = await $near.api.sellNft(tokenId, amount)
-    console.log(result)
+    await $near.api.bidNft(tokenId, amount)
   }
 </script>
 
-<Modal {isOpen} {toggle} header="Sell" centered={true}>
+<Modal {isOpen} {toggle} header="Make offer" centered={true}>
   <form class="modal-body" on:submit|preventDefault={formHandler}>
     <div>
       <label class="form-label" for="amount">Enter price in Near</label> 
       <div class='input-group'>
-        <input id="amount" class="form-control form-control-lg" type="number" name="amount" placeholder="Near amount" required={true} bind:value={amount} /> 
+        <input id="amount" class="form-control form-control-lg" type="number" name="amount" placeholder="Enter your offer" required={true} bind:value={amount} /> 
         <div class='input-group-text'>
           <span>
             <svg class="near-icon" style="width: 21px;" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">

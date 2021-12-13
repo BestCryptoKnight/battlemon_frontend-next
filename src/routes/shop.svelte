@@ -23,10 +23,6 @@
         <li>Land</li>
         <li>Merchandise</li>
       </ul>
-
-      <div class="serial-number">
-        Serial number
-      </div>
     </form>
 
     

@@ -1,16 +1,24 @@
 <script type="ts">
   import { onMount } from 'svelte'
+  import { TabContent, TabPane } from 'sveltestrap'
   import { page } from '$app/stores'
   import { fromNear } from '$src/utils/api';
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
+  import OfferModal from '$src/components/modals/Offer.svelte'
   import TransferModal from '$src/components/modals/Transfer.svelte'
+  import SellModal from '$src/components/modals/Sell.svelte'
+  import InventoryModal from '$src/components/modals/Inventory.svelte'
+  import ResourcesModal from '$src/components/modals/Resources.svelte'
+  
 
-  let { id: token_id } = $page.params
-  let modal = null, 
-      nft = null, 
+  let { id: token_id }: {id: string} = $page.params
+  let nft = null, 
       moreNft = null, 
       nftOnSale = null,
+      listBids = null,
+      openInventoryModal = null,
+      openResourcesModal = null,
       openOfferModal = null,
       openSellModal = null,
       openTransferModal = null;
@@ -20,7 +28,7 @@
   }
 
   const sellNft = async () => {
-    alert('work in progress')
+    openSellModal = true
   }
 
   const transferNft = async () => {
@@ -35,10 +43,32 @@
     alert('work in progress')
   }
 
+  const openInventory = async () => {
+    openInventoryModal = true
+    openResourcesModal = false
+  }
+
+  const openResources = async () => {
+    openResourcesModal = true
+    openInventoryModal = false
+  }
+
   onMount(async () => {
-    nft = await $near.api.nftInfo(token_id as string)
+    nft = await $near.api.nftInfo(token_id)
     moreNft = await $near.api.listAsks()
-    
+    const listAllBids = await $near.api.listBids(token_id)
+    listBids = listAllBids.find(bids => bids[0] == token_id)
+
+    if (listBids) {
+      listBids = listBids[1]
+      listBids.forEach((bid, index) => {
+        const prevBid = listBids[index + 1]
+        if (prevBid) {
+          bid.difference = (bid.price * 100 / prevBid.price).toFixed()
+        }
+      });
+    }
+
     nftOnSale = moreNft.find(n => n.token_id == nft.token_id) || false
     if (nftOnSale) { 
       nft.price = fromNear(nftOnSale.price).toFixed(2)
@@ -57,7 +87,9 @@
   <title>{nft?.metadata.title || ''}</title>
 </svelte:head>
 
+<OfferModal tokenId={token_id} bind:isOpen={openOfferModal} />
 <TransferModal tokenId={token_id} bind:isOpen={openTransferModal} />
+<SellModal tokenId={token_id} bind:isOpen={openSellModal} />
 
 {#if nft && nftOnSale !== null } 
   <section class="item-card">
@@ -68,132 +100,136 @@
         </picture>
       </div>
 
-      <div class="buttons-wrap">
-        <button class="button inventory-toggle" on:click={() => modal = 'inventory'}>Inventory</button>
-        <button class="button inventory-toggle" on:click={() => modal = 'resourses'}>NFT resources</button>
+      <div class="d-flex gap-3 justify-content-around">
+        <button class="btn btn-primary col" on:click={openInventory}>Inventory</button>
+        <button class="btn btn-primary col" on:click={openResources}>NFT resources</button>
       </div>
     </div>
 
     <div class="chars">
-      <ul class="chars-list">
-        <li class="token">
-          <div class="img-box">
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>gen</p>
-            <p>Jobs</p>
-            <p>5% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Century</p>
-            <p>Our time</p>
-            <p>17% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>EYES</p>
-            <p>Close</p>
-            <p>29% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Accessory</p>
-            <p>Cigar</p>
-            <p>7% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Type</p>
-            <p>Heavy</p>
-            <p>33% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Cyber suit</p>
-            <p>Gold</p>
-            <p>0.7% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Background</p>
-            <p>Green</p>
-            <p>20% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Expressions</p>
-            <p>Calm</p>
-            <p>55% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-        <li class="token">
-          <div class="img-box">          
-            <picture class="lazy">
-              <img src="/img/token.png" alt="Card" />
-            </picture>
-          </div>
-          <div class="token-text">
-            <p>Top</p>
-            <p>Elvis Presley</p>
-            <p>0.5% feature</p>
-            <p>In stock</p>
-          </div>
-        </li>
-      </ul>
+      <div class="chars-block">
+        <InventoryModal bind:isOpen={openInventoryModal} />
+        <ResourcesModal bind:isOpen={openResourcesModal} />
+        <ul class="chars-list">
+          <li class="token">
+            <div class="img-box">
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>gen</p>
+              <p>Jobs</p>
+              <p>5% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Century</p>
+              <p>Our time</p>
+              <p>17% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>EYES</p>
+              <p>Close</p>
+              <p>29% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Accessory</p>
+              <p>Cigar</p>
+              <p>7% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Type</p>
+              <p>Heavy</p>
+              <p>33% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Cyber suit</p>
+              <p>Gold</p>
+              <p>0.7% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Background</p>
+              <p>Green</p>
+              <p>20% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Expressions</p>
+              <p>Calm</p>
+              <p>55% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+          <li class="token">
+            <div class="img-box">          
+              <picture class="lazy">
+                <img src="/img/token.png" alt="Card" />
+              </picture>
+            </div>
+            <div class="token-text">
+              <p>Top</p>
+              <p>Elvis Presley</p>
+              <p>0.5% feature</p>
+              <p>In stock</p>
+            </div>
+          </li>
+        </ul>
+      </div>
 
       <div class="near-value">
         {#if nftOnSale}
@@ -216,289 +252,141 @@
           {#if nft.owner_id !== $near.user.id}
             <b style="color: #585656;">not sale</b>
           {/if}
-
         {/if}
       </div>
 
-      <div class="buttons-wrap" class:disabled={!$near.signedIn}>
+      <div class="d-flex gap-3 justify-content-around pt-5" class:disabled={!$near.signedIn}>
         {#if nft.owner_id === $near.user.id}
-          <button class="button" on:click={sellNft}>sell</button>
-          <button class="button" on:click={transferNft}>transfer</button>
-          <button class="button" on:click={rentNft}>rent</button>
+          <button class="btn btn-primary col" on:click={sellNft}>
+            {#if nftOnSale}
+              change price
+            {:else}
+              sell
+            {/if}
+            
+          </button>
+          <button class="btn btn-primary col" on:click={transferNft}>transfer</button>
         {:else}
-          <button class="button" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
-          <button class="button" on:click={offerNft}>make offer</button>
-          <button class="button" class:disabled={!nftOnSale} on:click={rentNft}>rent</button>
+          <button class="btn btn-primary col" on:click={buyNft} class:disabled={!nftOnSale}>buy now</button>
+          <button class="btn btn-primary col" on:click={offerNft}>make offer</button>
+          <button class="btn btn-primary col" class:disabled={!nftOnSale} on:click={rentNft}>rent</button>
         {/if}
       </div>
 
-      <div class="inventory-wrap" class:active={modal === "inventory"}>
-        <h2>Inventory</h2>
-
-        <div class="inventory-close" on:click={() => modal = undefined}>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>					
-
-        <div class="items">
-          <div class="item">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/wp-01.png" alt="Card" />
-              </picture>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/wp-02.png" alt="Card" />
-              </picture>
-            </div>
-          </div>
-          <div class="item">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/wp-03.png" alt="Card" />
-              </picture>
-            </div>
-          </div>
-          <div class="item"></div>
-          <div class="item"></div>
-          <div class="item"></div>
-        </div>
-      </div>
-      
-      <div class="inventory-wrap" class:active={modal === "resourses"}>
-        <h2>NFT resourcesy</h2>
-
-        <div class="inventory-close" on:click={() => modal = undefined}>
-          <span class="line"></span>
-          <span class="line"></span>
-        </div>
-
-        <div class="inventory">
-          <div class="item-card-preview">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/fighters-23.png" alt="Card" />
-              </picture>
-            </div>
-            <a href={"#"}>&nbsp;</a>
-          </div>
-          <div class="item-card-preview">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/fighters-23.png" alt="Card" />
-              </picture>
-            </div>
-            <a href={"#"}>&nbsp;</a>
-          </div>
-          <div class="item-card-preview">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/fighters-23.png" alt="Card" />
-              </picture>
-            </div>
-            <a href={"#"}>&nbsp;</a>
-          </div>
-          <div class="item-card-preview">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/fighters-23.png" alt="Card" />
-              </picture>
-            </div>
-            <a href={"#"}>&nbsp;</a>
-          </div>
-          <div class="item-card-preview">
-            <div class="img-box">
-              <picture class="lazy">
-                <img src="/img/fighters-23.png" alt="Card" />
-              </picture>
-            </div>
-            <a href={"#"}>&nbsp;</a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div class="info">
-      <p>0027JMXBTL23051645</p>
+    <div class="info mt-5 text-center d-inline-block me-lg-5 pe-lg-4">
+      <h3>0027JMXBTL23051645</h3>
 
-      <div class="values">
-        <div class="value-wrap">
+      <div class="d-flex justify-content-around fs-4 mt-4">
+        <div class="">
           <p>Win Rate</p>
           <p>52%</p>
         </div>
-        <div class="value-wrap">
+        <div class="">
           <p>Sowing</p>
           <p>2/5</p>
         </div>
       </div>
     </div>
 
-    <div class="history">
-      <div class="tabs">
-        <div class="tabs-header">
-          <button class="tab active">Trading history</button>
-          <button class="tab">Offer history</button>
-        </div>
-        <div class="tabs-body">
-          <div class="tab-content active">
-            <table>
+    <div class="history mt-5">
+
+      <TabContent>
+        <TabPane tabId="alpha" tab="Offer history" active>
+            <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th>
-                    <span>Event</span>
-                  </th>
-                  <th>
-                    <span>Price</span>
-                  </th>
-                  <th>
-                    <span>From</span>
-                  </th>
-                  <th>
-                    <span>To</span>
-                  </th>
-                  <th>
-                    <span>Dateк</span>
-                  </th>
+                  <th>Price</th>
+                  <th>From</th>
+                  <th>Difference</th>
+                  <th>Expiration</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <span>List</span>
-                  </td>
-                  <td>
-                    <span>22</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>a day ago</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>List</span>
-                  </td>
-                  <td>
-                    <span>22</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>a day ago</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>List</span>
-                  </td>
-                  <td>
-                    <span>22</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>a day ago</span>
-                  </td>
-                </tr>										
+                {#if listBids}
+                  {#each listBids as bid}
+                    <tr>
+                      <td>
+                        <span>{fromNear(bid.price).toFixed(2)}</span>
+                      </td>
+                      <td>
+                        <span>{bid.bidder_id}</span>
+                      </td>
+                      <td>
+                        {bid.difference ? bid.difference + '%' : '-'}
+                      </td>
+                      <td>
+                        <span>1 day</span>
+                      </td>
+                    </tr>
+                  {/each}
+                {:else}
+                  <tr>
+                    <td colspan="4" class="py-3">
+                      No offers yet
+                    </td>
+                  </tr>
+                {/if}
               </tbody>
             </table>
-          </div>
-          <div class="tab-content">
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    <span>Price</span>
-                  </th>
-                  <th>
-                    <span>From</span>
-                  </th>
-                  <th>
-                    <span>Floor difference</span>
-                  </th>
-                  <th>
-                    <span>Expiration</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <span>22</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>19% below</span>
-                  </td>
-                  <td>
-                    <span>1 day</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>20</span>
-                  </td>
-                  <td>
-                    <span>near876</span>
-                  </td>
-                  <td>
-                    <span>21% below</span>
-                  </td>
-                  <td>
-                    <span>1 day</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>17</span>
-                  </td>
-                  <td>
-                    <span>trackOon</span>
-                  </td>
-                  <td>
-                    <span>23.3% below</span>
-                  </td>
-                  <td>
-                    <span>2 days</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+        </TabPane>
+        <TabPane tabId="bravo" tab="Trading history">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>
+                  <span>Price</span>
+                </th>
+                <th>
+                  <span>From</span>
+                </th>
+                <th>
+                  <span>To</span>
+                </th>
+                <th>
+                  <span>Date</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>22.50</td>
+                <td>trackoon.near</td>
+                <td>angrylemon.near</td>
+                <td>a day ago</td>
+              </tr>
+              <tr>
+                <td>5.00</td>
+                <td>bodyflex.near</td>
+                <td>trackoon.near</td>
+                <td>a day ago</td>
+              </tr>
+              <tr>
+                <td>1.00</td>
+                <td>cartooncat.near</td>
+                <td>bodyflex.near</td>
+                <td>a day ago</td>
+              </tr>
+            </tbody>
+          </table>
+        </TabPane>
+      </TabContent>
+
     </div>
   </section>
 
   {#if moreNft}
-    <section class="more-for-collection">
-      <h2>More from this coolection</h2>
+    <section class="mt-5">
+      <h3>More from this coolection</h3>
 
-      <ul class="collection-list">
+      <div class="row">
         {#each moreNft.filter(n => n.token_id !== nft.token_id).slice(0, 4) as nft }
-          <li style="max-width: 33%;">
+          <div class="col-6 col-md-3">
             <Preview shortNft={nft} />
-          </li>
+          </div>
         {/each}
-      </ul>
+        </div>
     </section>
   {/if}
 {/if}

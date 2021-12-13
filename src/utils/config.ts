@@ -1,6 +1,6 @@
 export const getConfig = (url: string): NearConfig => {
   const env = url.includes(':30') ? 'development' : 'production';
-  const testnetContract = "dev-1638648886689-10924280596922"
+  const testnetContract = "dev-1639312006189-41768496072291"
   switch (env) {
     case 'production':
       return {
