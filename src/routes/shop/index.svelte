@@ -1,6 +1,7 @@
 <script type='ts'>
   import { onMount } from 'svelte'
   import Filter from '$src/components/filter/Filter.svelte'
+  import TopMenu from '$src/components/filter/TopMenu.svelte'
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
 
@@ -14,21 +15,13 @@
 <section class="catalog">
   <Filter />
   <div class="catalog-inner">
-    <form class="catalog-sorting" action="">
-      <ul class="sorting">
-        <li class="active">Fighters</li>
-        <li>Weapons</li>
-        <li>Items</li>
-        <li>Boosters</li>
-        <li>Land</li>
-        <li>Merchandise</li>
-      </ul>
-    </form>
+    <TopMenu root="shop" />
 
-    
-    <div class="item-cards-wrap">
+    <div class="row">
       {#each listNft as nft}
-        <Preview fullNft={nft} />
+        <div class="col-12 col-md-4 mt-4">
+          <Preview fullNft={nft} />
+        </div>
       {/each}
     </div>
   </div>

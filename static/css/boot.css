@@ -5,6 +5,10 @@
   --inverse: #fff;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 body {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -22,21 +26,20 @@ h1, h2, h3 {
   opacity: 1;
 }
 
-.btn, button.button {
+.btn {
   border-radius: 50px;
   text-align: center;
-  font-family: Raleway;
-  font-weight: bold;
-  letter-spacing: 0.2em;
   padding: 13px 15px 11px;
-  text-transform: uppercase;
 }
-
 
 .btn-primary {
   background-color: var(--primary);
   border-color: var(--inverse);
   color: var(--inverse);
+  font-family: Raleway;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 

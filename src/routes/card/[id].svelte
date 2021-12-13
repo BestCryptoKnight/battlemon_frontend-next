@@ -386,7 +386,7 @@
             <Preview shortNft={nft} />
           </div>
         {/each}
-        </div>
+      </div>
     </section>
   {/if}
 {/if}

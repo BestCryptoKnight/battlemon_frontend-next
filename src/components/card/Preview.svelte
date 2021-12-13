@@ -12,13 +12,10 @@
   })
 </script>
 
-<div class="item-card-preview">
-  {#if fullNft}
-    <div class="img-box">
-      <picture class="lazy">
-        <img src={fullNft.metadata.media} alt={fullNft.metadata.title} />
-      </picture>
-    </div>
-    <a href={`/card/${fullNft.token_id}`} rel="external">&nbsp;</a>
-  {/if}
-</div>
+{#if fullNft}
+  <div class="img-box">
+    <a href={`/card/${fullNft.token_id}`} rel="external">
+      <img class="cursor-pointer" src={fullNft.metadata.media} alt={fullNft.metadata.title} />
+    </a>
+  </div>
+{/if}

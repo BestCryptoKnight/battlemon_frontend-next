@@ -68,19 +68,6 @@ body,
     color: #fff;
 }
 
-.buy-more {
-	position: relative;
-	padding-top: 132.4427480916031%;
-	border-radius: 15px;
-	background: rgba(217, 217, 217, .33);
-	letter-spacing: .265em
-}
-
-.buy-more:hover .btn {
-    background: #212121;
-    color: #fff
-}
-
 .sales-list li {
 	-webkit-box-flex: 1;
 	-ms-flex: 1;

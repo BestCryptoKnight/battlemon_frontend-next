@@ -4,9 +4,7 @@
       <ul class="platforms">
         <li>
           <div class="img-box">
-            <picture class="lazy">
-              <img src="/img/svg/age-rating.svg" alt="16+">
-            </picture>
+            <img src="/img/svg/age-rating.svg" alt="16+">
           </div>
         </li>
         <li>
