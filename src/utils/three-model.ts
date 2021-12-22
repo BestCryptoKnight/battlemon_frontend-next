@@ -1,4 +1,4 @@
-import { DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { Vector3, AmbientLight, DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
@@ -26,12 +26,13 @@ export class Model {
     });
     loader.load('/media/turel.glb', (gltf) => {
       const weapon = gltf.scene
-      weapon.position.set(1, 1, 0);
+      weapon.position.set(1.05, 1.05, 0);
       this.scene.add(weapon)
     });
     loader.load('/media/turel.glb', (gltf) => {
       const weapon = gltf.scene
-      weapon.position.set(-1, 1, 0);
+      weapon.scale.multiply(new Vector3(-1, 1, 1))
+      weapon.position.set(-1.05, 1.05, 0);
       this.scene.add(weapon)
     });
 
