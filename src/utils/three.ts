@@ -47,11 +47,11 @@ function onWindowResize() {
 
 let object;
 const loader = new GLTFLoader();
-loader.load('media/vivi_animations_v01/scene.gltf', function (gltf) {
+loader.load('media/Lemon_meho.glb', function (gltf) {
   object = gltf.scene.children[0];
   object.position.y = -0.14
   object.position.z = -0.8
-  object.scale.set(0.3, 0.3, 0.3);
+  object.scale.set(0.002, 0.002, 0.002);
   scene.add(gltf.scene);
   animate();
 });
@@ -59,7 +59,7 @@ loader.load('media/vivi_animations_v01/scene.gltf', function (gltf) {
 function animate() {
   requestAnimationFrame(animate)
 
-  object ? object.rotation.z += 0.01 : null
+  //object ? object.rotation.z += 0.01 : null
 
   controls.update()
 

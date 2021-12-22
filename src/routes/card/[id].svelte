@@ -73,6 +73,9 @@
     if (nftOnSale) { 
       nft.price = fromNear(nftOnSale.price).toFixed(2)
     }
+
+    const { Model } = await import('../../utils/three-model')
+    new Model('threejs')
   })
 </script>
 
@@ -80,6 +83,18 @@
   .disabled {
     opacity: 0.2;
     pointer-events: none;
+  }
+  #threejs {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 600px;
+  }
+  @media screen and (max-width:768px) {
+    #threejs {
+      height: 400px;
+      background: var(--primary);
+    }
   }
 </style>
 
@@ -94,10 +109,8 @@
 {#if nft && nftOnSale !== null } 
   <section class="item-card">
     <div class="preview">
-      <div class="img-box">
-        <picture class="lazy">
-          <img src={nft.metadata.media} alt={nft.metadata.title} />
-        </picture>
+      <div class="img-box" style="margin: -50px 0">
+        <div id="threejs" style="background-image: url(/img/postaments/1.png)"></div>
       </div>
 
       <div class="d-flex gap-3 justify-content-around">

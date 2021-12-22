@@ -3,7 +3,8 @@
   
 
   onMount(async () => {
-    await import('../../utils/three')
+    const { Model } = await import('../../utils/three-model')
+    new Model('threejs')
   })
 </script>
 
@@ -13,9 +14,10 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    height: 800px;
   }
 </style>
 
-<div id="threejs">
+<div id="threejs" >
 
 </div>
