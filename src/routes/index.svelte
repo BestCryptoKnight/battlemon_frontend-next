@@ -5,8 +5,6 @@
   import near from '$src/utils/near'
   onMount(async () => {
     $near.connect()
-    const imageMapResize = (await import('image-map-resizer/js/imageMapResizer')).default
-    imageMapResize();
   })
 </script>
 
