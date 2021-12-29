@@ -13,7 +13,7 @@
   }
 </style>
 
-<StaticModal isOpen={isOpen}>
+<StaticModal bind:isOpen={isOpen}>
   <div class="row">
     {#each inventoryItems as item}
       <div class="col col-4">

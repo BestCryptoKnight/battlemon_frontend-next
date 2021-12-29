@@ -1,3 +1,7 @@
+<script type="ts">
+  import { TabContent, TabPane } from 'sveltestrap'
+</script>
+
 <style>
   .list-item {
     background: var(--opacity-bg);
@@ -101,115 +105,117 @@
   </div>
 
   <div class="history">
-    <h2>Trading history</h2>
-
-    <table class="table table-borderless">
-      <thead>
-        <tr>
-          <th>
-            <span>Name</span>
-          </th>
-          <th>
-            <span>Type</span>
-          </th>
-          <th>
-            <span>Buyer</span>
-          </th>
-          <th>
-            <span>Wen</span>
-          </th>
-          <th>
-            <span>Sell price</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <span>0027JMXBTL23051645</span>
-          </td>
-          <td>
-            <span>Item</span>
-          </td>
-          <td>
-            <span>Near</span>
-          </td>
-          <td>
-            <span>about 1 hour ago</span>
-          </td>
-          <td>
-            <span>20</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span>0027JMXBTL23051645</span>
-          </td>
-          <td>
-            <span>Item</span>
-          </td>
-          <td>
-            <span>Near</span>
-          </td>
-          <td>
-            <span>about 1 hour ago</span>
-          </td>
-          <td>
-            <span>20</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span>0027JMXBTL23051645</span>
-          </td>
-          <td>
-            <span>Item</span>
-          </td>
-          <td>
-            <span>Near</span>
-          </td>
-          <td>
-            <span>about 1 hour ago</span>
-          </td>
-          <td>
-            <span>20</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span>0027JMXBTL23051645</span>
-          </td>
-          <td>
-            <span>Item</span>
-          </td>
-          <td>
-            <span>Near</span>
-          </td>
-          <td>
-            <span>about 1 hour ago</span>
-          </td>
-          <td>
-            <span>20</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span>0027JMXBTL23051645</span>
-          </td>
-          <td>
-            <span>Item</span>
-          </td>
-          <td>
-            <span>Near</span>
-          </td>
-          <td>
-            <span>about 1 hour ago</span>
-          </td>
-          <td>
-            <span>20</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <TabContent>
+      <TabPane tabId="history" tab="History" active>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th>
+                <span>Name</span>
+              </th>
+              <th>
+                <span>Type</span>
+              </th>
+              <th>
+                <span>Buyer</span>
+              </th>
+              <th>
+                <span>Wen</span>
+              </th>
+              <th>
+                <span>Sell price</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span>0027JMXBTL23051645</span>
+              </td>
+              <td>
+                <span>Item</span>
+              </td>
+              <td>
+                <span>Near</span>
+              </td>
+              <td>
+                <span>about 1 hour ago</span>
+              </td>
+              <td>
+                <span>20</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>0027JMXBTL23051645</span>
+              </td>
+              <td>
+                <span>Item</span>
+              </td>
+              <td>
+                <span>Near</span>
+              </td>
+              <td>
+                <span>about 1 hour ago</span>
+              </td>
+              <td>
+                <span>20</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>0027JMXBTL23051645</span>
+              </td>
+              <td>
+                <span>Item</span>
+              </td>
+              <td>
+                <span>Near</span>
+              </td>
+              <td>
+                <span>about 1 hour ago</span>
+              </td>
+              <td>
+                <span>20</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>0027JMXBTL23051645</span>
+              </td>
+              <td>
+                <span>Item</span>
+              </td>
+              <td>
+                <span>Near</span>
+              </td>
+              <td>
+                <span>about 1 hour ago</span>
+              </td>
+              <td>
+                <span>20</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>0027JMXBTL23051645</span>
+              </td>
+              <td>
+                <span>Item</span>
+              </td>
+              <td>
+                <span>Near</span>
+              </td>
+              <td>
+                <span>about 1 hour ago</span>
+              </td>
+              <td>
+                <span>20</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </TabPane>
+    </TabContent>
   </div>
 </section>

@@ -19,7 +19,7 @@
     display: flex;
   }
 
-  .inventory-wrap > :global(div), .inventory-wrap > :global(div > div) {
+  :global(.modal-content), .inventory-wrap > :global(div), .inventory-wrap > :global(div > div) {
     height: 100%;
     width: 100%;
   }
@@ -27,7 +27,7 @@
 
 {#if isOpen}
   <div class="inventory-wrap">
-    <Modal {isOpen} {toggle} {...params} header="Inventory">
+    <Modal isOpen={isOpen} {toggle} {...params} header="Inventory">
       <div class="modal-body">
         <slot></slot>
       </div>
