@@ -114,7 +114,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 700px;
+    height: 800px;
   }
   @media screen and (max-width:768px) {
     #threejs {
@@ -135,7 +135,7 @@
 {#if nft && nftOnSale !== null } 
   <section class="row">
     <div class="col-md-6 position-relative">
-      <div class="img-box" style="margin: -70px 0 -80px">
+      <div class="img-box" style="margin: -70px 0 -100px">
         <div id="threejs" class="position-relative" style="background-image: url(/img/postaments/1.png);">
           <div style="position: absolute; left: 50%; top: 50%; margin: -60px 0 0 -40px">
             <div id="loader" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -144,7 +144,7 @@
       </div>
 
       <div style="z-index: 10; position: relative">
-        <div class="text-center" style="position: absolute; width: 100%; margin-top: -70px">
+        <div class="text-center" style="position: absolute; width: 100%; margin-top: -80px">
           <button class="btn btn-primary px-2 py-1" on:click={openInventory}>
             <svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor"><path d="M 9 5 C 8.707031 5 8.429688 5.128906 8.242188 5.351563 L 6.335938 7.574219 C 3.539063 10.835938 2 14.992188 2 19.289063 L 2 44 C 2 44.550781 2.449219 45 3 45 L 47 45 C 47.550781 45 48 44.550781 48 44 L 48 19.289063 C 48 14.992188 46.460938 10.839844 43.667969 7.578125 L 43.667969 7.574219 L 41.761719 5.351563 C 41.570313 5.128906 41.292969 5 41 5 Z M 9.460938 7 L 40.539063 7 L 42.148438 8.875 C 44.632813 11.777344 46 15.46875 46 19.289063 L 46 20 L 29.898438 20 C 29.429688 17.726563 27.40625 16 25 16 C 22.59375 16 20.570313 17.726563 20.101563 20 L 4 20 L 4 19.289063 C 4 15.46875 5.367188 11.773438 7.851563 8.875 Z M 25 18 C 26.667969 18 28 19.332031 28 21 L 28 26.023438 C 28 27.691406 26.667969 29.023438 25 29.023438 C 23.332031 29.023438 22 27.691406 22 26.023438 L 22 21 C 22 19.332031 23.332031 18 25 18 Z M 4 22 L 20 22 L 20 26.023438 C 20 28.773438 22.25 31.023438 25 31.023438 C 27.75 31.023438 30 28.773438 30 26.023438 L 30 22 L 46 22 L 46 38.09375 C 43.496094 38.515625 41.515625 40.496094 41.09375 43 L 8.90625 43 C 8.484375 40.496094 6.503906 38.515625 4 38.09375 Z M 24 24 L 24 26 C 24 26.550781 24.449219 27 25 27 C 25.550781 27 26 26.550781 26 26 L 26 24 Z M 4 40.140625 C 5.40625 40.5 6.5 41.59375 6.859375 43 L 4 43 Z M 46 40.140625 L 46 43 L 43.140625 43 C 43.5 41.59375 44.59375 40.5 46 40.140625 Z"></path></svg>
           </button>
