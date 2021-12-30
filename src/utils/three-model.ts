@@ -35,13 +35,13 @@ export class Model {
     });
     loader.load('/media/turel.glb', (gltf) => {
       const weapon = gltf.scene
-      weapon.position.set(1.05, 1.05, 0);
+      weapon.position.set(1.05, 0.95, 0);
       this.scene.add(weapon)
     });
     loader.load('/media/turel.glb', (gltf) => {
       const weapon = gltf.scene
       weapon.scale.multiply(new Vector3(-1, 1, 1))
-      weapon.position.set(-1.05, 1.05, 0);
+      weapon.position.set(-1.05, 0.95, 0);
       this.scene.add(weapon)
     });
 
