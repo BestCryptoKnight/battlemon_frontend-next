@@ -3,7 +3,7 @@
 
   export let root
   const fightersPath = '/' + root + ''
-  const weaponPath = '/' + root + '/weapon'
+  const itemsPath = '/' + root + '/items'
 </script>
 
 <style>
@@ -16,10 +16,9 @@
 </style>
 
 <div class="fs-5">
-  <a class="filter-menu-link" href={fightersPath} class:active={$page.path === fightersPath}>Fighters</a>
-  <a class="filter-menu-link" href={weaponPath} class:active={$page.path === weaponPath}>Weapons</a>
-  <a class="filter-menu-link" href={''}>Items</a>
-  <a class="filter-menu-link" href={''}>Boosters</a>
+  <a class="filter-menu-link" href={fightersPath} class:active={$page.path === fightersPath}>Heroes</a>
+  <a class="filter-menu-link" href={itemsPath} class:active={$page.path === itemsPath}>Items</a>
+  <a class="filter-menu-link" href={''}>Battle Pass</a>
+  <a class="filter-menu-link" href={''}>Skins</a>
   <a class="filter-menu-link" href={''}>Land</a>
-  <a class="filter-menu-link" href={''}>Merchandise</a>
 </div>

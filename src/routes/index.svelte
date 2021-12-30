@@ -66,11 +66,34 @@
     object-fit: contain;
   }
   .home-factory {
-    left: 0; 
+    left: -6%; 
+    top: 0;
+    position: absolute;
+    width: 55.8%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .home-arena {
+    transform: translate(-50%, 0%); 
+    left: 50%; 
+    top: 0;
+    position: absolute;
+    width: 55%;
+    object-fit: contain;
+  }
+  .home-bottom-clouds {
+    right: 0; 
+    bottom: 0;
+    position: absolute;
+    width: 49.8%;
+    object-fit: contain;
+  }
+  .home-top-clouds {
+    transform: translate(-50%, 0%); 
+    right: 0; 
     top: 0;
     position: absolute;
     width: 49.8%;
-    height: 100%;
     object-fit: contain;
   }
 
@@ -84,8 +107,6 @@
     opacity: 0;
     transition: 0.2s;
   }
-
-
   .shop-lights-link {
     position: absolute;
     left: 71.4%; 
@@ -108,6 +129,9 @@
     <img src="/img/home/shop.png" class="home-shop" alt="Home shop">
     <img src="/img/home/burn.png" class="home-burn" alt="Home burn">
     <img src="/img/home/factory.png" class="home-factory" alt="Home factory">
+    <img src="/img/home/arena.png" class="home-arena" alt="Home arena">
+    <img src="/img/home/bottom_clouds.png" class="home-bottom-clouds" alt="Home bottom clouds">
+    <img src="/img/home/top_clouds.png" class="home-top-clouds" alt="Home top clouds">
 
     <a href="/" class="logo-home" style="color: #f0f0f0;">
       <Logo height={50} />
