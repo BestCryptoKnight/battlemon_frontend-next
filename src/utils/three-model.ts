@@ -57,6 +57,7 @@ export class Model {
     this.controls.minPolarAngle = Math.PI / 2;
     this.controls.maxPolarAngle = Math.PI / 2;
     this.controls.enableZoom = false;
+    this.controls.enablePan = false;
     this.controls.autoRotate = true;
 
 

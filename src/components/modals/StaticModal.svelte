@@ -17,6 +17,8 @@
     background-color: var(--primary);
     inset: -1px;
     display: flex;
+    top: 0;
+    z-index: 20;
   }
 
   :global(.modal-content), .inventory-wrap > :global(div), .inventory-wrap > :global(div > div) {
