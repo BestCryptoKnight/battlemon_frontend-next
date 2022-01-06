@@ -37,7 +37,7 @@
       {/each}
       <div class="col-12 col-md-3 mt-5 d-flex align-items-stretch">
         <div class="buy-more flex-grow-1 d-flex justify-content-center align-items-center">
-          <a href={'/shop/weapon'} class="btn btn-primary">Buy more</a>
+          <a href={'/shop/items'} class="btn btn-primary">Buy more</a>
         </div>
       </div>
     </div>

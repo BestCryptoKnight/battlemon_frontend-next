@@ -17,7 +17,7 @@ export class Model {
    */
   constructor(id: string) {
     this.dom = document.getElementById(id)
-    this.camera = new PerspectiveCamera(50, this.dom.offsetWidth / this.dom.offsetHeight);
+    this.camera = new PerspectiveCamera(34, this.dom.offsetWidth / this.dom.offsetHeight);
 
     this.scene = new Scene();
     this.scene.translateY(-0.8)

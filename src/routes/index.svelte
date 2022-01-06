@@ -19,6 +19,11 @@
     top: 4%;
     left: 4%;
   }
+  @media screen and (max-width:768px) {
+    .logo-home {
+      display: none;
+    }
+  }
   .auth-home {
     position: absolute;
     top: 5%;

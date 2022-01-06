@@ -110,18 +110,23 @@
     opacity: 0.2;
     pointer-events: none;
   }
-  #threejs {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 800px;
+  .threejs-container {
+    padding-top: 90%;
+    position: relative;
+  }
+  .threejs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
   @media screen and (max-width:768px) {
-    #threejs {
-      height: 500px;
-      background: var(--primary);
+    .left-column :global(a), .left-column td, .left-column th {
+      font-size: 70%;
     }
   }
+  
 </style>
 
 <svelte:head>
@@ -135,16 +140,18 @@
 {#if nft && nftOnSale !== null } 
   <section class="row">
     <div class="col-md-6 position-relative">
-      <div class="img-box" style="margin: -70px 0 -100px">
-        <div id="threejs" class="position-relative" style="background-image: url(/img/postaments/1.png);">
-          <div style="position: absolute; left: 50%; top: 50%; margin: -60px 0 0 -40px">
-            <div id="loader" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-          </div>
+      <div class="threejs-container">
+        <img src="/img/postaments/1.png" alt="postament" style="width: 100%; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); "/>
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); ">
+          <div id="loader" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        <div id="threejs" class="threejs">
+          
         </div>
       </div>
 
       <div style="z-index: 10; position: relative">
-        <div class="text-center" style="position: absolute; width: 100%; margin-top: -80px">
+        <div class="text-center mb-4" style="width: 100%;">
           <button class="btn btn-primary px-2 py-1" on:click={openInventory}>
             <svg height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor"><path d="M 9 5 C 8.707031 5 8.429688 5.128906 8.242188 5.351563 L 6.335938 7.574219 C 3.539063 10.835938 2 14.992188 2 19.289063 L 2 44 C 2 44.550781 2.449219 45 3 45 L 47 45 C 47.550781 45 48 44.550781 48 44 L 48 19.289063 C 48 14.992188 46.460938 10.839844 43.667969 7.578125 L 43.667969 7.574219 L 41.761719 5.351563 C 41.570313 5.128906 41.292969 5 41 5 Z M 9.460938 7 L 40.539063 7 L 42.148438 8.875 C 44.632813 11.777344 46 15.46875 46 19.289063 L 46 20 L 29.898438 20 C 29.429688 17.726563 27.40625 16 25 16 C 22.59375 16 20.570313 17.726563 20.101563 20 L 4 20 L 4 19.289063 C 4 15.46875 5.367188 11.773438 7.851563 8.875 Z M 25 18 C 26.667969 18 28 19.332031 28 21 L 28 26.023438 C 28 27.691406 26.667969 29.023438 25 29.023438 C 23.332031 29.023438 22 27.691406 22 26.023438 L 22 21 C 22 19.332031 23.332031 18 25 18 Z M 4 22 L 20 22 L 20 26.023438 C 20 28.773438 22.25 31.023438 25 31.023438 C 27.75 31.023438 30 28.773438 30 26.023438 L 30 22 L 46 22 L 46 38.09375 C 43.496094 38.515625 41.515625 40.496094 41.09375 43 L 8.90625 43 C 8.484375 40.496094 6.503906 38.515625 4 38.09375 Z M 24 24 L 24 26 C 24 26.550781 24.449219 27 25 27 C 25.550781 27 26 26.550781 26 26 L 26 24 Z M 4 40.140625 C 5.40625 40.5 6.5 41.59375 6.859375 43 L 4 43 Z M 46 40.140625 L 46 43 L 43.140625 43 C 43.5 41.59375 44.59375 40.5 46 40.140625 Z"></path></svg>
           </button>
@@ -156,7 +163,7 @@
 
         {#if nftOnSale}
           <div class="near-value justify-content-center mt-0 pb-3">
-            { nft.price }
+            <span style="overflow-wrap:break-word;word-break: break-word;">{ nft.price }</span>
             <span>
               <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.42765 38.0705C5.05414 38.0705 5.67326 37.9359 6.2428 37.6759C6.81233 37.4159 7.31888 37.0365 7.72791 36.5637L37.5415 2.10778C37.1502 1.48385 36.606 0.969438 35.96 0.613021C35.314 0.256604 34.5876 0.0699198 33.8492 0.0705583C33.2262 0.0706607 32.6105 0.203793 32.0435 0.460984C31.4765 0.718175 30.9714 1.09345 30.5622 1.56153L0.597656 35.8143C0.973895 36.4984 1.52808 37.0688 2.20201 37.4659C2.87593 37.8629 3.64473 38.0717 4.42765 38.0705V38.0705Z" fill="url(#paint0_linear_3532:765)"/>
@@ -180,7 +187,7 @@
           {/if}
         {/if}
 
-        <div class="d-flex gap-3 justify-content-around pt-3" class:disabled={!$near.signedIn}>
+        <div class="d-flex gap-3 justify-content-around pt-3 mb-4" class:disabled={!$near.signedIn}>
           {#if nft.owner_id === $near.user.id}
           
             {#if nftOnSale}
@@ -210,12 +217,13 @@
       </div>
     </div>
 
-    <div class="col-md-6 position-relative">
+    <div class="col-md-6 position-relative left-column">
 
       <div class="mt-1">
 
         <TabContent>
           <TabPane tabId="stats" tab="Stats" active>
+            <div class="table-responsive">
               <table class="table table-borderless">
                 <tbody>
                   {#each nftProperties as property}
@@ -230,28 +238,31 @@
                   
                 </tbody>
               </table>
+            </div>
           </TabPane>
           <TabPane tabId="details" tab="Details">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td class="text-start" width="10%">Collection&nbsp;id:</td>
-                  <td>0027JMXBTL23051645</td>
-                </tr>
-                <tr>
-                  <td class="text-start">Serial&nbsp;number:</td>
-                  <td>#0019</td>
-                </tr>
-                <tr>
-                  <td class="text-start">Win Rate:</td>
-                  <td>52%</td>
-                </tr>
-                <tr>
-                  <td class="text-start">Showing:</td>
-                  <td>2/5</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td class="text-start" width="10%">Collection&nbsp;id:</td>
+                    <td>0027JMXBTL23051645</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start">Serial&nbsp;number:</td>
+                    <td>#0019</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start">Win Rate:</td>
+                    <td>52%</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start">Showing:</td>
+                    <td>2/5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </TabPane>
         </TabContent>
       </div>
@@ -260,6 +271,7 @@
 
         <TabContent>
           <TabPane tabId="alpha" tab="Offer history" active>
+            <div class="table-responsive">
               <table class="table table-borderless">
                 <thead>
                   <tr>
@@ -296,46 +308,49 @@
                   {/if}
                 </tbody>
               </table>
+            </div>
           </TabPane>
           <TabPane tabId="bravo" tab="Trading history">
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th>
-                    <span>Price</span>
-                  </th>
-                  <th>
-                    <span>From</span>
-                  </th>
-                  <th>
-                    <span>To</span>
-                  </th>
-                  <th>
-                    <span>Date</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>22.50</td>
-                  <td>trackoon</td>
-                  <td>angrylemon</td>
-                  <td>a day ago</td>
-                </tr>
-                <tr>
-                  <td>5.00</td>
-                  <td>bodyflex</td>
-                  <td>trackoon</td>
-                  <td>a day ago</td>
-                </tr>
-                <tr>
-                  <td>1.00</td>
-                  <td>cartooncat</td>
-                  <td>bodyflex</td>
-                  <td>a day ago</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>
+                      <span>Price</span>
+                    </th>
+                    <th>
+                      <span>From</span>
+                    </th>
+                    <th>
+                      <span>To</span>
+                    </th>
+                    <th>
+                      <span>Date</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>22.50</td>
+                    <td>trackoon</td>
+                    <td>angrylemon</td>
+                    <td>a day ago</td>
+                  </tr>
+                  <tr>
+                    <td>5.00</td>
+                    <td>bodyflex</td>
+                    <td>trackoon</td>
+                    <td>a day ago</td>
+                  </tr>
+                  <tr>
+                    <td>1.00</td>
+                    <td>cartooncat</td>
+                    <td>bodyflex</td>
+                    <td>a day ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </TabPane>
         </TabContent>
 

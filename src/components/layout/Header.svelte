@@ -8,7 +8,7 @@
 </script>
 
 <header class:nav-open={openMainMenu}>
-  <div class="container">
+  <div class="container position-relative" style="z-index: 20;">
     <div class="header-inner">
       <button class="nav-toggle" on:click={() => openMainMenu = !openMainMenu} class:active={openMainMenu}>
         <span class="line"></span>
@@ -17,7 +17,7 @@
       </button>
     
       <a href="/" class="logo img-box">
-        <Logo height={30} />
+        <Logo height={36} />
       </a>		
       
       <ThemeSwitcher />
@@ -27,10 +27,10 @@
           <nav class="nav">
             <ul class="nav-list">
               {#if $near.signedIn }
-                <li class:active={$page.path === '/kitchen'}><a href={'/kitchen'}>Your Kitchen</a></li>
+                <li class:active={$page.url.pathname === '/kitchen'}><a href={'/kitchen'}>Your Kitchen</a></li>
               {/if}
-              <li class:active={$page.path === '/shop'}><a href={'/shop'}>Shop</a></li>
-              <li class:active={$page.path === '/paid'}><a href={'/paid'}>Paid</a></li>
+              <li class:active={$page.url.pathname === '/shop'}><a href={'/shop'}>Shop</a></li>
+              <li class:active={$page.url.pathname === '/paid'}><a href={'/paid'}>Paid</a></li>
               <li><a href={'#'}>Game</a></li>
             </ul>
           </nav>

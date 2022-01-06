@@ -303,15 +303,19 @@ body main {
 	}
 	.header-inner .logo {
 		display: block;
-		max-width: 53.75%;
-		margin: auto
+		text-align: center;
+		height: 50px;
+		padding-top: 5px;
+		margin: auto;
+		max-width: calc(100% - 80px);
 	}
 	.header-inner .nav-toggle {
 		width: 20px;
 		height: 18px;
 		position: absolute;
 		top: 16px;
-		left: 16px
+		left: 16px;
+		z-index: 100;
 	}
 	.header-inner .nav-toggle .line {
 		height: 3px;
@@ -347,15 +351,24 @@ body main {
 		z-index: 10;
 		width: 100vw;
 		position: absolute;
-		top: calc(100% - 34px);
+		top: 0;
+		bottom: 0;
 		left: -101vw;
 		padding: 22px 20px 27px;
 		-webkit-transition: .2s ease-in-out;
 		-o-transition: .2s ease-in-out;
 		transition: .2s ease-in-out
 	}
+
 	.nav-open .header-inner .nav {
-		left: 0
+		left: 0;
+		top: 0px;
+		right: 0;
+		padding: 50px 0 0;
+		justify-content: center;
+		bottom: 0;
+		position: fixed;
+		z-index: 99;
 	}
 	.header-inner .nav-list li:not(:first-child) {
 		margin-top: 15px
