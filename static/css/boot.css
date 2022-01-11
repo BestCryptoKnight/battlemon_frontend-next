@@ -206,3 +206,16 @@ h1, h2, h3 {
     opacity: 0;
   }
 }
+
+.tippy-arrow::before{
+  -webkit-transform:scale(1.9);
+  -ms-transform:scale(1.9);
+  transform:scale(1.9);
+}
+.tippy-menu-list {
+  padding: 3px 0 3px;
+}
+.tippy-menu-list li {
+  padding: 2px 0;
+  font-size: 16px;
+}

@@ -21,9 +21,8 @@
     z-index: 20;
   }
 
-  :global(.modal-content), .inventory-wrap > :global(div), .inventory-wrap > :global(div > div) {
-    height: 100%;
-    width: 100%;
+  :global(.modal-content) {
+    min-height: 600px;
   }
 </style>
 

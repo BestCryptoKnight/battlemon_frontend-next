@@ -4,12 +4,12 @@
   import { page } from '$app/stores'
   import { fromNear } from '$src/utils/api';
   import near from '$src/utils/near'
-  import Preview from '$src/components/card/Preview.svelte'
   import OfferModal from '$src/components/modals/Offer.svelte'
   import TransferModal from '$src/components/modals/Transfer.svelte'
   import SellModal from '$src/components/modals/Sell.svelte'
   import InventoryModal from '$src/components/modals/Inventory.svelte'
   import ResourcesModal from '$src/components/modals/Resources.svelte'
+  import Lemon from '$src/components/threejs/Lemon.svelte'
   
 
   let { id: token_id }: {id: string} = $page.params
@@ -98,10 +98,7 @@
     nftOnSale = moreNft.find(n => n.token_id == nft.token_id) || false
     if (nftOnSale) { 
       nft.price = fromNear(nftOnSale.price).toFixed(2)
-    }
-
-    const { Model } = await import('../../utils/three-model')
-    new Model('threejs')
+    }    
   })
 </script>
 
@@ -109,17 +106,6 @@
   .disabled {
     opacity: 0.2;
     pointer-events: none;
-  }
-  .threejs-container {
-    padding-top: 90%;
-    position: relative;
-  }
-  .threejs {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
   }
   @media screen and (max-width:768px) {
     .left-column :global(a), .left-column td, .left-column th {
@@ -140,15 +126,7 @@
 {#if nft && nftOnSale !== null } 
   <section class="row">
     <div class="col-md-6 position-relative">
-      <div class="threejs-container">
-        <img src="/img/postaments/1.png" alt="postament" style="width: 100%; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); "/>
-        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); ">
-          <div id="loader" class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        </div>
-        <div id="threejs" class="threejs">
-          
-        </div>
-      </div>
+      <Lemon />
 
       <div style="z-index: 10; position: relative">
         <div class="text-center mb-4" style="width: 100%;">
@@ -356,7 +334,9 @@
 
       </div>
 
-      <InventoryModal bind:isOpen={openInventoryModal} />
+      {#if openInventoryModal}
+        <InventoryModal bind:isOpen={openInventoryModal} />
+      {/if}
       <ResourcesModal bind:isOpen={openResourcesModal} />
     </div>
   </section>

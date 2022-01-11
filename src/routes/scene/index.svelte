@@ -3,8 +3,8 @@
   
 
   onMount(async () => {
-    const { Model } = await import('../../utils/three-model')
-    new Model('threejs')
+    const { Model } = await import('$src/components/threejs/model')
+    //new Model('threejs')
   })
 </script>
 
