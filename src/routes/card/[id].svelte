@@ -126,7 +126,7 @@
 {#if nft && nftOnSale !== null } 
   <section class="row">
     <div class="col-md-6 position-relative">
-      <Lemon />
+      <Lemon nft={nft} />
 
       <div style="z-index: 10; position: relative">
         <div class="text-center mb-4" style="width: 100%;">

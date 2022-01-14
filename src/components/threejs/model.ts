@@ -14,16 +14,18 @@ export class Model {
   private light2: DirectionalLight
   private loader: GLTFLoader
   private isAnimating: boolean
+  private weaponCoord: number[]
 
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
    */
-  constructor(id: string, lemon: string, rightHand: string, leftHand: string) {
-    this.dom = document.getElementById(id)
-    this.camera = new PerspectiveCamera(34, this.dom.offsetWidth / this.dom.offsetHeight);
+  constructor({ dom, lemon, rightWeapon, leftWeapon, zoom, weaponCoord, translateY }: { dom: string, lemon: string, rightWeapon: string, leftWeapon: string, zoom: number, weaponCoord: number[], translateY: number}) {
+    this.dom = document.getElementById(dom)
+    this.camera = new PerspectiveCamera(zoom, this.dom.offsetWidth / this.dom.offsetHeight);
+    this.weaponCoord = weaponCoord
 
     this.scene = new Scene();
-    this.scene.translateY(-0.8)
+    this.scene.translateY(translateY)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -37,10 +39,10 @@ export class Model {
       gltf.scene.name = 'lemon'
       this.scene.add(gltf.scene)
     });
-    this.loader.load(leftHand, (gltf) => {
+    this.loader.load(leftWeapon, (gltf) => {
       this.addEquipment(gltf, 'leftWeapon')
     });
-    this.loader.load(rightHand, (gltf) => {
+    this.loader.load(rightWeapon, (gltf) => {
       this.addEquipment(gltf, 'rightWeapon')
     });
 
@@ -84,11 +86,11 @@ export class Model {
     const object = gltf.scene
     object.name = name
     if (name == 'leftWeapon') {
-      object.position.set(1.05, 0.95, 0);
+      object.position.set(this.weaponCoord[0], this.weaponCoord[1], this.weaponCoord[2]);
     }
     if (name == 'rightWeapon') {
       object.scale.multiply(new Vector3(-1, 1, 1))
-      object.position.set(-1.05, 0.95, 0);
+      object.position.set(this.weaponCoord[0]*-1, this.weaponCoord[1], this.weaponCoord[2]);
     }
     this.scene.add(object)
   }

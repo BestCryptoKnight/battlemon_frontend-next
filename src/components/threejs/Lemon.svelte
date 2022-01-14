@@ -2,14 +2,19 @@
   import { onMount } from 'svelte'
   import threeStore from './store'
 
+  export let nft;
+
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
-    const model = new Model(
-      'threejs',
-      '/media/Lemon_mecho.glb',
-      '/media/turel.glb',
-      '/media/turel.glb',
-    )
+    const model = new Model({
+        dom: 'threejs',
+        lemon: nft.token_id % 2 == 0 ? '/media/Lemon_mecho.glb' : '/media/octopus.glb',
+        rightWeapon: '/media/turel.glb',
+        leftWeapon: '/media/turel.glb',
+        zoom: nft.token_id % 2 == 0 ? 34 : 46,
+        weaponCoord: nft.token_id % 2 == 0 ? [1.05, 0.95, 0] : [1.05, 2.35, 0],
+        translateY: nft.token_id % 2 == 0 ? -0.8 : -1.2
+    })
     $threeStore.init(model)
   })
 </script>
