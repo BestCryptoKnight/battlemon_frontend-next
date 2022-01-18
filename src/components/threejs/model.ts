@@ -37,6 +37,7 @@ export class Model {
     this.loader = new GLTFLoader(manager);
     this.loader.load(lemon, (gltf) => {
       gltf.scene.name = 'lemon'
+      gltf.scene.scale.set(scale, scale, scale)
       this.scene.add(gltf.scene)
     });
     this.loader.load(leftWeapon, (gltf) => {
@@ -70,7 +71,6 @@ export class Model {
     this.light2.position.set(camPos.x, 25, camPos.z);
     this.scene.add(this.light2);
 
-    this.scene.scale.set(scale, scale, scale)
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);

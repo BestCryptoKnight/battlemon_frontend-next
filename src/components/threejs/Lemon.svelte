@@ -12,8 +12,8 @@
         rightWeapon: '/media/turel.glb',
         leftWeapon: '/media/turel.glb',
         cam: 12,
-        scale: nft.token_id % 2 == 0 ? 1.1 : 0.8,
-        weaponCoord: nft.token_id % 2 == 0 ? [1.05, 0.95, 0] : [1.05, 2.35, 0],
+        scale: nft.token_id % 2 == 0 ? 1.1 : 0.7,
+        weaponCoord: nft.token_id % 2 == 0 ? [1.20, 1.10, 0] : [0.80, 1.60, 0],
         translateY: -0.87
     })
     $threeStore.init(model)
