@@ -11,9 +11,10 @@
         lemon: nft.token_id % 2 == 0 ? '/media/Lemon_mecho.glb' : '/media/octopus.glb',
         rightWeapon: '/media/turel.glb',
         leftWeapon: '/media/turel.glb',
-        zoom: nft.token_id % 2 == 0 ? 34 : 46,
+        cam: 12,
+        scale: nft.token_id % 2 == 0 ? 1.1 : 0.8,
         weaponCoord: nft.token_id % 2 == 0 ? [1.05, 0.95, 0] : [1.05, 2.35, 0],
-        translateY: nft.token_id % 2 == 0 ? -0.8 : -1.2
+        translateY: -0.87
     })
     $threeStore.init(model)
   })

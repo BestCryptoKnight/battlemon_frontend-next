@@ -19,9 +19,9 @@ export class Model {
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
    */
-  constructor({ dom, lemon, rightWeapon, leftWeapon, zoom, weaponCoord, translateY }: { dom: string, lemon: string, rightWeapon: string, leftWeapon: string, zoom: number, weaponCoord: number[], translateY: number}) {
+  constructor({ dom, lemon, rightWeapon, leftWeapon, cam, scale, weaponCoord, translateY }: { dom: string, lemon: string, rightWeapon: string, leftWeapon: string, cam: number, scale: number, weaponCoord: number[], translateY: number}) {
     this.dom = document.getElementById(dom)
-    this.camera = new PerspectiveCamera(zoom, this.dom.offsetWidth / this.dom.offsetHeight);
+    this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
     this.weaponCoord = weaponCoord
 
     this.scene = new Scene();
@@ -53,7 +53,7 @@ export class Model {
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
 
     this.controls = new OrbitControls(this.camera, this.dom)
-    this.camera.position.set(0, 0, 8);
+    this.camera.position.set(0, 0, 25);
     this.controls.update();
     this.controls.minPolarAngle = Math.PI / 2;
     this.controls.maxPolarAngle = Math.PI / 2;
@@ -63,12 +63,14 @@ export class Model {
 
 
     const camPos = this.camera.position
-    this.light1 = new DirectionalLight(0xFFFFBE, 3);
-    this.light1.position.set(camPos.x, -1, camPos.z);
+    this.light1 = new DirectionalLight(0xFFFFBE, 2.5);
+    this.light1.position.set(camPos.x, -19, camPos.z);
     this.scene.add(this.light1);
-    this.light2 = new DirectionalLight(0xFFFFBE, 3);
-    this.light2.position.set(camPos.x, 6, camPos.z);
+    this.light2 = new DirectionalLight(0xFFFFBE, 2.5);
+    this.light2.position.set(camPos.x, 25, camPos.z);
     this.scene.add(this.light2);
+
+    this.scene.scale.set(scale, scale, scale)
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);
