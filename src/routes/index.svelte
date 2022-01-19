@@ -4,6 +4,7 @@
   import Logo from '$src/components/layout/Logo.svelte'
   import Auth from '$src/components/layout/Auth.svelte'
   import near from '$src/utils/near'
+  import Arena from '$src/components/threejs/Arena.svelte'
 
   onMount(async () => {
     $near.connect()
@@ -189,7 +190,16 @@
     <img src="/img/home/main.jpg" class="home-image" alt="Home page">
     <div class="home-arena cursor-pointer" on:click={() => goto('/arena')}>
       <img src="/img/home/arena.png" class="w-100" alt="Home arena">
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        src="/lottie/arena.json"
+        class="lottie"
 
+      >
+      </lottie-player> 
+      <Arena />
     </div>
     <img src="/img/home/secondary.png" class="home-secondary" alt="Home secondary">
     <div class="home-stake cursor-pointer">
