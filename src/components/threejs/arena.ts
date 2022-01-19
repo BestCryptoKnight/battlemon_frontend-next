@@ -1,4 +1,4 @@
-import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { TextureLoader, SpriteMaterial, Sprite, LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
@@ -30,6 +30,14 @@ export class Model {
       gltf.scene.scale.set(scale, scale, scale)
       this.scene.add(gltf.scene)
     });
+
+    const map = new TextureLoader().load('/img/home/sprite_arena.png');
+    const material = new SpriteMaterial({ map: map });
+
+    const sprite = new Sprite(material);
+    sprite.translateY(-0.7);
+    sprite.scale.set(8,8,8)
+    this.scene.add(sprite);
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
 
