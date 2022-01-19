@@ -1,19 +1,23 @@
 <script type="ts">
   import { onMount } from 'svelte'
   import threeStore from './store'
+  import lemons from './lemons'
 
   export let nft;
+
+  const lemonSettings = Object.values(lemons)[nft.token_id % 3]
 
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
     const model = new Model({
         dom: 'threejs',
-        lemon: nft.token_id % 2 == 0 ? '/media/Lemon_mecho.glb' : '/media/octopus.glb',
+        lemon: lemonSettings.model,
         rightWeapon: '/media/turel.glb',
         leftWeapon: '/media/turel.glb',
         cam: 12,
-        scale: nft.token_id % 2 == 0 ? 1.1 : 0.7,
-        weaponCoord: nft.token_id % 2 == 0 ? [1.20, 1.10, 0] : [0.80, 1.60, 0],
+        scale: lemonSettings.scale,
+        globalScale: 1,
+        weaponCoord: lemonSettings.weaponCoord,
         translateY: -0.87
     })
     $threeStore.init(model)

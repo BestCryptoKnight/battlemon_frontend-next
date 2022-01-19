@@ -22,6 +22,7 @@
     position: absolute;
     top: 4%;
     left: 4%;
+    color: #cda77f;
   }
   @media screen and (max-width:768px) {
     .logo-home {
@@ -186,7 +187,7 @@
 
   <div class="home-inner">
     <img src="/img/home/main.jpg" class="home-image" alt="Home page">
-    <div class="home-arena cursor-pointer">
+    <div class="home-arena cursor-pointer" on:click={() => goto('/arena')}>
       <img src="/img/home/arena.png" class="w-100" alt="Home arena">
 
     </div>
@@ -245,7 +246,7 @@
 
   </div>
 
-  <a href="/" class="logo-home" style="color: #f0f0f0;">
+  <a href="/" class="logo-home">
     <Logo height={36} />
   </a>		
 
