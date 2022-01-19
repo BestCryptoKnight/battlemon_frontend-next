@@ -188,19 +188,28 @@
     <img src="/img/home/main.jpg" class="home-image" alt="Home page">
     <div class="home-arena cursor-pointer">
       <img src="/img/home/arena.png" class="w-100" alt="Home arena">
+
     </div>
     <img src="/img/home/secondary.png" class="home-secondary" alt="Home secondary">
     <div class="home-stake cursor-pointer">
       <img src="/img/home/stake.png" class="w-100" alt="Home stake">
-    </div>
-    <div class="home-shop cursor-pointer" on:click={() => goto('/shop')}>
-      <img src="/img/home/shop.png" class="w-100" alt="Home shop">
-
       <lottie-player
         autoplay
         loop
         mode="normal"
-        src="/lottie/Shop2.json"
+        src="/lottie/stake.json"
+        class="lottie"
+
+      >
+      </lottie-player>   
+    </div>
+    <div class="home-shop cursor-pointer" on:click={() => goto('/shop')}>
+      <img src="/img/home/shop.png" class="w-100" alt="Home shop">
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        src="/lottie/shop.json"
         class="lottie"
 
       >
@@ -208,9 +217,27 @@
     </div>
     <div class="home-burn cursor-pointer">
       <img src="/img/home/burn.png" class="w-100" alt="Home burn">
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        src="/lottie/burn.json"
+        class="lottie"
+
+      >
+      </lottie-player>   
     </div>
     <div class="home-factory cursor-pointer">
       <img src="/img/home/factory.png" class="w-100" alt="Home factory">
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        src="/lottie/factory.json"
+        class="lottie"
+
+      >
+      </lottie-player>   
     </div>
     <img src="/img/home/bottom_clouds.png" class="home-bottom-clouds" alt="Home bottom clouds">
     <img src="/img/home/top-clouds.png" class="home-top-clouds" alt="Home top clouds">
