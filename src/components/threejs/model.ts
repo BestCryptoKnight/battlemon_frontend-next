@@ -66,12 +66,12 @@ export class Model {
       this.scene.background = new CubeTextureLoader()
         .setPath('/img/arena/')
         .load([
-          'fantasy-px_1024.jpg',
-          'fantasy-nx_1024.jpg',
-          'fantasy-py_1024.jpg',
-          'fantasy-ny_1024.jpg',
-          'fantasy-pz_1024.jpg',
-          'fantasy-nz_1024.jpg'
+          'nx (2).png',
+          'px (2).png',
+          'py (2).png',
+          'ny (2).png',
+          'pz (2).png',
+          'nz (2).png'
         ]);
 
       this.loader.load('/media/postament.glb', (gltf) => {

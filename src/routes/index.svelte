@@ -23,7 +23,7 @@
     position: absolute;
     top: 4%;
     left: 4%;
-    color: #cda77f;
+    color: #f0f0f0;
   }
   @media screen and (max-width:768px) {
     .logo-home {
