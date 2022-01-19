@@ -31,17 +31,16 @@ export class Model {
       this.scene.add(gltf.scene)
     });
 
-    const map = new TextureLoader().load('/img/home/sprite_arena.png');
-    const material = new SpriteMaterial({ map: map });
+    const map = new TextureLoader(manager).load('/img/home/sprite_arena.png');
+    const material = new SpriteMaterial({ map: map, color: 0xffffff, fog: false });
 
     const sprite = new Sprite(material);
-    sprite.translateY(-0.7);
+    sprite.translateY(-1.3);
     sprite.scale.set(8,8,8)
     this.scene.add(sprite);
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
 
-    this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.physicallyCorrectLights = true
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -57,7 +56,7 @@ export class Model {
     this.controls.enablePan = false;
     this.controls.autoRotate = true;
 
-    this.light = new DirectionalLight(0xFFFFFF, 3.5);
+    this.light = new DirectionalLight(0xFDFDFD, 6.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
