@@ -6,9 +6,13 @@
   import near from '$src/utils/near'
   import Arena from '$src/components/threejs/Arena.svelte'
 
+  let delayLighning = false
+
   onMount(async () => {
+    setTimeout(() => {
+      delayLighning = true
+    }, 2500)
     $near.connect()
-    
     await import("@lottiefiles/lottie-player");
   })
 </script>
@@ -196,11 +200,22 @@
         autoplay
         loop
         mode="normal"
-        src="/lottie/molnii.json"
+        src="/lottie/molnii2.json"
         class="lottie"
 
       >
       </lottie-player> 
+      {#if delayLighning}
+        <lottie-player
+          autoplay
+          loop
+          mode="normal"
+          src="/lottie/molnii.json"
+          class="lottie"
+
+        >
+        </lottie-player> 
+      {/if}
     </div>
     <img src="/img/home/secondary.png" class="home-secondary" alt="Home secondary">
     <div class="home-stake cursor-pointer">
