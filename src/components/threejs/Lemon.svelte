@@ -43,7 +43,7 @@
   <div id="threejs" class="threejs">
     
   </div>
-  <div id="loader" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); ">
+  <div id="loader" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;">
     <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   </div>
 </div>

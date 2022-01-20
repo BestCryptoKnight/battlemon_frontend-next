@@ -190,16 +190,17 @@
     <img src="/img/home/main.jpg" class="home-image" alt="Home page">
     <div class="home-arena cursor-pointer" on:click={() => goto('/arena')}>
       <img src="/img/home/arena.png" class="w-100" alt="Home arena">
+      <Arena />
+      <img src="/img/home/molnia.png" class="lottie" alt="Home arena">
       <lottie-player
         autoplay
         loop
         mode="normal"
-        src="/lottie/arena.json"
+        src="/lottie/molnii.json"
         class="lottie"
 
       >
       </lottie-player> 
-      <Arena />
     </div>
     <img src="/img/home/secondary.png" class="home-secondary" alt="Home secondary">
     <div class="home-stake cursor-pointer">
@@ -256,6 +257,12 @@
 
   </div>
 
+  <div id="loader" style="background: #000; position: absolute; left: 0; top: 0; height: 100%; width: 100%; pointer-events: none; transition: all 1s;">
+    <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); ">
+      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+
   <a href="/" class="logo-home">
     <Logo height={36} />
   </a>		
@@ -263,4 +270,6 @@
   <div class="auth-home">
     <Auth />
   </div>  
+
+
 </div>

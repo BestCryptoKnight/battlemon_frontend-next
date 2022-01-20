@@ -1,4 +1,4 @@
-import { Vector3, LoadingManager, CubeTextureLoader, sRGBEncoding, DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, sRGBEncoding, DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -11,6 +11,7 @@ export class Model {
   private dom: HTMLElement
   private controls: OrbitControls
   private light1: DirectionalLight
+  private light2: DirectionalLight
   private loader: GLTFLoader
   private isAnimating: boolean
   private weaponCoord: number[]
@@ -49,7 +50,7 @@ export class Model {
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
 
-    this.renderer.outputEncoding = sRGBEncoding;
+    this.renderer.outputEncoding = LinearEncoding;
     this.renderer.physicallyCorrectLights = true
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -60,20 +61,20 @@ export class Model {
     this.controls.update();
 
     if (arenaBg) {
-      this.controls.minDistance = 20;
-      this.controls.maxDistance = 32;
+      this.controls.minDistance = 25;
+      this.controls.maxDistance = 35;
 
       this.scene.background = new CubeTextureLoader()
         .setPath('/img/arena/')
         .load([
-          'nx (2).png',
-          'px (2).png',
-          'py (2).png',
-          'ny (2).png',
-          'pz (2).png',
-          'nz (2).png'
+          'px.png',
+          'nx.png',
+          'py.png',
+          'ny.png',
+          'pz.png',
+          'nz.png'
         ]);
-
+      
       this.loader.load('/media/postament.glb', (gltf) => {
         gltf.scene.name = 'postament'
         gltf.scene.position.setY(0.5)
@@ -81,9 +82,9 @@ export class Model {
         this.scene.add(gltf.scene)
       });
 
-      const light2 = new DirectionalLight(0xFFFFFF, 2);
-      light2.position.set(0, 100, 0);
-      this.scene.add(light2);
+      const light = new DirectionalLight(0xFFFFFF, 4);
+      light.position.set(0, 100, 0);
+      this.scene.add(light);
 
       this.controls.maxPolarAngle = Math.PI / 1.7;
 
@@ -97,14 +98,17 @@ export class Model {
 
 
     const camPos = this.camera.position
-    this.light1 = new DirectionalLight(0xFFFFFF, 3.5);
-    this.light1.position.set(camPos.x, 0, camPos.z);
+    this.light1 = new DirectionalLight(0xFFFFFF, 4.5);
+    this.light1.position.set(camPos.x, camPos.y + 50, camPos.z);
     this.scene.add(this.light1);
+    this.light2 = new DirectionalLight(0xFFFFFF, 3.5);
+    this.light2.position.set(camPos.x, camPos.y + -10, camPos.z);
+    this.scene.add(this.light2);
     this.scene.scale.set(globalScale, globalScale, globalScale);
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);
-      document.getElementById('loader').style.display = 'none';
+      document.getElementById('loader').style.opacity = '0';
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();
@@ -149,9 +153,8 @@ export class Model {
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
     this.controls.update();
-    this.light1.position.setX(this.camera.position.x);
-    this.light1.position.setZ(this.camera.position.z);
-    this.light1.position.setY(this.camera.position.y);
+    this.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
+    this.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);
     this.renderer.render(this.scene, this.camera);
   }
 }
