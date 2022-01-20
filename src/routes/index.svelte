@@ -9,11 +9,11 @@
   let delayLighning = false
 
   onMount(async () => {
+    $near.connect()
+    await import("@lottiefiles/lottie-player");
     setTimeout(() => {
       delayLighning = true
     }, 2500)
-    $near.connect()
-    await import("@lottiefiles/lottie-player");
   })
 </script>
 
