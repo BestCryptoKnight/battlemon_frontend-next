@@ -10,6 +10,7 @@ export class Model {
   private controls: OrbitControls
   private light: DirectionalLight
   private loader: GLTFLoader
+  private isAnimating: boolean
 
   constructor({ dom, arena, cam, scale, camPos }: { dom: string, arena: string, cam: number, scale: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)
@@ -56,6 +57,7 @@ export class Model {
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
     this.controls.autoRotate = true;
+    this.controls.autoRotateSpeed = 0.7;
 
     this.light = new DirectionalLight(0xAAAAAA, 8.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
@@ -65,7 +67,10 @@ export class Model {
       this.dom.appendChild(this.renderer.domElement);
       document.getElementById('loader').style.opacity = '0';
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
-      this.animate();
+      if (!this.isAnimating) {
+        this.animate();
+        this.isAnimating = true
+      }
     };
 
   }

@@ -20,7 +20,7 @@ export class Model {
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
    */
-  constructor({ dom, lemon, rightWeapon, leftWeapon, cam, scale, weaponCoord, translateY, arenaBg, globalScale }: { dom: string, lemon: string, rightWeapon: string, leftWeapon: string, cam: number, scale: number, weaponCoord: number[], translateY: number, arenaBg?: boolean, globalScale: number}) {
+  constructor({ dom, lemon, rightWeapon, leftWeapon, cam, scale, weaponCoord, translateY, arenaBg, globalScale, light }: { dom: string, lemon: string, rightWeapon: string, leftWeapon: string, cam: number, scale: number, weaponCoord: number[], translateY: number, arenaBg?: boolean, globalScale: number, light: number}) {
     this.dom = document.getElementById(dom)
     this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
     this.weaponCoord = weaponCoord
@@ -82,9 +82,9 @@ export class Model {
         this.scene.add(gltf.scene)
       });
 
-      const light = new DirectionalLight(0xFFFFFF, 4);
-      light.position.set(0, 100, 0);
-      this.scene.add(light);
+      const toplight = new DirectionalLight(0xFFFFFF, 1);
+      toplight.position.set(0, 100, 0);
+      this.scene.add(toplight);
 
       this.controls.maxPolarAngle = Math.PI / 1.7;
 
@@ -98,10 +98,10 @@ export class Model {
 
 
     const camPos = this.camera.position
-    this.light1 = new DirectionalLight(0xFFFFFF, 4.5);
+    this.light1 = new DirectionalLight(0xFFFFFF, light);
     this.light1.position.set(camPos.x, camPos.y + 50, camPos.z);
     this.scene.add(this.light1);
-    this.light2 = new DirectionalLight(0xFFFFFF, 3.5);
+    this.light2 = new DirectionalLight(0xFFFFFF, light - 1.5);
     this.light2.position.set(camPos.x, camPos.y + -10, camPos.z);
     this.scene.add(this.light2);
     this.scene.scale.set(globalScale, globalScale, globalScale);
@@ -132,7 +132,7 @@ export class Model {
   }
 
   async changeEquipment(name: string, model: string): Promise<void> {
-    document.getElementById('loader').style.display = 'block';
+    document.getElementById('loader').style.opacity = '1';
     return new Promise((resolve, reject) => {
       const objectToRemove = this.scene.getObjectByName(name);
       this.loader.load(model, (gltf) => {

@@ -18,7 +18,8 @@
         scale: lemonSettings.scale,
         globalScale: 1,
         weaponCoord: lemonSettings.weaponCoord,
-        translateY: -0.87
+        translateY: -0.87,
+        light: lemonSettings.light
     })
     $threeStore.init(model)
   })

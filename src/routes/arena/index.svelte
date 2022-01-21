@@ -5,7 +5,7 @@
   import Auth from '$src/components/layout/Auth.svelte'
   import near from '$src/utils/near'
 
-  const lemonSettings = lemons.classic
+  const lemonSettings = lemons.octopus
 
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
@@ -19,7 +19,8 @@
         scale: lemonSettings.scale,
         weaponCoord: lemonSettings.weaponCoord,
         translateY: -6.87,
-        arenaBg: true
+        arenaBg: true,
+        light: lemonSettings.light
     })
     $near.connect()
   })
