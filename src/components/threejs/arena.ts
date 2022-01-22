@@ -17,7 +17,7 @@ export class Model {
     this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
 
     this.scene = new Scene();
-    this.scene.translateY(0.3)
+    this.scene.translateY(0.45)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {

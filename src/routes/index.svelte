@@ -5,6 +5,7 @@
   import Auth from '$src/components/layout/Auth.svelte'
   import near from '$src/utils/near'
   import Arena from '$src/components/threejs/Arena.svelte'
+  import Coolers from '$src/components/threejs/Coolers.svelte'
 
 
   onMount(async () => {
@@ -85,10 +86,10 @@
   }
   .home-factory {
     transform: translate(-50%, -50%); 
-    top: 38.5%;
-    left: 16.6%; 
+    top: 41.5%;
+    left: 17.6%; 
     position: absolute;
-    width: 39.8%;
+    width: 35.8%;
     font-size: 0;
   }
   .bottom-gradient {
@@ -240,8 +241,17 @@
       </lottie-player>   
     </div>
     <div class="home-factory cursor-pointer">
-      <img src="/img/home/factory2.png" class="w-100" alt="Home factory">
-  
+      <img src="/img/home/factory.png" class="w-100" alt="Home factory">
+      <Coolers />
+      <lottie-player
+        autoplay
+        loop
+        mode="normal"
+        src="/lottie/factory.json"
+        class="lottie"
+
+      >
+      </lottie-player>   
     </div>
     <img src="/img/home/bottom_clouds.png" class="home-bottom-clouds" alt="Home bottom clouds">
     <img src="/img/home/top-clouds.png" class="home-top-clouds" alt="Home top clouds">
