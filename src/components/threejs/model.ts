@@ -63,6 +63,7 @@ export class Model {
     if (arenaBg) {
       this.controls.minDistance = 25;
       this.controls.maxDistance = 35;
+      this.camera.setViewOffset(this.dom.offsetWidth, this.dom.offsetHeight, this.dom.offsetWidth / 7, 0, this.dom.offsetWidth, this.dom.offsetHeight)
 
       this.scene.background = new CubeTextureLoader()
         .setPath('/img/arena/')
@@ -118,9 +119,24 @@ export class Model {
 
   }
 
-  addEquipment(gltf: GLTF, name: string): void {
+  async changeLemon(lemonSettings: any): Promise<void> {
+    document.getElementById('loader').style.opacity = '1';
+    return new Promise((resolve, reject) => {
+      const objectToRemove = this.scene.getObjectByName('lemon');
+      this.loader.load(lemonSettings.model, (gltf) => {
+        this.scene.remove(objectToRemove);
+        this.addEquipment(gltf, 'lemon', lemonSettings)
+        resolve()
+      });
+    });
+  }
+
+  addEquipment(gltf: GLTF, name: string, settings: any): void {
     const object = gltf.scene
     object.name = name
+    if (name == 'lemon') {
+      object.scale.set(settings.scale, settings.scale, settings.scale)
+    }
     if (name == 'leftWeapon') {
       object.position.set(this.weaponCoord[0], this.weaponCoord[1], this.weaponCoord[2]);
     }

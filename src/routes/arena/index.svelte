@@ -4,12 +4,23 @@
   import Logo from '$src/components/layout/Logo.svelte'
   import Auth from '$src/components/layout/Auth.svelte'
   import near from '$src/utils/near'
+  import Preview from '$src/components/card/Preview.svelte'
+  import type { Model } from '$src/components/threejs/model'
 
-  const lemonSettings = lemons.octopus
+  let lemonSettings = lemons.octopus
+  let model: Model | null = null
+  let listNft = []
+
+  const changeLemon = (nft) => async (e) => {
+    e.preventDefault();
+    if (model) {
+      model.changeLemon(lemons.classic)
+    }
+  }
 
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
-    const model = new Model({
+    model = new Model({
         dom: 'threejs',
         lemon: lemonSettings.model,
         rightWeapon: '/media/turel.glb',
@@ -22,7 +33,8 @@
         arenaBg: true,
         light: lemonSettings.light
     })
-    $near.connect()
+    await $near.connect()
+    listNft = await $near.api.listNft({})
   })
 </script>
 
@@ -32,6 +44,7 @@
     position: relative;
     height: 100vh; 
     width: 100vw;
+    overflow: hidden;
   }
   .threejs {
     position: absolute;
@@ -63,6 +76,21 @@
   <div id="threejs" class="threejs">
     
   </div>
+
+  <div style="background: rgba(0,0,0,0.7); width: 30%; padding: 0 1% 2%; bottom: 5%; top: calc(7% + 40px); right: 3%; position: absolute; border-radius: 20px 0 0 20px; overflow-y: scroll">
+    <h4 class="text-center pt-4 pb-3">My Heroes</h4>
+
+    <div class="row">
+      {#each listNft as nft}
+        <div class="col-6 cursor-pointer" on:click={changeLemon(nft)}>
+          <div style="pointer-events: none;">
+            <Preview fullNft={nft} />
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
+
   <div id="loader" style="background: #000; position: absolute; left: 0; top: 0; height: 100%; width: 100%; pointer-events: none; transition: all 1s;">
     <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); ">
       <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
