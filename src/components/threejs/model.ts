@@ -42,10 +42,10 @@ export class Model {
       this.scene.add(gltf.scene)
     });
     this.loader.load(leftWeapon, (gltf) => {
-      this.addEquipment(gltf, 'leftWeapon')
+      this.addEquipment(gltf, 'leftWeapon', {})
     });
     this.loader.load(rightWeapon, (gltf) => {
-      this.addEquipment(gltf, 'rightWeapon')
+      this.addEquipment(gltf, 'rightWeapon', {})
     });
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
@@ -63,7 +63,7 @@ export class Model {
     if (arenaBg) {
       this.controls.minDistance = 25;
       this.controls.maxDistance = 35;
-      this.camera.setViewOffset(this.dom.offsetWidth, this.dom.offsetHeight, this.dom.offsetWidth / 7, 0, this.dom.offsetWidth, this.dom.offsetHeight)
+      //this.camera.setViewOffset(this.dom.offsetWidth, this.dom.offsetHeight, this.dom.offsetWidth / 7, 0, this.dom.offsetWidth, this.dom.offsetHeight)
 
       this.scene.background = new CubeTextureLoader()
         .setPath('/img/arena/')
@@ -76,16 +76,13 @@ export class Model {
           'nz.png'
         ]);
       
-      this.loader.load('/media/postament.glb', (gltf) => {
+      this.loader.load('/media/postament2.glb', (gltf) => {
         gltf.scene.name = 'postament'
         gltf.scene.position.setY(0.5)
         gltf.scene.scale.set(1, 1, 1)
         this.scene.add(gltf.scene)
       });
 
-      const toplight = new DirectionalLight(0xFFFFFF, 1);
-      toplight.position.set(0, 100, 0);
-      this.scene.add(toplight);
 
       this.controls.maxPolarAngle = Math.PI / 1.7;
 

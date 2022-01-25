@@ -192,7 +192,7 @@
     <div class="home-arena cursor-pointer" on:click={() => goto('/arena')}>
       <img src="/img/home/arena.png" class="w-100" alt="Home arena">
       <Arena />
-      <img src="/img/home/molnia.png" class="lottie" alt="Home arena">
+      <img src="/img/home/whitelightning.png" style="position: absolute; left: 50%; top:78%; transform: translate(-50%, -50%); width: 34%" alt="Home arena">
       <lottie-player
         autoplay
         loop

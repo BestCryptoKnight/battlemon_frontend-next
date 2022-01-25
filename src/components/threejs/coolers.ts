@@ -59,8 +59,8 @@ export class Model {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
 
-    this.light = new DirectionalLight(0x555555, 6.5);
-    this.light.position.set(-10, -5, 30);
+    this.light = new DirectionalLight(0x555555, 4.5);
+    this.light.position.set(10, 5, 30);
     this.scene.add(this.light);
 
     manager.onLoad = () => {
@@ -83,9 +83,9 @@ export class Model {
 
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
-    this.scene.getObjectByName('cooler1').rotation.z -= 0.016;
-    this.scene.getObjectByName('cooler2').rotation.z -= 0.025;
-    this.scene.getObjectByName('cooler3').rotation.z -= 0.02;
+    this.scene.getObjectByName('cooler1').rotation.z -= 0.021;
+    this.scene.getObjectByName('cooler2').rotation.z -= 0.027;
+    this.scene.getObjectByName('cooler3').rotation.z -= 0.011;
     this.renderer.render(this.scene, this.camera);
   }
 }

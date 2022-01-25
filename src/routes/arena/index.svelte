@@ -77,12 +77,12 @@
     
   </div>
 
-  <div style="background: rgba(0,0,0,0.7); width: 30%; padding: 0 1% 2%; bottom: 5%; top: calc(7% + 40px); right: 3%; position: absolute; border-radius: 20px 0 0 20px; overflow-y: scroll">
+  <div style="background: rgba(255,255,255,0.2); width: 15%; padding: 0 1% 2%; bottom: 5%; top: calc(7% + 40px); right: 3%; position: absolute; border-radius: 20px 0 0 20px; overflow-y: scroll">
     <h4 class="text-center pt-4 pb-3">My Heroes</h4>
 
     <div class="row">
       {#each listNft as nft}
-        <div class="col-6 cursor-pointer" on:click={changeLemon(nft)}>
+        <div class="col-12 cursor-pointer" on:click={changeLemon(nft)}>
           <div style="pointer-events: none;">
             <Preview fullNft={nft} />
           </div>
