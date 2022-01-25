@@ -59,7 +59,7 @@ export class Model {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
 
-    this.light = new DirectionalLight(0x555555, 4.5);
+    this.light = new DirectionalLight(0xFFFFFF, 1.6);
     this.light.position.set(10, 5, 30);
     this.scene.add(this.light);
 
