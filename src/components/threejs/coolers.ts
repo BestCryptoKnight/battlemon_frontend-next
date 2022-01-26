@@ -83,9 +83,9 @@ export class Model {
 
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
-    this.scene.getObjectByName('cooler1').rotation.z -= 0.021;
-    this.scene.getObjectByName('cooler2').rotation.z -= 0.027;
-    this.scene.getObjectByName('cooler3').rotation.z -= 0.011;
+    this.scene.getObjectByName('cooler1').rotation.z -= 0.012;
+    this.scene.getObjectByName('cooler2').rotation.z -= 0.015;
+    this.scene.getObjectByName('cooler3').rotation.z -= 0.008;
     this.renderer.render(this.scene, this.camera);
   }
 }

@@ -17,7 +17,7 @@
   const changeLemon = (nft) => async (e) => {
     e.preventDefault();
     if (model) {
-      model.changeLemon(lemons.classic)
+      model.changeLemon(Object.values(lemons)[nft.token_id % 3])
     }
   }
 
@@ -35,19 +35,18 @@
     const { Model } = await import('$src/components/threejs/model')
     model = new Model({
         dom: 'threejs',
-        lemon: lemonSettings.model,
         rightWeapon: '/media/turel.glb',
         leftWeapon: '/media/turel.glb',
         cam: 70,
         globalScale: 5,
-        scale: lemonSettings.scale,
-        weaponCoord: lemonSettings.weaponCoord,
         translateY: -6.87,
         arenaBg: true,
-        light: lemonSettings.light
+        lemonSettings
     })
     await $near.connect()
-    listNft = await $near.api.listNft({})
+    const unsortedList = await $near.api.listNft({})
+    listNft = unsortedList.sort((a,b) => a.token_id - b.token_id)
+
   })
 </script>
 
@@ -90,7 +89,7 @@
     
   </div>
 
-  <div bind:this={heroesDom} class="d-flex battle-arena" style="width: 15%;  bottom: 5%; top: calc(7% + 40px); right: -16%; position: absolute; transition: all 0.5s;">
+  <div bind:this={heroesDom} class="d-flex battle-arena" style="width: 15%;  bottom: 5%; top: calc(9% + 40px); right: -16%; position: absolute; transition: all 0.5s;">
 
       <TabContent class="d-flex flex-column" style="height: 96%; width: 100%;">
         <TabPane tabId="nft" tab="NFT" active class="h-100">
@@ -106,7 +105,7 @@
         </TabPane>
         <TabPane tabId="game" tab="Game" class="h-100">
           <div style="height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 0 0 8px;">
-            {#each listNft.slice(5,8) as nft}
+            {#each listNft.slice(3,6) as nft}
               <div class="col-12 cursor-pointer" on:click={changeLemon(nft)}>
                 <div style="pointer-events: none;">
                   <Preview fullNft={nft} />

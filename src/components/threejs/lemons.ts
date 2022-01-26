@@ -1,4 +1,16 @@
-export default {
+export interface LemonSettings {
+  model: string
+  scale: number
+  weaponCoord: [number, number, number],
+  light: number
+}
+
+export interface Lemons {
+  [key: string]: LemonSettings
+}
+
+
+const lemons: Lemons = {
   classic: {
     model: '/media/Classic_web.glb',
     scale: 0.33,
@@ -18,3 +30,5 @@ export default {
     light: 6.5,
   }
 }
+
+export default lemons;

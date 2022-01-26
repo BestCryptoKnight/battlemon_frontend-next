@@ -11,15 +11,12 @@
     const { Model } = await import('$src/components/threejs/model')
     const model = new Model({
         dom: 'threejs',
-        lemon: lemonSettings.model,
         rightWeapon: '/media/turel.glb',
         leftWeapon: '/media/turel.glb',
         cam: 12,
-        scale: lemonSettings.scale,
         globalScale: 1,
-        weaponCoord: lemonSettings.weaponCoord,
         translateY: -0.87,
-        light: lemonSettings.light
+        lemonSettings
     })
     $threeStore.init(model)
   })
