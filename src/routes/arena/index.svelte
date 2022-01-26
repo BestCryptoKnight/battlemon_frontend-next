@@ -90,7 +90,7 @@
     
   </div>
 
-  <div bind:this={heroesDom} class="d-flex battle-arena" style="width: 15%;  bottom: 5%; top: calc(7% + 40px); right: -16%; position: absolute; transition: all 1.2s;">
+  <div bind:this={heroesDom} class="d-flex battle-arena" style="width: 15%;  bottom: 5%; top: calc(7% + 40px); right: -16%; position: absolute; transition: all 0.5s;">
 
       <TabContent class="d-flex flex-column" style="height: 96%; width: 100%;">
         <TabPane tabId="nft" tab="NFT" active class="h-100">
@@ -129,7 +129,7 @@
     <Logo height={36} />
   </a>		
 
-  <a href="http://161.156.38.90:5011/" style="position: absolute; left: 50%; top: 4%; transform: translate(-50%, 0); color: #fff; font-size: 45px;">FIGHT</a>
+  <a href="http://161.156.38.90:5011/" class="btn btn-primary" style="position: absolute; left: 50%; top: 4%; transform: translate(-50%, 0); font-size: 23px; letter-spacing: 0.1; padding-left: 30px; padding-right: 30px;">FIGHT</a>
 
   <div class="auth-home d-flex">
     <button class="btn btn-light px-3 py-2" on:click={toggleHeroes}>My Heroes</button>
