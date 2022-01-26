@@ -1,5 +1,7 @@
 <script type="ts">
   import { onMount } from 'svelte'
+  
+  import { TabContent, TabPane } from 'sveltestrap'
   import lemons from '$src/components/threejs/lemons'
   import Logo from '$src/components/layout/Logo.svelte'
   import Auth from '$src/components/layout/Auth.svelte'
@@ -10,11 +12,22 @@
   let lemonSettings = lemons.octopus
   let model: Model | null = null
   let listNft = []
+  let heroesDom = null
 
   const changeLemon = (nft) => async (e) => {
     e.preventDefault();
     if (model) {
       model.changeLemon(lemons.classic)
+    }
+  }
+
+  const toggleHeroes = (e) => {
+    e.preventDefault();
+    e.target.classList.toggle("active")
+    if (e.target.classList.contains('active')) {
+      heroesDom.style.right = '3%';
+    } else {
+      heroesDom.style.right = '-16%';
     }
   }
 
@@ -77,18 +90,32 @@
     
   </div>
 
-  <div style="background: rgba(255,255,255,0.2); width: 15%; padding: 0 1% 2%; bottom: 5%; top: calc(7% + 40px); right: 3%; position: absolute; border-radius: 20px 0 0 20px; overflow-y: scroll">
-    <h4 class="text-center pt-4 pb-3">My Heroes</h4>
+  <div bind:this={heroesDom} class="d-flex battle-arena" style="width: 15%;  bottom: 5%; top: calc(7% + 40px); right: -16%; position: absolute; transition: all 1.2s;">
 
-    <div class="row">
-      {#each listNft as nft}
-        <div class="col-12 cursor-pointer" on:click={changeLemon(nft)}>
-          <div style="pointer-events: none;">
-            <Preview fullNft={nft} />
+      <TabContent class="d-flex flex-column" style="height: 96%; width: 100%;">
+        <TabPane tabId="nft" tab="NFT" active class="h-100">
+          <div style="height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 0 0 8px;">
+            {#each listNft as nft}
+              <div class="col-12 cursor-pointer" on:click={changeLemon(nft)}>
+                <div style="pointer-events: none;">
+                  <Preview fullNft={nft} />
+                </div>
+              </div>
+            {/each}
           </div>
-        </div>
-      {/each}
-    </div>
+        </TabPane>
+        <TabPane tabId="game" tab="Game" class="h-100">
+          <div style="height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 0 0 8px;">
+            {#each listNft.slice(5,8) as nft}
+              <div class="col-12 cursor-pointer" on:click={changeLemon(nft)}>
+                <div style="pointer-events: none;">
+                  <Preview fullNft={nft} />
+                </div>
+              </div>
+            {/each}
+          </div>
+        </TabPane>
+      </TabContent>
   </div>
 
   <div id="loader" style="background: #000; position: absolute; left: 0; top: 0; height: 100%; width: 100%; pointer-events: none; transition: all 1s;">
@@ -102,7 +129,11 @@
     <Logo height={36} />
   </a>		
 
-  <div class="auth-home">
-    <Auth />
+  <a href="http://161.156.38.90:5011/" style="position: absolute; left: 50%; top: 4%; transform: translate(-50%, 0); color: #fff; font-size: 45px;">FIGHT</a>
+
+  <div class="auth-home d-flex">
+    <button class="btn btn-light px-3 py-2" on:click={toggleHeroes}>My Heroes</button>
+    &nbsp;&nbsp;
+    <Auth light={true} />
   </div>    
 </div>

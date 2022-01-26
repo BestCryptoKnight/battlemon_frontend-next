@@ -846,9 +846,6 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	.header-inner .nav-list li:not(:first-child) {
 		margin-left: 30px
 	}
-	.login-form-toggle {
-		margin-left: clamp(20px, 3.333333333333333vw, 64px)
-	}
 	main .media-wrap {
 		margin: 0
 	}
@@ -1015,7 +1012,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	padding: 0 20px;
+	padding: 1px 20px 1px;
 	font-size: 15px;
 	-webkit-transition: .2s ease-in-out;
 	-o-transition: .2s ease-in-out;

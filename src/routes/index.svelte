@@ -252,6 +252,7 @@
 
       >
       </lottie-player>   
+      <img src="/img/home/factorytop.png" class="lottie" alt="Home factory">
     </div>
     <img src="/img/home/bottom_clouds.png" class="home-bottom-clouds" alt="Home bottom clouds">
     <img src="/img/home/top-clouds.png" class="home-top-clouds" alt="Home top clouds">
@@ -270,7 +271,7 @@
   </a>		
 
   <div class="auth-home">
-    <Auth />
+    <Auth light={true} />
   </div>  
 
 

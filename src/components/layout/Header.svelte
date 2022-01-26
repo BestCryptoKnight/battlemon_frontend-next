@@ -24,7 +24,7 @@
 
       {#if $near.connected}
         <div class="nav-wrap">
-          <nav class="nav">
+          <nav class="nav pe-5 me-4">
             <ul class="nav-list">
               {#if $near.signedIn }
                 <li class:active={$page.url.pathname === '/kitchen'}><a href={'/kitchen'}>Your Kitchen</a></li>

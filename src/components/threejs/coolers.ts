@@ -33,14 +33,14 @@ export class Model {
       cooler1.position.set(0, -0.76, 0)
       cooler1.rotateY(0.58)
       cooler1.rotation.z = 1.296;
-      const cooler1scale = 0.67
+      const cooler1scale = 0.72
       cooler1.scale.set(cooler1scale, cooler1scale, cooler1scale)
       this.scene.add(cooler1)
 
       cooler2.name = 'cooler2'
       cooler2.position.set(1.09, -0.91, 0)
       cooler2.rotateY(0.55)
-      const cooler2scale = 0.54
+      const cooler2scale = 0.63
       cooler2.scale.set(cooler2scale, cooler2scale, cooler2scale)
       this.scene.add(cooler2)
 
@@ -48,7 +48,7 @@ export class Model {
       cooler3.position.set(-1.47, 1.21, 0)
       cooler1.rotation.z = 0.78;
       cooler3.rotateY(0.49)
-      const cooler3scale = 0.68
+      const cooler3scale = 0.71
       cooler3.scale.set(cooler3scale, cooler3scale, cooler3scale)
       this.scene.add(cooler3)
     });
@@ -59,7 +59,7 @@ export class Model {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
 
-    this.light = new DirectionalLight(0xFFFFFF, 1.6);
+    this.light = new DirectionalLight(0xFFFFFF, 1.2);
     this.light.position.set(10, 5, 30);
     this.scene.add(this.light);
 

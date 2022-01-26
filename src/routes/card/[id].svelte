@@ -195,7 +195,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 position-relative left-column">
+    <div class="col-md-6 position-relative left-column battle-card">
 
       <div class="mt-1">
 

@@ -93,32 +93,49 @@ h1, h2, h3 {
 }
 
 /* Start Tabs */
-.nav-tabs {
+.battle-arena .nav-tabs {
+  border-bottom: none;
+}
+.battle-arena .nav-link {
+  border: none;
+  margin-bottom: 0;
+  padding:12px 25px 9px;
+  font-size: 17px;
+  color: #fff;
+}
+.battle-arena .nav-link.active {
+  border-radius: 8px 8px 0 0;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  margin-bottom: 0;
+}
+
+.battle-card .nav-tabs {
   border-color: var(--inverse);
   font-size: 22px;
 }
-.nav-tabs .nav-link {
+.battle-card .nav-tabs .nav-link {
   padding: 15px 22px 13px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   color: var(--inverse);
 }
-.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+.battle-card .nav-tabs .nav-link:hover, .battle-card .nav-tabs .nav-link:focus {
   color: var(--inverse);
 }
-.nav-tabs .nav-link:not(.active) {
+.battle-card .nav-tabs .nav-link:not(.active) {
   border: none;
 }
-.nav-tabs .nav-link:not(.active):hover {
+.battle-card .nav-tabs .nav-link:not(.active):hover {
   border: none;
   background: var(--opacity-bg);
 }
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+.battle-card .nav-tabs .nav-item.show .nav-link, .battle-card .nav-tabs .nav-link.active {
   color: var(--inverse);
   background-color: var(--primary);
   border-color: var(--inverse) var(--inverse) var(--primary);
 }
-.tab-pane {
+.battle-card .tab-pane {
   padding: 15px 0 0 10px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -218,4 +235,22 @@ h1, h2, h3 {
 .tippy-menu-list li {
   padding: 2px 0;
   font-size: 16px;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background-color:rgba(0,0,0,0.06);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color:#fff;
+}
+
+.btn-light.active {
+  background-color: #ddeaff;
 }
