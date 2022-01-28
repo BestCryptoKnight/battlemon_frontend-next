@@ -5,7 +5,7 @@
 
   export let nft;
 
-  const lemonSettings = Object.values(lemons)[nft.token_id % 3]
+  const lemonSettings = Object.values(lemons)[nft.token_id % 4]
 
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')

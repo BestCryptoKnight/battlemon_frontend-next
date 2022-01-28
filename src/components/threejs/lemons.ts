@@ -28,6 +28,12 @@ const lemons: Lemons = {
     scale: 1,
     weaponCoord: [1.05, 1.30, 0],
     light: 6.5,
+  },
+  magnet: {
+    model: '/media/Magnet_web.glb',
+    scale: 0.7,
+    weaponCoord: [0.80, 1.65, 0],
+    light: 5.5,
   }
 }
 

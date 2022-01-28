@@ -205,16 +205,8 @@
     </div>
     <img src="/img/home/secondary.png" class="home-secondary" alt="Home secondary">
     <div class="home-stake cursor-pointer">
-      <img src="/img/home/stake.png" class="w-100" alt="Home stake">
-      <lottie-player
-        autoplay
-        loop
-        mode="normal"
-        src="/lottie/stake.json"
-        class="lottie"
-
-      >
-      </lottie-player>   
+      <img src="/img/home/stake3.gif" class="w-100" alt="Home stake">
+      <img src="/img/home/stake2.png" class="lottie" alt="Home stake">
     </div>
     <div class="home-shop cursor-pointer" on:click={() => goto('/shop')}>
       <img src="/img/home/shop.png" class="w-100" alt="Home shop">

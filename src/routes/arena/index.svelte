@@ -17,7 +17,7 @@
   const changeLemon = (nft) => async (e) => {
     e.preventDefault();
     if (model) {
-      model.changeLemon(Object.values(lemons)[nft.token_id % 3])
+      model.changeLemon(Object.values(lemons)[nft.token_id % 4])
     }
   }
 
