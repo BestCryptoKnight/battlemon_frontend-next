@@ -9,7 +9,8 @@
 
   const inventoryItems = [
     { image: "/img/weapon/mix1a.png", model: "/media/turel.glb" },
-    { image: "/img/weapon/minigun.png", model: "/media/minigun.glb" }
+    { image: "/img/weapon/flamethrower.png", model: "/media/flamethrower.glb" },
+    { image: "/img/weapon/lazergun.png", model: "/media/lazergun.glb" }
   ]
 
   onMount(() => {

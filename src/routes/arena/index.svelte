@@ -9,13 +9,14 @@
   import Preview from '$src/components/card/Preview.svelte'
   import type { Model } from '$src/components/threejs/model'
 
-  let lemonSettings = lemons.octopus
   let model: Model | null = null
   let listNft = []
   let heroesDom = null
+  let currentNft = null
 
   const changeLemon = (nft) => async (e) => {
     e.preventDefault();
+    currentNft = nft
     if (model) {
       model.changeLemon(Object.values(lemons)[nft.token_id % 4])
     }
@@ -32,6 +33,12 @@
   }
 
   onMount(async () => {
+    await $near.connect()
+    const unsortedList = await $near.api.listNft({})
+    listNft = unsortedList.sort((a,b) => a.token_id - b.token_id)
+    currentNft = listNft[0]
+
+    let lemonSettings = Object.values(lemons)[currentNft.token_id % 4]
     const { Model } = await import('$src/components/threejs/model')
     model = new Model({
         dom: 'threejs',
@@ -43,10 +50,6 @@
         arenaBg: true,
         lemonSettings
     })
-    await $near.connect()
-    const unsortedList = await $near.api.listNft({})
-    listNft = unsortedList.sort((a,b) => a.token_id - b.token_id)
-
   })
 </script>
 
@@ -95,7 +98,7 @@
         <TabPane tabId="nft" tab="NFT" active class="h-100">
           <div style="height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 0 0 8px;">
             {#each listNft as nft}
-              <div class="col-12 cursor-pointer" on:click={changeLemon(nft)}>
+              <div class="col-12 cursor-pointer" on:click={changeLemon(nft)} style={'border: 1px solid transparent; ' + (currentNft === nft ? 'background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.2)' : '')}>
                 <div style="pointer-events: none;">
                   <Preview fullNft={nft} />
                 </div>
@@ -128,7 +131,9 @@
     <Logo height={36} />
   </a>		
 
-  <a href="http://161.156.38.90:5011/" class="btn btn-primary" style="position: absolute; left: 50%; top: 4%; transform: translate(-50%, 0); font-size: 23px; letter-spacing: 0.1; padding-left: 30px; padding-right: 30px;">FIGHT</a>
+  <a href="http://161.156.38.90:5011/" style="position: absolute; left: 50%; top: 7%; transform: translate(-50%, -50%); width: 20%; max-width: 300px;">
+    <img src="/img/fight2.png" alt="Fight" style="width: 100%;" />
+  </a>
 
   <div class="auth-home d-flex">
     <button class="btn btn-light px-3 py-2" on:click={toggleHeroes}>My Heroes</button>
