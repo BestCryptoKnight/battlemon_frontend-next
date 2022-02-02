@@ -131,8 +131,8 @@
     <Logo height={36} />
   </a>		
 
-  <a href="http://161.156.38.90:5011/" style="position: absolute; left: 50%; top: 7%; transform: translate(-50%, -50%); width: 20%; max-width: 300px;">
-    <img src="/img/fight2.png" alt="Fight" style="width: 100%;" />
+  <a href="http://161.156.38.90:5050/" style="position: absolute; left: 50%; top: 7%; transform: translate(-50%, -50%); width: 20%; max-width: 160px;">
+    <img src="/img/fight1.png" alt="Fight" style="width: 100%;" />
   </a>
 
   <div class="auth-home d-flex">
