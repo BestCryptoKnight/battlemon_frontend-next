@@ -131,7 +131,7 @@
     <Logo height={36} />
   </a>		
 
-  <a href="http://161.156.38.90:5050/" style="position: absolute; left: 50%; top: 7%; transform: translate(-50%, -50%); width: 20%; max-width: 160px;">
+  <a href="http://161.156.38.90:5050/" style="position: absolute; left: 72%; top: 61%; transform: translate(-50%, -50%); width: 18%; max-width: 250px;">
     <img src="/img/fight1.png" alt="Fight" style="width: 100%;" />
   </a>
 
