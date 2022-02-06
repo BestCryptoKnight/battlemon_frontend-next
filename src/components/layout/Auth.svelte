@@ -22,11 +22,11 @@
 {#if $near.connected}
   {#if !$near.signedIn }
     {#if light}
-      <button class="btn btn-light px-3" on:click={() => $near.api.signIn()}>
+      <button class="btn btn-light" style="width: 15vw; max-width: 198px;" on:click={() => $near.api.signIn()}>
         Sign In
       </button>
     {:else}
-      <button class="login-form-toggle button not-logined" on:click={() => $near.api.signIn()}>
+      <button class="btn btn-primary" on:click={() => $near.api.signIn()}>
         Sign In
       </button>
     {/if}

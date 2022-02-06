@@ -23,6 +23,7 @@
     "near-api-esm": "^0.43.2",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",
+    "sass": "^1.49.7",
     "svelte": "^3.44.1",
     "svelte-check": "^2.2.6",
     "svelte-click-outside": "^1.0.0",

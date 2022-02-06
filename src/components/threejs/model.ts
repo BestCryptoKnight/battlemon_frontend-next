@@ -67,6 +67,7 @@ export class Model {
     this.controls = new OrbitControls(this.camera, this.dom)
     this.camera.position.set(0, 0, 25);
     this.controls.update();
+    this.controls.enablePan = false;
 
     if (this.isArena) {
       this.controls.minDistance = 25;
@@ -98,7 +99,6 @@ export class Model {
       this.controls.minPolarAngle = Math.PI / 2;
       this.controls.maxPolarAngle = Math.PI / 2;
       this.controls.enableZoom = false;
-      this.controls.enablePan = false;
       this.controls.autoRotate = true;
     }
 

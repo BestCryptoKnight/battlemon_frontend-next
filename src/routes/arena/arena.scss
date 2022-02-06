@@ -1,0 +1,101 @@
+
+.threejs-container {
+  position: relative; height: 100vh;  width: 100vw; overflow: hidden;
+}
+.threejs {
+  position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+}
+.btn .icon {
+  position: relative; top: -2px;
+  &+span {
+    margin-left: 10px;
+  }
+}
+.top-menu {
+  position: absolute;
+  left: 50%;
+  top: 3.8%;
+  transform: translateX(-50%);
+  .btn {
+    margin: 0 5px;
+  }
+  @media (min-width: 1400px) {
+    .one-width {
+      width: 13vw;
+      max-width: 160px
+    }
+  }
+}
+.my-heroes-btn {
+  width: 15vw; max-width: 198px; top: calc(6% + 90px); left: 3%; position: absolute; transition: all 0.5s;
+}
+.my-heroes-block {
+  width: 15vw; max-width: 198px;  height: calc(90% - 180px); top: calc(6% + 150px); left: -16%; position: absolute; transition: all 0.5s;
+}
+.my-heroes-block-bg {
+  height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 6px 6px 6px;
+}
+.my-heroes-link {
+  border: 1px solid transparent;
+  &.active {
+    background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.2)
+  }
+}
+.juice {
+  position: absolute; left: 3%; top: calc(5% + 50px); font-size: 17px; font-weight: 600; color: #f4d070;
+}
+.fight-btn {
+  position: absolute; right: 3%; bottom: 6%; width: 15vw; max-width: 198px;
+  img {
+    max-width: 100%;
+  }
+}
+
+.right-col {
+  width: 15vw; max-width: 198px; top: calc(6% + 90px); right: 3%; position: absolute;
+}
+.trials-block {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 10px 10px 15px;
+  h2 {
+    color: #fbd14b;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px 8px 3px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.2);
+  }
+}
+.trial {
+  position: relative;
+  padding: 9px 8px 12px;
+  h3 {
+    font-weight: 400;
+    font-size: 16px;
+    padding-right: 20px;
+  }
+}
+.progress {
+  background: #6e798b;
+  height: 8px;
+  border-radius: 2px;
+  &-bar {
+    background: #fbd14b;
+  }
+  span {
+    position: absolute;
+    right: 9px;
+    bottom:23px
+  }
+}
+
+.nav-tabs {
+  border-bottom: none;
+  .nav-link {
+    border: none; margin-bottom: 0; padding:12px 15px 9px; color: #fff;
+    &.active {
+      border-radius: 8px 8px 0 0; color: #fff; background: rgba(255,255,255,0.2); margin-bottom: 0;
+    }
+  }
+}

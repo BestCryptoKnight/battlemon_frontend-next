@@ -1,41 +1,21 @@
 <script type="ts">
-  import { goto } from '$app/navigation';
-  import { onMount } from 'svelte'
-  import Logo from '$src/components/layout/Logo.svelte'
-  import Auth from '$src/components/layout/Auth.svelte'
-  import near from '$src/utils/near'
-  import Arena from '$src/components/threejs/Arena.svelte'
-  import Coolers from '$src/components/threejs/Coolers.svelte'
+import { goto } from '$app/navigation';
+import { onMount } from 'svelte'
+import Logo from '$src/components/layout/Logo.svelte'
+import Auth from '$src/components/layout/Auth.svelte'
+import near from '$src/utils/near'
+import Arena from '$src/components/threejs/Arena.svelte'
+import Coolers from '$src/components/threejs/Coolers.svelte'
+import Loader from '$src/components/layout/Loader.svelte';
 
 
-  onMount(async () => {
-    $near.connect()
-    await import("@lottiefiles/lottie-player");
-  })
+onMount(async () => {
+  $near.connect()
+  await import("@lottiefiles/lottie-player");
+})
 </script>
 
 <style>
-  .link {
-    position: absolute;
-    background: transparent;
-    padding: 20px;
-  }
-  .logo-home {
-    position: absolute;
-    top: 4%;
-    left: 4%;
-    color: #f0f0f0;
-  }
-  @media screen and (max-width:768px) {
-    .logo-home {
-      display: none;
-    }
-  }
-  .auth-home {
-    position: absolute;
-    top: 3.8%;
-    right: 3%;
-  }
   .home {
     background: #626690;
     background: linear-gradient(to bottom, #626690 0%,#626690 50%,#6a90b1 50%,#6a90b1 100%);
@@ -252,11 +232,7 @@
 
   </div>
 
-  <div id="loader" style="background: #000; position: absolute; left: 0; top: 0; height: 100%; width: 100%; pointer-events: none; transition: all 1s;">
-    <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); ">
-      <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    </div>
-  </div>
+  <Loader />
 
   <a href="/" class="logo-home">
     <Logo height={36} />

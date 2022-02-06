@@ -9,6 +9,14 @@
   cursor: pointer;
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
 body {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -27,19 +35,21 @@ h1, h2, h3 {
 }
 
 .btn {
-  border-radius: 50px;
+  border-radius: 10px;
   text-align: center;
-  padding: 13px 15px 11px;
+  padding: 10px 15px 9px;
 }
 
 .btn-primary {
   background-color: var(--primary);
   border-color: var(--inverse);
   color: var(--inverse);
-  font-family: Raleway;
-  font-weight: bold;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+}
+
+.btn-light {
+  background-color: transparent;
+  border-color: rgba(255,255,255, 0.8);
+  color: #fff;
 }
 
 
@@ -93,23 +103,6 @@ h1, h2, h3 {
 }
 
 /* Start Tabs */
-.battle-arena .nav-tabs {
-  border-bottom: none;
-}
-.battle-arena .nav-link {
-  border: none;
-  margin-bottom: 0;
-  padding:12px 25px 9px;
-  font-size: 17px;
-  color: #fff;
-}
-.battle-arena .nav-link.active {
-  border-radius: 8px 8px 0 0;
-  color: #fff;
-  background: rgba(255,255,255,0.2);
-  margin-bottom: 0;
-}
-
 .battle-card .nav-tabs {
   border-color: var(--inverse);
   font-size: 22px;
@@ -237,6 +230,25 @@ h1, h2, h3 {
   font-size: 16px;
 }
 
+
+
+.logo-home {
+  position: absolute;
+  top: 4%;
+  left: 3%;
+  color: #f0f0f0;
+}
+@media screen and (max-width:768px) {
+  .logo-home {
+    display: none;
+  }
+}
+.auth-home {
+  position: absolute;
+  top: 3.8%;
+  right: 3%;
+}
+
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -249,8 +261,4 @@ h1, h2, h3 {
 ::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background-color:#fff;
-}
-
-.btn-light.active {
-  background-color: #ddeaff;
 }
