@@ -44,8 +44,58 @@
 .juice {
   position: absolute; left: 3%; top: calc(5% + 50px); font-size: 17px; font-weight: 600; color: #f4d070;
 }
-.fight-btn {
-  position: absolute; right: 3%; bottom: 6%; width: 15vw; max-width: 198px;
+
+.props {
+  width: 600px;
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  transform: translateX(-50%);
+  .level-text {
+    font-size: 22px;
+    font-weight: 700;
+    padding-bottom: 5px;
+  }
+  .orange {
+    color: #fbd14b;
+  }
+  .gray {
+    color: #57616b;
+  }
+}
+
+.props-stats {
+  background: rgba(50,50,50,0.7);
+  border: 1px solid rgba(100,100,100,0.7);
+  padding: 0px 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+  color: rgba(255,255,255, 0.9);
+  .col-6 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .left-col {
+    border-right: 1px solid rgba(100,100,100,0.7);
+  }
+  table td {
+    padding: 5px 0;
+  }
+}
+
+.fight-block {
+  position: absolute; right: 3%; bottom: 6%;
+  .countdown {
+    margin-left: auto;
+    padding-bottom: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    display: block;
+    width: 70px;
+  }
+  .fight-btn {
+    width: 15vw; max-width: 198px; display: block;
+  }
   img {
     max-width: 100%;
   }
@@ -77,7 +127,7 @@
   }
 }
 .progress {
-  background: #6e798b;
+  background: #57616b;
   height: 8px;
   border-radius: 2px;
   &-bar {

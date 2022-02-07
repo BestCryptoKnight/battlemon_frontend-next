@@ -18,6 +18,7 @@ import statistic from '$src/components/svg/statistic';
 import people from '$src/components/svg/people';
 import settings from '$src/components/svg/settings';
 import world from '$src/components/svg/world';
+import Countdown from './Countdown.svelte';
 
 let model: Model | null = null
 let listNft = []
@@ -163,9 +164,72 @@ onMount(async () => {
     </div>
   </div>
 
-  <a href="http://161.156.38.90:5050/" class="fight-btn">
-    <img src="/img/fight1.png" alt="Fight" />
-  </a>
+  <div class="fight-block">
+    <div class="countdown"><Countdown /></div>
+    <a href="http://161.156.38.90:5050/" class="fight-btn">
+      <img src="/img/fight1.png" alt="Fight" />
+    </a>
+  </div>
+
+  <div class="props">
+    <div class="level">
+      <div class="row">
+        <div class="col-6 level-text orange">15</div>
+        <div class="col-6 level-text text-end gray">16</div>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 75%;"></div>
+      </div>
+    </div>
+    <div class="props-stats">
+      <div class="row">
+        <div class="col-6 left-col">
+          <table class="w-100">
+            <tr>
+              <td class="text-end">Class</td>
+              <td class="w-100 px-4">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 40%;"></div>
+                </div>
+              </td>
+              <td>Middle</td>
+            </tr>
+            <tr>
+              <td class="text-end">Attack</td>
+              <td class="w-100 px-4">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 80%;"></div>
+                </div>
+              </td>
+              <td>79%</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-6">
+          <table class="w-100">
+            <tr>
+              <td class="text-end">Move</td>
+              <td class="w-100 px-4">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 95%;"></div>
+                </div>
+              </td>
+              <td>Fast</td>
+            </tr>
+            <tr>
+              <td class="text-end">Protection</td>
+              <td class="w-100 px-4">
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 35%;"></div>
+                </div>
+              </td>
+              <td>47%</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="auth-home d-flex">
     <Auth light={true} />

@@ -480,7 +480,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 }
 
 .login-form-toggle {
-	--btn-h: 41px;
+	--btn-h: 45px;
 	position: relative;
 	padding: 0 25px
 }
