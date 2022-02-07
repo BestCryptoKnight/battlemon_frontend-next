@@ -26,8 +26,8 @@
     }
   }
 }
-.my-heroes-btn {
-  width: 15vw; max-width: 198px; top: calc(6% + 90px); left: 3%; position: absolute; transition: all 0.5s;
+.three-buttons {
+  top: calc(6% + 90px); left: 3%; position: absolute; transition: all 0.5s;
 }
 .my-heroes-block {
   width: 15vw; max-width: 198px;  height: calc(90% - 180px); top: calc(6% + 150px); left: -16%; position: absolute; transition: all 0.5s;
@@ -38,7 +38,7 @@
 .my-heroes-link {
   border: 1px solid transparent;
   &.active {
-    background: rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.2)
+    background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.2)
   }
 }
 .juice {

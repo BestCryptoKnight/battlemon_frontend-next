@@ -19,6 +19,8 @@ import people from '$src/components/svg/people';
 import settings from '$src/components/svg/settings';
 import world from '$src/components/svg/world';
 import Countdown from './Countdown.svelte';
+import weapon from '$src/components/svg/weapon';
+import bag from '$src/components/svg/bag';
 
 let model: Model | null = null
 let listNft = []
@@ -67,10 +69,17 @@ onMount(async () => {
 <div class="threejs-container arena">
   <div id="threejs" class="threejs"></div>
 
-  <button class="btn btn-light d-flex my-heroes-btn" on:click={toggleHeroes}>
-    <span class="icon" style="min-width: 30px;">{@html lemon}</span>
-    <span class="w-100">My Heroes</span>
-  </button>
+  <div class="three-buttons d-flex">
+    <button class="btn btn-light d-flex px-2 mx-1" on:click={toggleHeroes}>
+      <div class="icon" style="min-width: 32px;">{@html lemon}</div>
+    </button>
+    <button class="btn btn-light d-flex px-2 mx-1">
+      <div class="icon" style="min-width: 32px;">{@html weapon}</div>
+    </button>
+    <button class="btn btn-light d-flex mx-1" style="padding-left: 12px; padding-right: 12px;">
+      <div class="icon" style="min-width: 25px;">{@html bag}</div>
+    </button>
+  </div>
   
   <div bind:this={heroesDom} class="d-flex my-heroes-block">
     <TabContent class="d-flex flex-column w-100" style="height: 95%;">
