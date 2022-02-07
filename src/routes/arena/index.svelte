@@ -198,19 +198,19 @@ onMount(async () => {
               <td class="text-end">Class</td>
               <td class="w-100 px-4">
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 40%;"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 80%;"></div>
                 </div>
               </td>
-              <td>Middle</td>
+              <td>Heavy</td>
             </tr>
             <tr>
               <td class="text-end">Attack</td>
               <td class="w-100 px-4">
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 80%;"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 71%;"></div>
                 </div>
               </td>
-              <td>79%</td>
+              <td>71%</td>
             </tr>
           </table>
         </div>
@@ -220,19 +220,19 @@ onMount(async () => {
               <td class="text-end">Move</td>
               <td class="w-100 px-4">
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 95%;"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 25%;"></div>
                 </div>
               </td>
-              <td>Fast</td>
+              <td>Slow</td>
             </tr>
             <tr>
               <td class="text-end">Protection</td>
               <td class="w-100 px-4">
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 35%;"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 97%;"></div>
                 </div>
               </td>
-              <td>47%</td>
+              <td>97%</td>
             </tr>
           </table>
         </div>
