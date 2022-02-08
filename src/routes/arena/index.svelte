@@ -21,6 +21,11 @@ import world from '$src/components/svg/world';
 import Countdown from './Countdown.svelte';
 import weapon from '$src/components/svg/weapon';
 import bag from '$src/components/svg/bag';
+import discord from '$src/components/svg/discord';
+import medium from '$src/components/svg/medium';
+import github from '$src/components/svg/github';
+import twitter from '$src/components/svg/twitter';
+import telegram from '$src/components/svg/telegram';
 
 let model: Model | null = null
 let listNft = []
@@ -70,19 +75,27 @@ onMount(async () => {
   <div id="threejs" class="threejs"></div>
 
   <div class="three-buttons d-flex">
-    <button class="btn btn-light d-flex px-2 mx-1" on:click={toggleHeroes}>
-      <div class="icon" style="min-width: 32px;">{@html lemon}</div>
+    <button class="btn btn-light d-flex mx-1 active" style="padding-left: 13px; padding-right: 13px;" on:click={toggleHeroes}>
+      <div class="icon pointer-events-none" style="min-width: 32px;">{@html lemon}</div>
     </button>
-    <button class="btn btn-light d-flex px-2 mx-1">
+    <button class="btn btn-light d-flex mx-1" style="padding-left: 13px; padding-right: 13px;">
       <div class="icon" style="min-width: 32px;">{@html weapon}</div>
     </button>
-    <button class="btn btn-light d-flex mx-1" style="padding-left: 12px; padding-right: 12px;">
+    <button class="btn btn-light d-flex mx-1" style="padding-left: 16px; padding-right: 16px;">
       <div class="icon" style="min-width: 25px;">{@html bag}</div>
     </button>
   </div>
+
+  <div class="socials">
+    <a href={'#'}>{@html twitter}</a>
+    <a href={'#'}>{@html medium}</a>
+    <a href={'#'}>{@html github}</a>
+    <a href={'#'}>{@html discord}</a>
+    <a href={'#'}>{@html telegram}</a>
+  </div>
   
   <div bind:this={heroesDom} class="d-flex my-heroes-block">
-    <TabContent class="d-flex flex-column w-100" style="height: 95%;">
+    <TabContent class="d-flex flex-column w-100">
       <TabPane tabId="nft" tab="NFT" active class="h-100">
         <div class="my-heroes-block-bg">
           {#each listNft as nft}
@@ -117,10 +130,10 @@ onMount(async () => {
   </div>
 
   <div class="top-menu d-flex">
-    <button class="btn btn-light d-flex one-width">
+    <a class="btn btn-light d-flex one-width" href="/shop">
       <span class="icon" style="min-width: 22px; ">{@html shop}</span>
       <span class="w-100">Shop</span>
-    </button>
+    </a>
     <button class="btn btn-light d-flex one-width">
       <span class="icon" style="min-width: 27px; ">{@html battlepass}</span>
       <span class="w-100 nowrap">Battle pass</span>
@@ -149,25 +162,44 @@ onMount(async () => {
 
   <div class="right-col">
     <div class="trials-block">
-      <h2>
-        Trials of the Day
-      </h2>
-      <div class="trial">
-        <h3>Win 5 fights</h3>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 66%;"><span>3/5</span></div>
+      <div class="trials-hoverable">
+        <h2>
+          Task
+        </h2>
+        <div class="trial">
+          <h3>Defeat the Viking enemy in "Capture" battle mode 10 times</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 80%;"><span>8/10</span></div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a class="more" href={'#'}>Open</a>
         </div>
       </div>
-      <div class="trial">
-        <h3>Increase the rank of weapons</h3>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 100%;"><span>1/1</span></div>
+      <div class="trials-hoverable">
+        <h2>
+          Trials of the Day
+        </h2>
+        <div class="trial">
+          <h3>Win 5 fights</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 66%;"><span>3/5</span></div>
+          </div>
         </div>
-      </div>
-      <div class="trial">
-        <h3>Play 7 matches</h3>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 15%;"><span>1/7</span></div>
+        <div class="trial">
+          <h3>Increase the rank of weapons</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 100%;"><span>1/1</span></div>
+          </div>
+        </div>
+        <div class="trial">
+          <h3>Play 7 matches</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 15%;"><span>1/7</span></div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a class="more" href={'#'}>View all</a>
         </div>
       </div>
     </div>

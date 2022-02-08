@@ -21,5 +21,4 @@
   <a class="filter-menu-link" href={itemsPath} class:active={$page.url.pathname === itemsPath}>Items</a>
   <a class="filter-menu-link" href={''}>Battle Pass</a>
   <a class="filter-menu-link" href={''}>Skins</a>
-  <a class="filter-menu-link" href={''}>Land</a>
 </div>

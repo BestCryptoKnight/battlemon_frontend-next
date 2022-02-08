@@ -1,6 +1,6 @@
 <script lang="ts">
 import { onMount } from 'svelte'
-let c = 5200
+let c = 5400
 let h: string = ''
 let m: string = ''
 let s: string = ''

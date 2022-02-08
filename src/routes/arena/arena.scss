@@ -28,12 +28,26 @@
 }
 .three-buttons {
   top: calc(6% + 90px); left: 3%; position: absolute; transition: all 0.5s;
+  margin: 0 -5px;
 }
 .my-heroes-block {
-  width: 15vw; max-width: 198px;  height: calc(90% - 180px); top: calc(6% + 150px); left: -16%; position: absolute; transition: all 0.5s;
+  width: 15vw; max-width: 198px;  height: calc(86% - 200px); top: calc(6% + 150px); left: 3%; position: absolute; transition: all 0.5s;
 }
+
+.socials {
+  position: absolute; 
+  bottom: 3%;
+  left: 3%;
+  white-space: nowrap;
+  a {
+    margin: 0 0.5vw;
+    width: 22px;
+    display: inline-block;
+  }
+}
+
 .my-heroes-block-bg {
-  height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 6px 6px 6px;
+  height: 100%; background: rgba(255,255,255,0.2);  overflow: hidden scroll; border-radius: 0 4px 4px 4px;
 }
 .my-heroes-link {
   border: 1px solid transparent;
@@ -103,27 +117,44 @@
 
 .right-col {
   width: 15vw; max-width: 198px; top: calc(6% + 90px); right: 3%; position: absolute;
+  overflow-y: auto;
+  bottom: calc(6% + 120px);
+  border-radius: 6px;
 }
 .trials-block {
   background: rgba(0,0,0,0.2);
-  border-radius: 10px;
-  padding: 10px 10px 15px;
+  padding: 9px 7px 10px 10px;
+  border-radius:0 0 6px 6px;
+  .trials-hoverable {
+    transition: all 0.5s;
+    border-radius: 6px;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+    &:hover {
+      background: rgba(0,0,0,0.3)
+    }
+  }
   h2 {
     color: #fbd14b;
     font-size: 18px;
     font-weight: 500;
-    padding: 5px 8px 3px;
     border-radius: 3px;
-    background: rgba(0,0,0,0.2);
+  }
+  a.more {
+    font-size: 15px;
+    color: #9aa9c2;
+    display: block;
+    padding: 5px 0 0px 0;
   }
 }
 .trial {
   position: relative;
-  padding: 9px 8px 12px;
+  padding: 5px 0px 5px 0;
   h3 {
     font-weight: 400;
-    font-size: 16px;
-    padding-right: 20px;
+    line-height: 120%;
+    font-size: 15px;
+    padding-right: 25px;
   }
 }
 .progress {
@@ -135,8 +166,8 @@
   }
   span {
     position: absolute;
-    right: 9px;
-    bottom:23px
+    right: 2px;
+    bottom:16px
   }
 }
 

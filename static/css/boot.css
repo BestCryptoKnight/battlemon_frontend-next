@@ -51,7 +51,14 @@ h1, h2, h3 {
   border-color: rgba(255,255,255, 0.8);
   color: #fff;
 }
-
+.btn-light:focus {
+  background: transparent;
+  color: #fff;
+}
+.btn-light.active {
+  background: #fff;
+  color: #000;
+}
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary.active {
   background-color: var(--inverse);
@@ -250,15 +257,15 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 3px;
+    border-radius: 8px;
     background-color:rgba(0,0,0,0.06);
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color:#fff;
+    border-radius: 8px;
+    background-color:rgba(0,0,0,0.2);
 }
