@@ -137,12 +137,12 @@ import weapon from '$src/components/svg/weapon';
             <div style="min-width: 38px;">{@html lemon}</div>
           </button>
           &nbsp;
-          <button class="btn btn-primary px-3 pt-1 pb-2" on:click={openInventory}>
-            <div style="min-width: 24px;">{@html bag}</div>
-          </button>
-          &nbsp;
           <button class="btn btn-primary pt-1 pb-2" style="padding-left: 12px; padding-right: 12px;" on:click={openInventory}>
             <div style="min-width: 28px;">{@html weapon}</div>
+          </button>
+          &nbsp;
+          <button class="btn btn-primary px-3 pt-1 pb-2" on:click={openInventory}>
+            <div style="min-width: 24px;">{@html bag}</div>
           </button>
         </div>
 
