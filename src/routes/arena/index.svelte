@@ -87,11 +87,11 @@ onMount(async () => {
   </div>
 
   <div class="socials">
-    <a href={'#'}>{@html twitter}</a>
-    <a href={'#'}>{@html medium}</a>
-    <a href={'#'}>{@html github}</a>
-    <a href={'#'}>{@html discord}</a>
-    <a href={'#'}>{@html telegram}</a>
+    <a href={'https://twitter.com/BATTLEM0N'}>{@html twitter}</a>
+    <a href={'https://medium.com/@Battlemon'}>{@html medium}</a>
+    <a href={'https://github.com/battlemon-project'}>{@html github}</a>
+    <a href={'https://dsc.gg/battlemon'}>{@html discord}</a>
+    <a href={'https://t.me/Battlemon'}>{@html telegram}</a>
   </div>
   
   <div bind:this={heroesDom} class="d-flex my-heroes-block">

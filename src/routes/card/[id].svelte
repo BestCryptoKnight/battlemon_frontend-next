@@ -172,7 +172,7 @@ import weapon from '$src/components/svg/weapon';
           {/if}
         {/if}
 
-        <div class="d-flex gap-3 justify-content-around pt-3 mb-4" class:disabled={!$near.signedIn}>
+        <div class="d-flex gap-4 justify-content-around pt-3 mb-4 px-5" class:disabled={!$near.signedIn}>
           {#if nft.owner_id === $near.user.id}
           
             {#if nftOnSale}

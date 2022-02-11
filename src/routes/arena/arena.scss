@@ -1,6 +1,6 @@
-
 .threejs-container {
   position: relative; height: 100vh;  width: 100vw; overflow: hidden;
+  color: #fff;
 }
 .threejs {
   position: absolute; top: 0; left: 0; bottom: 0; right: 0;
@@ -38,11 +38,13 @@
   position: absolute; 
   bottom: 3%;
   left: 3%;
+  width: 15vw;
+  max-width: 198px;
   white-space: nowrap;
+  display: flex;
+  justify-content: space-between;
   a {
-    margin: 0 0.5vw;
     width: 22px;
-    display: inline-block;
   }
 }
 
