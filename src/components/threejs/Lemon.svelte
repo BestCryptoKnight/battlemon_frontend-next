@@ -48,7 +48,7 @@ import download from '../svg/download';
   }
 </style>
 
-<div style="width: 30px; height: 30px; position: absolute; z-index: 100; left: 35px; top: 25px; color: rgba(255,255,255,0.3); cursor: pointer;" on:click={() => {$threeStore.model.screenShot(nft.token_id)}}>{@html download}</div>
+<!-- <div style="width: 30px; height: 30px; position: absolute; z-index: 100; left: 35px; top: 25px; color: rgba(255,255,255,0.3); cursor: pointer;" on:click={() => {$threeStore.model.screenShot(nft.token_id)}}>{@html download}</div> -->
 <div class="threejs-container">
   <div id="threejs" class="threejs">
     
