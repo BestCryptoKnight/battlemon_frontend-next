@@ -3,7 +3,7 @@
   import WeaponPreview from '$src/components/card/WeaponPreview.svelte'
   import TopMenu from '$src/components/filter/TopMenu.svelte'
 
-  let images = ["mix2a.png", "mix1a.png", "Big_optic2a.png", "Big_optic1a.png", "10a.png","9a.png","8a.png", "7a.png", "6a.png", "5a.png", "2a.png", "1a.png"]
+  let images = ["mix1a.png", "Big_optic2a.png", "Big_optic1a.png", "10a.png","9a.png","8a.png", "7a.png", "6a.png", "5a.png", "2a.png", "1a.png"]
 </script>
 
 <section class="catalog">

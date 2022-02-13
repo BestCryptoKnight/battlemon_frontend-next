@@ -3,7 +3,7 @@
   import WeaponPreview from '$src/components/card/WeaponPreview.svelte'
   import near from '$src/utils/near'
 
-  let images = ["mix2a.png", "Big_optic1a.png", "10a.png","9a.png","8a.png"]
+  let images = ["Big_optic1a.png", "10a.png","9a.png","8a.png"]
 </script>
 
 <style>

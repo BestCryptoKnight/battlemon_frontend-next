@@ -8,6 +8,16 @@ import download from '../svg/download';
 
   const lemonSettings = Object.values(lemons)[nft.token_id % 4]
 
+  const backgrounds = [
+    '/img/postaments/red.jpg',
+    '/img/postaments/blue.jpg',
+    '/img/postaments/green.jpg',
+    '/img/postaments/lightblue.jpg',
+    '/img/postaments/orange.jpg',
+    '/img/postaments/purple.jpg',
+    '/img/postaments/yellow.jpg'
+  ]
+
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
     const model = new Model({
@@ -17,7 +27,7 @@ import download from '../svg/download';
         cam: 12,
         globalScale: 1,
         translateY: -1.27,
-        background: "/img/postaments/red.jpg",
+        background: backgrounds[nft.token_id % 7],
         lemonSettings
     })
     $threeStore.init(model)
