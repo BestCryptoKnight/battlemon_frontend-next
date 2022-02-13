@@ -131,7 +131,7 @@ import weapon from '$src/components/svg/weapon';
     <div class="col-md-6 position-relative">
       <Lemon nft={nft} />
 
-      <div style="z-index: 10; position: relative">
+      <div class="mt-4" style="z-index: 10; position: relative">
         <div class="text-center mb-4" style="width: 100%;">
           <button class="btn btn-primary px-2 pt-1 pb-2" on:click={openResources}>
             <div style="min-width: 38px;">{@html lemon}</div>

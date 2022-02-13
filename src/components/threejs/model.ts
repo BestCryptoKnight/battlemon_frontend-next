@@ -1,4 +1,4 @@
-import { Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, sRGBEncoding, DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { TextureLoader, SpriteMaterial, Sprite, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, sRGBEncoding, DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -27,7 +27,7 @@ export class Model {
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
    */
-  constructor({ dom, rightWeapon, leftWeapon, translateY, cam, arenaBg, globalScale, lemonSettings }: { dom: string, rightWeapon: string, leftWeapon: string, cam: number, translateY: number, arenaBg?: boolean, globalScale: number, lemonSettings: LemonSettings}) {
+  constructor({ dom, rightWeapon, leftWeapon, translateY, cam, arenaBg, globalScale, lemonSettings, background }: { dom: string, rightWeapon: string, leftWeapon: string, cam: number, translateY: number, arenaBg?: boolean, globalScale: number, lemonSettings: LemonSettings, background?: string}) {
     this.dom = document.getElementById(dom)
     this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
     this.sceneObjects = {};
@@ -56,7 +56,7 @@ export class Model {
       this.addObject(gltf, 'rightWeapon')
     });
 
-    this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
+    this.renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true  });
 
     this.renderer.outputEncoding = LinearEncoding;
     this.renderer.physicallyCorrectLights = true
@@ -102,6 +102,11 @@ export class Model {
       this.controls.autoRotate = true;
     }
 
+    if (background) {
+      const map = new TextureLoader(manager).load(background);
+      this.scene.background = map;
+    }
+
     this.scene.scale.set(globalScale, globalScale, globalScale);
     this.sceneLights.light1 = new DirectionalLight(0xFFFFFF);
     this.sceneLights.light2 = new DirectionalLight(0xFFFFFF);
@@ -136,6 +141,22 @@ export class Model {
     });
   }
 
+  screenShot(name) {
+    this.controls.minAzimuthAngle = -0.7
+    this.controls.maxAzimuthAngle = -0.7
+    setTimeout(() => {
+      const imgData = this.renderer.domElement.toDataURL("image/png");
+      //window.location.href = imgData.replace("image/png", "image/octet-stream")
+      const link = document.createElement('a')
+      link.download = `${name}.png`
+      link.href = imgData
+      link.click()
+      link.remove()
+      this.controls.minAzimuthAngle = 0
+      this.controls.maxAzimuthAngle = Infinity
+    }, 200)
+  }
+
   addObject(gltf: GLTF, name: string): void {
     const object = gltf.scene
     this.sceneObjects[name] = object
@@ -164,11 +185,12 @@ export class Model {
     this.sceneLights.light2.intensity = this.lemonSettings.light - 1.5
   }
 
-  async changeEquipment(name: string, model: string): Promise<void> {
+  async changeEquipment(name: string, item: { image: string, model: string, scale: number }): Promise<void> {
     document.getElementById('loader').style.opacity = '1';
     return new Promise((resolve) => {
       const objectToRemove = this.scene.getObjectByName(name);
-      this.loader.load(model, (gltf) => {
+      this.loader.load(item.model, (gltf) => {
+        gltf.scene.scale.set(item.scale,item.scale,item.scale)
         this.scene.remove(objectToRemove);
         this.addObject(gltf, name)
         resolve()

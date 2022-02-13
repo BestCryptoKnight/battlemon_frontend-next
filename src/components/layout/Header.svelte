@@ -31,7 +31,7 @@
               {/if}
               <li class:active={$page.url.pathname === '/shop'}><a href={'/shop'}>Shop</a></li>
               <li class:active={$page.url.pathname === '/paid'}><a href={'/paid'}>Paid</a></li>
-              <li><a href={'#'}>Game</a></li>
+              <li><a href={'/arena'}>Game</a></li>
             </ul>
           </nav>
 

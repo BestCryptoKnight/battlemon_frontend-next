@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import threeStore from './store'
   import lemons from './lemons'
+import download from '../svg/download';
 
   export let nft;
 
@@ -15,7 +16,8 @@
         leftWeapon: '/media/turel.glb',
         cam: 12,
         globalScale: 1,
-        translateY: -0.87,
+        translateY: -1.27,
+        background: "/img/postaments/red.jpg",
         lemonSettings
     })
     $threeStore.init(model)
@@ -24,7 +26,7 @@
 
 <style>
   .threejs-container {
-    padding-top: 90%;
+    padding-top: 100%;
     position: relative;
   }
   .threejs {
@@ -36,8 +38,8 @@
   }
 </style>
 
+<div style="width: 30px; height: 30px; position: absolute; z-index: 100; left: 35px; top: 25px; color: rgba(255,255,255,0.3); cursor: pointer;" on:click={() => {$threeStore.model.screenShot(nft.token_id)}}>{@html download}</div>
 <div class="threejs-container">
-  <img src="/img/postaments/1.png" alt="postament" style="width: 100%; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); "/>
   <div id="threejs" class="threejs">
     
   </div>

@@ -15,7 +15,7 @@
 {#if fullNft}
   <div class="img-box">
     <a href={`/card/${fullNft.token_id}`}>
-      <img class="cursor-pointer" src={`/img/${fullNft.token_id % 2}.jpg`} alt={fullNft.metadata.title} />
+      <img class="cursor-pointer" src={fullNft.metadata.media} alt={fullNft.metadata.title} />
     </a>
   </div>
 {/if}

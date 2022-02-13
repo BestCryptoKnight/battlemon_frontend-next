@@ -8,9 +8,9 @@
   export let isOpen = false;
 
   const inventoryItems = [
-    { image: "/img/weapon/mix1a.png", model: "/media/turel.glb" },
-    { image: "/img/weapon/flamethrower.png", model: "/media/flamethrower.glb" },
-    { image: "/img/weapon/lazergun.png", model: "/media/lazergun.glb" }
+    { image: "/img/weapon/mix1a.png", model: "/media/turel.glb", scale: 1 },
+    { image: "/img/weapon/flamethrower.png", model: "/media/flamethrower.glb", scale: 0.8 },
+    { image: "/img/weapon/lazergun.png", model: "/media/lazergun.glb", scale: 0.7 }
   ]
 
   onMount(() => {
@@ -32,10 +32,10 @@
     e.preventDefault();
     tippy.hide();
     if (name == 'leftWeapon') {
-      await $threeStore.model.changeEquipment(name, item.model)
+      await $threeStore.model.changeEquipment(name, item)
     }
     if (name == 'rightWeapon') {
-      await $threeStore.model.changeEquipment(name, item.model)
+      await $threeStore.model.changeEquipment(name, item)
     }
     threeStore.update(s => ({...s, changed: true}))
   }

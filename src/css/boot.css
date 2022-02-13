@@ -40,7 +40,7 @@ h1, h2, h3 {
   padding: 10px 15px 9px;
 }
 
-.btn-primary {
+.btn-primary, .btn-primary:disabled, .btn-primary.disabled {
   background-color: var(--primary);
   border-color: var(--inverse);
   color: var(--inverse);
@@ -66,6 +66,7 @@ h1, h2, h3 {
   color: var(--primary);
   box-shadow: none;
 }
+
 
 .form-control, .form-control:focus {
   border-radius: 50px;
