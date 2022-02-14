@@ -242,17 +242,33 @@ h1, h2, h3 {
 
 .logo-home {
   position: absolute;
-  top: 4%;
   left: 3%;
   color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  height: 45.25px;
+  top: 3.8%;
+  width: 15vw;
+  max-width: 198px;
+  text-align: center;
 }
+.logo-home:hover {
+  color: #000;
+  background: #fff;
+  transition: all 0.7s;
+}
+
 @media screen and (max-width:768px) {
   .logo-home {
     display: none;
   }
 }
 .auth-home {
+  margin-top: 1px;
   position: absolute;
+  width: 15vw;
+  max-width: 198px;
   top: 3.8%;
   right: 3%;
 }

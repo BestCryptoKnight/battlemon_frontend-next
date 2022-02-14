@@ -123,7 +123,7 @@ onMount(async () => {
     </div>
 
     <a href="/" class="logo-home">
-      <Logo height={36} />
+      <Logo height={24} />
     </a>		
 
     <div class="juice">

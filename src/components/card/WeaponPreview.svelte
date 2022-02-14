@@ -5,7 +5,7 @@
 <style>
   .img-box {
     padding: 5px;
-    border-radius: 15px;
+    border-radius: 1px;
     background-color: var(--opacity-bg);
   }
 </style>

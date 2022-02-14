@@ -496,14 +496,13 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 }
 
 .catalog-filter .search {
-	display: -webkit-box;
-	display: -ms-flexbox;
+	margin-right: 10px;
 	display: flex;
-	height: 40px;
+	height: 45px;
 	position: relative;
 	padding: 0 20px 0 34px;
 	border-radius: 9px;
-	font-size: 12px;
+	font-size: 15px;
 	margin-bottom: 30px
 }
 
@@ -993,6 +992,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 }
 
 .pa-preview {
+	width: 100%;
 	position: relative;
 	-webkit-box-align: center;
 	-ms-flex-align: center;

@@ -9,7 +9,7 @@ let activeFilter = 'option'
 
 <form class="catalog-filter" action="">
   <label class="search">
-    <input type="text" placeholder="Search by serial number" />
+    <input type="text" placeholder="Search" />
   </label>
 
   <div class="details" on:click={() => activeFilter = 'option'} class:active={activeFilter === 'option'}>

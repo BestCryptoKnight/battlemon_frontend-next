@@ -27,7 +27,7 @@
           <nav class="nav pe-5 me-4">
             <ul class="nav-list">
               {#if $near.signedIn }
-                <li class:active={$page.url.pathname === '/kitchen'}><a href={'/kitchen'}>Your Kitchen</a></li>
+                <li class:active={$page.url.pathname === '/kitchen'}><a href={'/kitchen'}>Your&nbsp;Kitchen</a></li>
               {/if}
               <li class:active={$page.url.pathname === '/shop'}><a href={'/shop'}>Shop</a></li>
               <li class:active={$page.url.pathname === '/paid'}><a href={'/paid'}>Paid</a></li>

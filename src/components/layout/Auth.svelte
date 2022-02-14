@@ -54,7 +54,7 @@
         </span>
       </span>
 
-      <span class="name">{ $near.user.id.split('.')[0] }</span>
+      <span class="name" style="text-transform: uppercase">{ $near.user.id.split('.').map(x => x.charAt(0)).join('') }</span>
 
       <div class="pa-preview-nav">
         <a href={"#"} on:click|preventDefault ={() => { $near.api.signOut(); $near.api.signIn() }}>Switch</a>
