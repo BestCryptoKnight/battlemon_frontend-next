@@ -16,8 +16,8 @@
         <span class="line"></span>
       </button>
     
-      <a href="/" class="logo img-box">
-        <Logo height={36} />
+      <a href="/" class="logo-home text-center" style="position: static;">
+        <Logo height={23} />
       </a>		
       
       <ThemeSwitcher />
