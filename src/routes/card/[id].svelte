@@ -134,15 +134,15 @@ import weapon from '$src/components/svg/weapon';
       <div class="mt-4" style="z-index: 10; position: relative">
         <div class="text-center mb-4" style="width: 100%;">
           <button class="btn btn-primary px-2 pt-1 pb-2" on:click={openResources}>
-            <div style="min-width: 38px;">{@html lemon}</div>
+            <div style="min-width: 38px;">{@html lemon(32,30)}</div>
           </button>
           &nbsp;
           <button class="btn btn-primary pt-1 pb-2" style="padding-left: 12px; padding-right: 12px;" on:click={openInventory}>
-            <div style="min-width: 28px;">{@html weapon}</div>
+            <div style="min-width: 28px;">{@html weapon(30,30)}</div>
           </button>
           &nbsp;
           <button class="btn btn-primary px-3 pt-1 pb-2" on:click={openInventory}>
-            <div style="min-width: 24px;">{@html bag}</div>
+            <div style="min-width: 24px;">{@html bag(25,30)}</div>
           </button>
         </div>
 
@@ -172,31 +172,31 @@ import weapon from '$src/components/svg/weapon';
           {/if}
         {/if}
 
-        <div class="d-flex gap-4 justify-content-around pt-3 mb-4 px-5" class:disabled={!$near.signedIn}>
+        <div class="d-flex justify-content-around pt-3 mb-4 px-5" class:disabled={!$near.signedIn}>
           {#if nft.owner_id === $near.user.id}
           
             {#if nftOnSale}
               <div class="w-100">
                 <div class="d-flex gap-3 justify-content-around">
-                  <button class="btn btn-primary col" on:click={sellNft}>Change price</button>
-                  <button class="btn btn-primary col" on:click={transferNft}>Transfer</button>
+                  <button class="btn btn-primary col mx-2" on:click={sellNft}>Change price</button>
+                  <button class="btn btn-primary col mx-2" on:click={transferNft}>Transfer</button>
                 </div>
                 <div class="d-flex gap-3 justify-content-around pt-3">
-                  <button class="btn btn-primary col">Cancel price</button>
-                  <button class="btn btn-primary col">Rent</button>
+                  <button class="btn btn-primary col mx-2">Cancel price</button>
+                  <button class="btn btn-primary col mx-2">Rent</button>
                 </div>
               </div>
             {:else}
-              <button class="btn btn-primary col" on:click={sellNft}>Sell</button>
-              <button class="btn btn-primary col" on:click={transferNft}>Transfer</button>
-              <button class="btn btn-primary col">Rent</button>
+              <button class="btn btn-primary col mx-2" on:click={sellNft}>Sell</button>
+              <button class="btn btn-primary col mx-2" on:click={transferNft}>Transfer</button>
+              <button class="btn btn-primary col mx-2">Rent</button>
             {/if}
               
             
           {:else}
-            <button class="btn btn-primary col" on:click={buyNft} class:disabled={!nftOnSale}>Buy now</button>
-            <button class="btn btn-primary col" on:click={offerNft}>Make offer</button>
-            <button class="btn btn-primary col" class:disabled={!nftOnSale} on:click={rentNft}>Rent</button>
+            <button class="btn btn-primary col mx-2" on:click={buyNft} class:disabled={!nftOnSale}>Buy now</button>
+            <button class="btn btn-primary col mx-2" on:click={offerNft}>Make offer</button>
+            <button class="btn btn-primary col mx-2" class:disabled={!nftOnSale} on:click={rentNft}>Rent</button>
           {/if}
         </div>
       </div>

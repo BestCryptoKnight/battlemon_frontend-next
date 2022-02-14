@@ -77,13 +77,13 @@ onMount(async () => {
 
     <div class="three-buttons d-flex">
       <button class="btn btn-light d-flex mx-1 active" style="padding-left: 13px; padding-right: 13px;" on:click={toggleHeroes}>
-        <div class="icon pointer-events-none" style="min-width: 32px;">{@html lemon}</div>
+        <div class="icon pointer-events-none" style="min-width: 32px;">{@html lemon(32,30)}</div>
       </button>
       <button class="btn btn-light d-flex mx-1" style="padding-left: 13px; padding-right: 13px;">
-        <div class="icon" style="min-width: 32px;">{@html weapon}</div>
+        <div class="icon" style="min-width: 32px;">{@html weapon(30,30)}</div>
       </button>
       <button class="btn btn-light d-flex mx-1" style="padding-left: 16px; padding-right: 16px;">
-        <div class="icon" style="min-width: 25px;">{@html bag}</div>
+        <div class="icon" style="min-width: 25px;">{@html bag(25,30)}</div>
       </button>
     </div>
 

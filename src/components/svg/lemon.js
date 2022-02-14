@@ -1,4 +1,4 @@
-export default `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+export default (w,h) => `<svg width="${w}" height="${h}" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 31.83 19.91" style="enable-background:new 0 0 31.83 19.91;" xml:space="preserve">
 <path fill="currentColor" d="M31.74,8.82c-0.08-0.14-0.22-0.27-0.41-0.41s-0.43-0.3-0.72-0.49c-1.16-0.76-1.68,0.16-1.68,0.16L28.22,9.2
 	c0,0-0.34,0.03-0.47,0.18c-0.07,0.11-0.15,0.21-0.22,0.31c-0.22,0.29-0.42,0.55-0.46,0.91c-0.13,0.08-0.19,0.16-0.19,0.16

@@ -502,7 +502,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	height: 40px;
 	position: relative;
 	padding: 0 20px 0 34px;
-	border-radius: 20px;
+	border-radius: 9px;
 	font-size: 12px;
 	margin-bottom: 30px
 }
@@ -524,29 +524,29 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	background: url(/img/svg/search.svg) center/cover no-repeat
 }
 
-.catalog-filter details:not(:first-child) {
+.catalog-filter .details:not(:first-child) {
 	margin-top: 27px
 }
-
-.catalog-filter summary {
-	list-style: none;
+.catalog-filter .details ul {
+	display: none;
 }
-.catalog-filter summary::-moz-list-bullet,
-.catalog-filter summary::-webkit-details-markerfont-size {
-	list-style-type: none;
-	font-size: 0
+.catalog-filter .details.active ul {
+	display: block;
 }
 
-.catalog-filter summary::marker {
-	font-size: 0
+.catalog-filter .details.active .arrow {
+	display: block;
+	transform: scale(1, -1);
+}
+.catalog-filter .arrow {
+	left: -5px;
+	position: absolute;
 }
 
-.catalog-filter summary {
-	display: -webkit-inline-box;
-	display: -ms-inline-flexbox;
+.catalog-filter h2 {
+	padding: 0 0 0 23px;
+	margin: 0;
 	display: inline-flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
 	align-items: center;
 	padding-bottom: 3px;
 	font-size: 17px;
@@ -554,17 +554,6 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	cursor: pointer
 }
 
-.catalog-filter summary:before {
-	content: '';
-	-ms-flex-negative: 0;
-	flex-shrink: 0;
-	width: 14px;
-	height: 8px;
-	margin-right: 8px;
-	-webkit-transition: .2s ease-in-out;
-	-o-transition: .2s ease-in-out;
-	transition: .2s ease-in-out
-}
 
 .catalog-filter li {
 	margin-top: 10px;
