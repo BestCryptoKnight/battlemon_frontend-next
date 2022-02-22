@@ -25,7 +25,7 @@
 <section class="catalog">
   <Filter />
   <div class="catalog-inner">
-    <div class="mx-auto" style="max-width: 560px; top: -40px; position: relative;">
+    <div class="mx-auto" style="max-width: 600px; top: -40px; position: relative;">
       <img src="/img/lemon-party.png" alt="lemon-party" class="img-fluid" />
     </div>
     <div class="text-center">

@@ -498,10 +498,12 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	display: flex;
 	height: 45px;
 	position: relative;
-	padding: 0 20px 0 34px;
-	border-radius: 9px;
+	padding: 0 20px 0 26px;
 	font-size: 15px;
 	margin-bottom: 30px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
 	width: 15vw;
 	max-width: 198px;
 }
@@ -518,7 +520,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	left: 12px;
+	left: 5px;
 	margin: auto;
 	background: url(/img/svg/search.svg) center/cover no-repeat
 }
