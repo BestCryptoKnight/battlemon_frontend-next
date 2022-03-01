@@ -24,7 +24,7 @@ export class Model {
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
    */
-  constructor({ dom, rightWeapon, leftWeapon, translateY, cam, arenaBg, globalScale, lemonSettings, background }: { dom: string, rightWeapon: string, leftWeapon: string, cam: number, translateY: number, arenaBg?: boolean, globalScale: number, lemonSettings: LemonSettings, background?: string}) {
+  constructor({ dom, rightWeapon, leftWeapon, translateY, cam, arenaBg, globalScale, lemonSettings, background, rotate = true, callback }: { dom: string, rightWeapon: string, leftWeapon: string, cam: number, translateY: number, arenaBg?: boolean, globalScale: number, lemonSettings: LemonSettings, background?: string, rotate?: boolean, callback?: () => void}) {
     this.dom = document.getElementById(dom)
     this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
     this.sceneObjects = {};
@@ -95,6 +95,10 @@ export class Model {
     } else {
       this.controls.minPolarAngle = Math.PI / 2;
       this.controls.maxPolarAngle = Math.PI / 2;
+      if (!rotate) {
+        this.controls.minAzimuthAngle = 0
+        this.controls.maxAzimuthAngle = 0
+      }
       this.controls.enableZoom = false;
       this.controls.autoRotate = true;
     }
@@ -113,7 +117,9 @@ export class Model {
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);
-      document.getElementById('loader').style.opacity = '0';
+      const loader = document.getElementById('loader')
+      if (loader) loader.style.opacity = '0';
+      if (callback) callback()
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();
