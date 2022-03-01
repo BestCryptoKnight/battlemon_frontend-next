@@ -1,4 +1,4 @@
-import { TextureLoader, SpriteMaterial, Sprite, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, sRGBEncoding, DirectionalLight, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -7,12 +7,9 @@ import type { LemonSettings } from './lemons'
 export class Model {
   private camera: PerspectiveCamera;
   private scene: Scene;
-  private mesh: Mesh;
   private renderer: WebGLRenderer;
   private dom: HTMLElement
   private controls: OrbitControls
-  private light1: DirectionalLight
-  private light2: DirectionalLight
   private loader: GLTFLoader
   private isAnimating: boolean
   private lemonSettings: LemonSettings
