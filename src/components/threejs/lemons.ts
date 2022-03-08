@@ -12,16 +12,16 @@ export interface Lemons {
 
 const lemons: Lemons = {
   classic: {
-    model: '/media/Classic_web.glb',
-    scale: 0.33,
-    weaponCoord: [1.12, 1.05, 0],
+    model: '/media/Character_A.glb',
+    scale: 1.5,
+    weaponCoord: [101.12, 101.05, 0],
     light: 4.5,
   },
   octopus: {
-    model: '/media/Octopus_web.glb',
-    scale: 0.7,
-    weaponCoord: [0.80, 1.60, 0],
-    light: 5.5,
+    model: '/media/Character_A.glb',
+    scale: 1.5,
+    weaponCoord: [100.80, 101.60, 0],
+    light: 4.5,
   },
   gaul: {
     model: '/media/Gaul_web.glb',
