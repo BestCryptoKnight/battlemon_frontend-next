@@ -18,10 +18,10 @@ const lemons: Lemons = {
     light: 4.5,
   },
   octopus: {
-    model: '/media/Character_A.glb',
-    scale: 1.5,
+    model: '/media/Character_A_linear.glb',
+    scale: 1.8,
     weaponCoord: [100.80, 101.60, 0],
-    light: 4.5,
+    light: 2,
   },
   gaul: {
     model: '/media/Gaul_web.glb',
