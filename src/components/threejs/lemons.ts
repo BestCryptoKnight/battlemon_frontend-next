@@ -21,7 +21,7 @@ const lemons: Lemons = {
     model: '/media/Character_A_linear.glb',
     scale: 1.8,
     weaponCoord: [100.80, 101.60, 0],
-    light: 2,
+    light: 3.5,
   },
   gaul: {
     model: '/media/Gaul_web.glb',

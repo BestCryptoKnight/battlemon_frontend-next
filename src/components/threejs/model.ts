@@ -1,4 +1,4 @@
-import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, sRGBEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -55,7 +55,7 @@ export class Model {
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true  });
 
-    this.renderer.outputEncoding = sRGBEncoding;
+    this.renderer.outputEncoding = LinearEncoding;
     this.renderer.physicallyCorrectLights = true
     this.renderer.toneMappingExposure = 0.5
     this.renderer.setClearColor(0x000000, 0); // the default
