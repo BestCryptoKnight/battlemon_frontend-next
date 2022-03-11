@@ -12,10 +12,10 @@ export interface Lemons {
 
 const lemons: Lemons = {
   classic: {
-    model: '/media/Character_A.glb',
-    scale: 1.5,
+    model: '/media/BTLMN_Character_A_Alien.glb',
+    scale: 1.8,
     weaponCoord: [101.12, 101.05, 0],
-    light: 4.5,
+    light: 3.5,
   },
   octopus: {
     model: '/media/Character_A_linear.glb',
@@ -24,17 +24,17 @@ const lemons: Lemons = {
     light: 3.5,
   },
   gaul: {
-    model: '/media/Gaul_web.glb',
-    scale: 1,
-    weaponCoord: [1.05, 1.30, 0],
-    light: 6.5,
+    model: '/media/BTLMN_Character_A_Soldier.glb',
+    scale: 1.8,
+    weaponCoord: [101.12, 101.05, 0],
+    light: 3.5,
   },
   magnet: {
-    model: '/media/Magnet_web.glb',
-    scale: 0.7,
-    weaponCoord: [0.80, 1.65, 0],
-    light: 5.5,
-  }
+    model: '/media/BTLMN_Character_A_Zombie.glb',
+    scale: 1.8,
+    weaponCoord: [101.12, 101.05, 0],
+    light: 3.5,
+  },
 }
 
 export default lemons;
