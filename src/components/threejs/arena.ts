@@ -12,12 +12,12 @@ export class Model {
   private loader: GLTFLoader
   private isAnimating: boolean
 
-  constructor({ dom, arena, cam, scale, camPos }: { dom: string, arena: string, cam: number, scale: number, camPos: number[] }) {
+  constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)
-    this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
+    this.camera = new PerspectiveCamera(cam, 1);
 
     this.scene = new Scene();
-    this.scene.translateY(0.45)
+    this.scene.translateY(3.41)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -28,7 +28,7 @@ export class Model {
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
-      gltf.scene.scale.set(scale, scale, scale)
+      gltf.scene.scale.set(0.6, 0.6, 0.6)
       this.scene.add(gltf.scene)
     });
 
@@ -36,8 +36,8 @@ export class Model {
     const material = new SpriteMaterial({ map: map, color: 0xffffff, fog: false });
 
     const sprite = new Sprite(material);
-    sprite.translateY(1.4);
-    sprite.scale.set(6,6,6)
+    sprite.translateY(0.8);
+    sprite.scale.set(3,3,3)
     this.scene.add(sprite);
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
@@ -45,12 +45,12 @@ export class Model {
     this.renderer.physicallyCorrectLights = true
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
+    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
 
     this.controls = new OrbitControls(this.camera, this.dom)
     this.camera.position.set(camPos[0], camPos[1], camPos[2]);
     this.controls.update();
-    const polarAngle = Math.PI / 1.7
+    const polarAngle = Math.PI / 1.8
     this.controls.minPolarAngle = polarAngle;
     this.controls.maxPolarAngle = polarAngle;
     this.controls.enableRotate = false;
@@ -59,7 +59,7 @@ export class Model {
     this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = 0.7;
 
-    this.light = new DirectionalLight(0xAAAAAA, 8.5);
+    this.light = new DirectionalLight(0xDDDDDD, 8.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
@@ -76,10 +76,10 @@ export class Model {
   }
 
   private onWindowResize(): void {
-    this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
+    this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
+    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
   }
 
   private animate(): void {

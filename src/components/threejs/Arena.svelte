@@ -7,8 +7,7 @@
       dom: 'arena',
       arena: '/media/two_ring.glb',
       cam: 28,
-      camPos: [0, 0, -25],
-      scale: 1
+      camPos: [0, 5, -25]
     })
   })
 </script>

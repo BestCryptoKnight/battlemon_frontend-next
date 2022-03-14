@@ -15,25 +15,25 @@ const lemons: Lemons = {
     model: '/media/BTLMN_Character_A_Alien.glb',
     scale: 1.8,
     weaponCoord: [101.12, 101.05, 0],
-    light: 4,
+    light: 3.8,
   },
   octopus: {
     model: '/media/BTLMN_Character_A_Soldier.glb',
     scale: 1.8,
     weaponCoord: [100.80, 101.60, 0],
-    light: 4,
+    light: 3.8,
   },
   gaul: {
     model: '/media/BTLMN_Character_A_Zombie.glb',
     scale: 1.8,
     weaponCoord: [101.12, 101.05, 0],
-    light: 4,
+    light: 3.8,
   },
   magnet: {
     model: '/media/BTLMN_Character_A_Zombie.glb',
     scale: 1.8,
     weaponCoord: [101.12, 101.05, 0],
-    light: 4,
+    light: 3.8,
   },
 }
 

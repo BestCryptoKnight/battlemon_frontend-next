@@ -83,7 +83,7 @@ export class Model {
           'nz.png'
         ]);
       
-      this.loader.load('/media/postament3.glb', (gltf) => {
+      this.loader.load('/media/platform_plosk.glb', (gltf) => {
         gltf.scene.name = 'postament'
         gltf.scene.position.setY(0.5)
         gltf.scene.scale.set(1, 1, 1)
