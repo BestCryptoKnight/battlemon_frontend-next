@@ -60,10 +60,10 @@ onMount(async () => {
   const { Model } = await import('$src/components/threejs/model')
   model = new Model({
     dom: 'threejs',
-    rightWeapon: '/media/turel.glb',
-    leftWeapon: '/media/turel.glb',
+    rightWeapon: '/constructor/assets/models/turel.glb',
+    leftWeapon: '/constructor/assets/models/turel.glb',
     cam: 70,
-    globalScale: 5,
+    globalScale: 6,
     translateY: -6.87,
     arenaBg: true,
     lemonSettings

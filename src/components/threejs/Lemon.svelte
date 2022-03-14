@@ -9,21 +9,21 @@ import download from '../svg/download';
   const lemonSettings = Object.values(lemons)[nft.token_id % 4]
 
   const backgrounds = [
-    '/img/postaments/red.jpg',
-    '/img/postaments/blue.jpg',
-    '/img/postaments/green.jpg',
-    '/img/postaments/lightblue.jpg',
-    '/img/postaments/orange.jpg',
-    '/img/postaments/purple.jpg',
-    '/img/postaments/yellow.jpg'
+    '/constructor/assets/postaments/red.jpg',
+    '/constructor/assets/postaments/blue.jpg',
+    '/constructor/assets/postaments/green.jpg',
+    '/constructor/assets/postaments/lightblue.jpg',
+    '/constructor/assets/postaments/orange.jpg',
+    '/constructor/assets/postaments/purple.jpg',
+    '/constructor/assets/postaments/yellow.jpg'
   ]
 
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
     const model = new Model({
         dom: 'threejs',
-        rightWeapon: '/media/turel.glb',
-        leftWeapon: '/media/turel.glb',
+        rightWeapon: '/constructor/assets/models/turel.glb',
+        leftWeapon: '/constructor/assets/models/turel.glb',
         cam: 12,
         globalScale: 1,
         translateY: -1.27,

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+      "esModuleInterop": true,
+      "target": "es5",
+      "moduleResolution": "node",
+      "alwaysStrict": true,
+      "outDir": "./lib",
+      "declaration": true,
+      "preserveSymlinks": true,
+      "preserveWatchOutput": true,
+      "pretty": false,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitAny": false,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "experimentalDecorators": true,
+      "resolveJsonModule": true
+  },
+  "files": [
+     "../../src/components/threejs/model.ts",
+     "../../src/components/threejs/lemons.ts"
+  ]
+}

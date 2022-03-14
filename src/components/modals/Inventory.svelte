@@ -8,9 +8,9 @@
   export let isOpen = false;
 
   const inventoryItems = [
-    { image: "/img/weapon/mix1a.png", model: "/media/turel.glb", scale: 1 },
-    { image: "/img/weapon/flamethrower.png", model: "/media/flamethrower.glb", scale: 0.8 },
-    { image: "/img/weapon/lazergun.png", model: "/media/lazergun.glb", scale: 0.7 }
+    { image: "/img/weapon/mix1a.png", model: "/constructor/assets/models/turel.glb", scale: 1 },
+    { image: "/img/weapon/flamethrower.png", model: "/constructor/assets/models/flamethrower.glb", scale: 0.8 },
+    { image: "/img/weapon/lazergun.png", model: "/constructor/assets/models/lazergun.glb", scale: 0.7 }
   ]
 
   onMount(() => {
@@ -50,8 +50,8 @@
   }
 
   const discard = async () => {
-    $threeStore.model.changeEquipment('leftWeapon', '/media/turel.glb')
-    $threeStore.model.changeEquipment('rightWeapon', '/media/turel.glb')
+    $threeStore.model.changeEquipment('leftWeapon', '/constructor/assets/models/turel.glb')
+    $threeStore.model.changeEquipment('rightWeapon', '/constructor/assets/models/turel.glb')
     threeStore.update(s => ({...s, changed: false}))
   }
 

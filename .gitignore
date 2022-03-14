@@ -5,4 +5,3 @@ node_modules
 /package
 .env
 .vercel_build_output
-constructor

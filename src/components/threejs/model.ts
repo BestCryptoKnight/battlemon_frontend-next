@@ -83,10 +83,10 @@ export class Model {
           'nz.png'
         ]);
       
-      this.loader.load('/media/platform_plosk.glb', (gltf) => {
+      this.loader.load('/constructor/assets/models/platform_plosk.glb', (gltf) => {
         gltf.scene.name = 'postament'
-        gltf.scene.position.setY(0.5)
-        gltf.scene.scale.set(1, 1, 1)
+        gltf.scene.position.setY(0.2)
+        gltf.scene.scale.set(0.7, 0.7, 0.7)
         this.scene.add(gltf.scene)
       });
 
@@ -146,8 +146,6 @@ export class Model {
   }
 
   screenShot(name) {
-    this.controls.minAzimuthAngle = -0.7
-    this.controls.maxAzimuthAngle = -0.7
     setTimeout(() => {
       const imgData = this.renderer.domElement.toDataURL("image/png");
       //window.location.href = imgData.replace("image/png", "image/octet-stream")
@@ -156,8 +154,6 @@ export class Model {
       link.href = imgData
       link.click()
       link.remove()
-      this.controls.minAzimuthAngle = 0
-      this.controls.maxAzimuthAngle = Infinity
     }, 200)
   }
 

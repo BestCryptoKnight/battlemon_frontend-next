@@ -10,7 +10,7 @@
 
 <style>
   #threejs {
-    background: url('/img/postaments/1.png');
+    background: url('/constructor/assets/postaments/1.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

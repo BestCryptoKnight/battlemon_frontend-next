@@ -5,7 +5,7 @@
     const { Model } = await import('$src/components/threejs/coolers')
     new Model({
       dom: 'factory',
-      model: '/media/vent.glb'
+      model: '/constructor/assets/models/vent.glb'
     })
   })
 </script>
