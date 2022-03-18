@@ -17,7 +17,7 @@ export class Model {
     this.camera = new PerspectiveCamera(cam, 1);
 
     this.scene = new Scene();
-    this.scene.translateY(3.41)
+    this.scene.translateY(3.6)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -28,7 +28,8 @@ export class Model {
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
-      gltf.scene.scale.set(0.6, 0.6, 0.6)
+      gltf.scene.scale.set(0.55, 0.55, 0.55)
+      gltf.scene.translateY(0.05)
       this.scene.add(gltf.scene)
     });
 

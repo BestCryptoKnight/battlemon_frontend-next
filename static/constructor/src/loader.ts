@@ -7,9 +7,9 @@ const model = new Model({
     rightWeapon: '/constructor/assets/models/turel.glb',
     leftWeapon: '/constructor/assets/models/turel.glb',
     cam: 12,
-    globalScale: 1,
-    translateY: -1.27,
-    background: '/constructor/assets/postaments/red.jpg',
+    globalScale: 1.15,
+    translateY: -1.43,
+    background: '/constructor/assets/postaments/red.png',
     rotate: false,
     callback: () => {
       let btn = document.createElement("button");

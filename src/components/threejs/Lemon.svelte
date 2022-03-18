@@ -9,13 +9,13 @@ import download from '../svg/download';
   const lemonSettings = Object.values(lemons)[nft.token_id % 4]
 
   const backgrounds = [
-    '/constructor/assets/postaments/red.jpg',
-    '/constructor/assets/postaments/blue.jpg',
-    '/constructor/assets/postaments/green.jpg',
-    '/constructor/assets/postaments/lightblue.jpg',
-    '/constructor/assets/postaments/orange.jpg',
-    '/constructor/assets/postaments/purple.jpg',
-    '/constructor/assets/postaments/yellow.jpg'
+    '/constructor/assets/postaments/red.png',
+    '/constructor/assets/postaments/red.png',
+    '/constructor/assets/postaments/red.png',
+    '/constructor/assets/postaments/red.png',
+    '/constructor/assets/postaments/red.png',
+    '/constructor/assets/postaments/red.png',
+    '/constructor/assets/postaments/red.png'
   ]
 
   onMount(async () => {
@@ -25,8 +25,8 @@ import download from '../svg/download';
         rightWeapon: '/constructor/assets/models/turel.glb',
         leftWeapon: '/constructor/assets/models/turel.glb',
         cam: 12,
-        globalScale: 1,
-        translateY: -1.27,
+        globalScale: 1.15,
+        translateY: -1.43,
         background: backgrounds[nft.token_id % 7],
         lemonSettings
     })

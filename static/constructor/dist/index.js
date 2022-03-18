@@ -42162,9 +42162,9 @@ var Model = /** @class */ (function () {
                 'pz.png',
                 'nz.png'
             ]);
-            this.loader.load('/constructor/assets/models/platform_plosk.glb', function (gltf) {
+            this.loader.load('/constructor/assets/models/platform_big.glb', function (gltf) {
                 gltf.scene.name = 'postament';
-                gltf.scene.position.setY(0.2);
+                gltf.scene.position.setY(0.25);
                 gltf.scene.scale.set(0.7, 0.7, 0.7);
                 _this.scene.add(gltf.scene);
             });
@@ -42331,9 +42331,9 @@ var model = new Model({
     rightWeapon: '/constructor/assets/models/turel.glb',
     leftWeapon: '/constructor/assets/models/turel.glb',
     cam: 12,
-    globalScale: 1,
-    translateY: -1.27,
-    background: '/constructor/assets/postaments/red.jpg',
+    globalScale: 1.15,
+    translateY: -1.43,
+    background: '/constructor/assets/postaments/red.png',
     rotate: false,
     callback: function () {
         var btn = document.createElement("button");

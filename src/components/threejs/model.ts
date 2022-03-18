@@ -83,9 +83,9 @@ export class Model {
           'nz.png'
         ]);
       
-      this.loader.load('/constructor/assets/models/platform_plosk.glb', (gltf) => {
+      this.loader.load('/constructor/assets/models/platform_big.glb', (gltf) => {
         gltf.scene.name = 'postament'
-        gltf.scene.position.setY(0.2)
+        gltf.scene.position.setY(0.25)
         gltf.scene.scale.set(0.7, 0.7, 0.7)
         this.scene.add(gltf.scene)
       });
