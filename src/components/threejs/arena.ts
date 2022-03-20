@@ -28,8 +28,8 @@ export class Model {
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
-      gltf.scene.scale.set(0.55, 0.55, 0.55)
-      gltf.scene.translateY(0.05)
+      gltf.scene.scale.set(0.09, 0.09, 0.09)
+      gltf.scene.translateY(0.16)
       this.scene.add(gltf.scene)
     });
 
@@ -60,7 +60,7 @@ export class Model {
     this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = 0.7;
 
-    this.light = new DirectionalLight(0xDDDDDD, 8.5);
+    this.light = new DirectionalLight(0xFFFFFF, 7.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
