@@ -7,6 +7,7 @@ import near from '$src/utils/near'
 import Arena from '$src/components/threejs/Arena.svelte'
 import Coolers from '$src/components/threejs/Coolers.svelte'
 import Loader from '$src/components/layout/Loader.svelte';
+import Mills from '$src/components/threejs/Mills.svelte';
 
 
 onMount(async () => {
@@ -110,6 +111,7 @@ onMount(async () => {
       </div>
       <div class="layer">
         <img src="/img/home2/Shop.png" class="w-100" alt="img">
+        <Mills />
       </div>
       <div class="layer">
         <img src="/img/home2/cloud-bottom.png" class="w-100" alt="img">
