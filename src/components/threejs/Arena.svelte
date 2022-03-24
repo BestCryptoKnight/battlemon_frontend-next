@@ -5,7 +5,7 @@
     const { Model } = await import('$src/components/threejs/arena')
     new Model({
       dom: 'arena',
-      arena: '/constructor/assets/models/two_ring2.glb',
+      arena: '/constructor/assets/models/two_ring.glb',
       cam: 28,
       camPos: [0, 5, -25]
     })

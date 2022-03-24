@@ -30,23 +30,23 @@ export class Model {
       const cooler3 = gltf.scene.clone()
 
       cooler1.name = 'cooler1'
-      cooler1.position.set(4.99, 4.02, 0)
+      cooler1.position.set(2.99, 4.02, 0)
       cooler1.rotateY(-0.1)
-      const cooler1scale = 0.16
+      const cooler1scale = 0.46
       cooler1.scale.set(cooler1scale, cooler1scale, cooler1scale)
       this.scene.add(cooler1)
 
       cooler2.name = 'cooler2'
-      cooler2.position.set(5.78, 4.33, 0)
+      cooler2.position.set(2.78, 4.33, 0)
       cooler2.rotateY(-0.2)
-      const cooler2scale = 0.16
+      const cooler2scale = 0.46
       cooler2.scale.set(cooler2scale, cooler2scale, cooler2scale)
       this.scene.add(cooler2)
 
       cooler3.name = 'cooler3'
-      cooler3.position.set(6.49, 4.05, 0)
+      cooler3.position.set(2.49, 4.05, 0)
       cooler3.rotateY(-0.5)
-      const cooler3scale = 0.16
+      const cooler3scale = 0.46
       cooler3.scale.set(cooler3scale, cooler3scale, cooler3scale)
       this.scene.add(cooler3)
     });
