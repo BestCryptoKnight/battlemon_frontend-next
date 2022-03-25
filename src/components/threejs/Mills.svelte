@@ -14,7 +14,7 @@
   .shop {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -100px;
     width: 100%;
     height: 100%;
   }

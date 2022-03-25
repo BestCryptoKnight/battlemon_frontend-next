@@ -33,8 +33,8 @@
       height: 100vh;
     }
     .home2 {
-      background-image: url(/img/home2/gorod.png);
-      background-size: cover;
+      background-image: url(/img/index/litle_town.png);
+      background-size: 120%;
       background-position: center;
       overflow: hidden; 
       height: 100vh;
@@ -42,6 +42,9 @@
     .home-inner {
       position: relative;
       height: 100vh;
+      background-image: url(/img/index/litle_town2.png);
+      background-size: 130%;
+      background-position: center 30%;
     }
     .fluid-img {
     }
@@ -108,7 +111,7 @@
     <div class="home2">
       <div class="home-inner" style="max-width: 1600px; margin: 0 auto; position: relative;">
         <div class="layer">
-          <img src="/img/home2/One_ring.png" class="w-100" alt="img" style="margin-left: -0.5%;">
+          <img src="/img/index/One_ring.png" class="w-100" alt="img" style="margin-left: -0.5%;">
         </div>
         <div class="layer">
           <Arena />

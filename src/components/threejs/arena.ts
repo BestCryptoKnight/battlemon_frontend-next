@@ -28,8 +28,8 @@ export class Model {
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
-      gltf.scene.scale.set(0.09, 0.09, 0.09)
-      gltf.scene.translateY(0.16)
+      gltf.scene.scale.set(0.07, 0.07, 0.07)
+      gltf.scene.translateY(-0.14)
       this.scene.add(gltf.scene)
     });
 
@@ -37,8 +37,8 @@ export class Model {
     const material = new SpriteMaterial({ map: map, color: 0xffffff, fog: false });
 
     const sprite = new Sprite(material);
-    sprite.translateY(0.8);
-    sprite.scale.set(3,3,3)
+    sprite.translateY(0.34);
+    sprite.scale.set(2.4,2.4,2.4)
     this.scene.add(sprite);
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
