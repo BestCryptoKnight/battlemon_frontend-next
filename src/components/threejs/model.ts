@@ -1,6 +1,7 @@
 import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { LemonSettings } from './lemons'
 
@@ -20,6 +21,9 @@ export class Model {
   private sceneLights: {
     [key: string]: DirectionalLight
   }
+  scale: number
+  weaponCoord: [number, number, number]
+  light: number
 
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
@@ -34,6 +38,10 @@ export class Model {
     this.scene = new Scene();
     this.scene.translateY(translateY)
 
+    this.scale = 1.8
+    this.weaponCoord = [101.12, 101.05, 0]
+    this.light = 3.8
+
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
       const percents = (loaded / total * 100) + '%';
@@ -42,9 +50,15 @@ export class Model {
 
     
     this.loader = new GLTFLoader(manager);
-    this.loader.load(this.lemonSettings.model, (gltf) => {
-      this.addObject(gltf, 'hero')
-    });
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath( '/draco/' );
+    this.loader.setDRACOLoader( dracoLoader );
+
+    Object.entries(this.lemonSettings.model).forEach(([key,model]) => {
+      this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
+        this.addObject(gltf, key)
+      });
+    })
     this.loader.load(leftWeapon, (gltf) => {
       this.addObject(gltf, 'leftWeapon')
     });
@@ -134,14 +148,13 @@ export class Model {
     document.getElementById('loader').style.opacity = '1';
     this.lemonSettings = lemonSettings;
     return new Promise((resolve) => {
-      this.loader.load(lemonSettings.model, (gltf) => {
-        this.scene.remove(this.sceneObjects.hero);
-        this.addObject(gltf, 'hero')
-        this.setObjectSettings(this.sceneObjects.leftWeapon)
-        this.setObjectSettings(this.sceneObjects.rightWeapon)
-        this.setLightSettings()
-        resolve()
-      });
+      Object.entries(lemonSettings.model).forEach(([key,model]) => {
+        this.scene.remove(this.sceneObjects[key]);
+        this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
+          this.addObject(gltf, key)
+          resolve()
+        });
+      })
     });
   }
 
@@ -166,14 +179,12 @@ export class Model {
   }
 
   setObjectSettings(object: Group): void {
-    if (object.name == 'hero') {
-      object.scale.set(this.lemonSettings.scale,this.lemonSettings.scale,this.lemonSettings.scale)
-    }
     if (object.name == 'leftWeapon') {
-      object.position.set(this.lemonSettings.weaponCoord[0],this.lemonSettings.weaponCoord[1],this.lemonSettings.weaponCoord[2])
-    }
-    if (object.name == 'rightWeapon') {
-      object.position.set(this.lemonSettings.weaponCoord[0]*-1,this.lemonSettings.weaponCoord[1],this.lemonSettings.weaponCoord[2])
+      object.position.set(this.weaponCoord[0],this.weaponCoord[1],this.weaponCoord[2])
+    } else if (object.name == 'rightWeapon') {
+      object.position.set(this.weaponCoord[0]*-1,this.weaponCoord[1],this.weaponCoord[2])
+    } else {
+      object.scale.set(this.scale,this.scale,this.scale)
     }
   }
 
@@ -181,8 +192,8 @@ export class Model {
     const camPos = this.camera.position
     this.sceneLights.light1.position.set(camPos.x, camPos.y + 50, camPos.z);
     this.sceneLights.light2.position.set(camPos.x, camPos.y + -10, camPos.z);
-    this.sceneLights.light1.intensity = this.lemonSettings.light
-    this.sceneLights.light2.intensity = this.lemonSettings.light - 1.5
+    this.sceneLights.light1.intensity = this.light
+    this.sceneLights.light2.intensity = this.light - 1.5
   }
 
   async changeEquipment(name: string, item: { image: string, model: string, scale: number }): Promise<void> {

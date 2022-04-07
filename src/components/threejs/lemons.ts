@@ -1,8 +1,14 @@
+export interface LemonModel {
+  exo: string
+  cap: string
+  cloth: string
+  eyes: string
+  head: string
+  teeth: string
+}
+
 export interface LemonSettings {
-  model: string
-  scale: number
-  weaponCoord: [number, number, number],
-  light: number
+  model: LemonModel
 }
 
 export interface Lemons {
@@ -12,28 +18,44 @@ export interface Lemons {
 
 const lemons: Lemons = {
   classic: {
-    model: '/constructor/assets/models/BTLMN_Character_A_Alien.glb',
-    scale: 1.8,
-    weaponCoord: [101.12, 101.05, 0],
-    light: 3.8,
+    model: {
+      exo: 'ARM1_Exo_BA01',
+      cap: 'ARM1_Cap_ZA01',
+      cloth: 'ARM1_Cloth_MA01',
+      eyes: 'ARM1_Eyes_Z01',
+      head: 'ARM1_Head_Z01',
+      teeth: 'ARM1_Teeth_A01'
+    }
   },
   octopus: {
-    model: '/constructor/assets/models/BTLMN_Character_A_Soldier.glb',
-    scale: 1.8,
-    weaponCoord: [100.80, 101.60, 0],
-    light: 3.8,
+    model: {
+      exo: 'ARM1_Exo_MA01',
+      cap: 'ARM1_Cap_MA01',
+      cloth: 'ARM1_Cloth_MA01',
+      eyes: 'ARM1_Eyes_B01',
+      head: 'ARM1_Head_B01',
+      teeth: 'ARM1_Teeth_B01'
+    }
   },
   gaul: {
-    model: '/constructor/assets/models/BTLMN_Character_A_Zombie.glb',
-    scale: 1.8,
-    weaponCoord: [101.12, 101.05, 0],
-    light: 3.8,
+    model: {
+      exo: 'ARM1_Exo_ZA01',
+      cap: 'ARM1_Cap_ZA01',
+      cloth: 'ARM1_Cloth_MA01',
+      eyes: 'ARM1_Eyes_Z01',
+      head: 'ARM1_Head_B01',
+      teeth: 'ARM1_Teeth_Z01'
+    }
   },
   magnet: {
-    model: '/constructor/assets/models/BTLMN_Character_A_Zombie.glb',
-    scale: 1.8,
-    weaponCoord: [101.12, 101.05, 0],
-    light: 3.8,
+    model: {
+      exo: 'ARM1_Exo_BA01',
+      cap: 'ARM1_Cap_MA01',
+      cloth: 'ARM1_Cloth_MA01',
+      eyes: 'ARM1_Eyes_A01',
+      head: 'ARM1_Head_A01',
+      teeth: 'ARM1_Teeth_Z01'
+    }
   },
 }
 

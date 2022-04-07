@@ -13,6 +13,9 @@ export declare class Model {
     private isArena;
     private sceneObjects;
     private sceneLights;
+    scale: number;
+    weaponCoord: [number, number, number];
+    light: number;
     /**
      * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
      */
