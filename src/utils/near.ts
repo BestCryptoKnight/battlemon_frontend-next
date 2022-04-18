@@ -45,8 +45,8 @@ async function nearConnect(): Promise<void> {
     network: "testnet",
     contractId: config.nftContract,
     wallets: [
-      setupNearWallet(),
-      setupSender()
+      setupNearWallet({ iconUrl: '/img/near-wallet-icon.png' }),
+      setupSender({ iconUrl: '/img/sender-icon.png' })
     ],
   });
   
@@ -54,8 +54,8 @@ async function nearConnect(): Promise<void> {
     network: "testnet",
     contractId: config.marketContract,
     wallets: [
-      setupNearWallet(),
-      setupSender()
+      setupNearWallet({ iconUrl: '/img/near-wallet-icon.png' }),
+      setupSender({ iconUrl: '/img/sender-icon.png' })
     ],
   });
 
