@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 import { onMount } from 'svelte'
 import "./arena.scss"
 import { TabContent, TabPane } from 'sveltestrap'

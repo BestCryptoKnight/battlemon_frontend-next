@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import near from '$src/utils/near'
   import ClickOutside from 'svelte-click-outside';
   export let light: boolean = false

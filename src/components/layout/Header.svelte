@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   let openMainMenu: boolean = false;
   import near from '$src/utils/near'
   import { page } from '$app/stores';

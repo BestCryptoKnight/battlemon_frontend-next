@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import { onMount } from 'svelte'
   import { TabContent, TabPane } from 'sveltestrap'
   import { page } from '$app/stores'

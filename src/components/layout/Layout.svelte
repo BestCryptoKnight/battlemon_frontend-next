@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import { onMount } from 'svelte';
   import Header from '$src/components/layout/Header.svelte'
   import Footer from '$src/components/layout/Footer.svelte'

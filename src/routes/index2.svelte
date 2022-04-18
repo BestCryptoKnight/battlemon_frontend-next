@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
 import { goto } from '$app/navigation';
 import { onMount } from 'svelte'
 import Logo from '$src/components/layout/Logo.svelte'

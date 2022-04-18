@@ -1,4 +1,4 @@
-<script type='ts'>
+<script lang="ts">
   import FilterWeapon from '$src/components/filter/FilterWeapon.svelte'
   import WeaponPreview from '$src/components/card/WeaponPreview.svelte'
   import TopMenu from '$src/components/filter/TopMenu.svelte'

@@ -29,6 +29,7 @@ interface NearProps {
 
 async function nearConnect(): Promise<void> {
   window.Buffer = Buffer;
+  window.global = window;
   const { keyStores, connect, providers} = await import('near-api-js')
   const keyStore = new keyStores.BrowserLocalStorageKeyStore()
   const config = getConfig(location.href)  

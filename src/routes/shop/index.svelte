@@ -1,4 +1,4 @@
-<script type='ts'>
+<script lang="ts">
   import { onMount } from 'svelte'
   import Filter from '$src/components/filter/Filter.svelte'
   import TopMenu from '$src/components/filter/TopMenu.svelte'

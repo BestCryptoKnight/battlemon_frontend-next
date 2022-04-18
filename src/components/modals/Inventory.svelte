@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import StaticModal from './StaticModal.svelte'
   import tippyMenu from '$src/utils/tippy-menu'
   import { onMount } from 'svelte'

@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import TopMenu from '$src/components/filter/TopMenu.svelte'
   import near from '$src/utils/near'
   import { onMount } from 'svelte'

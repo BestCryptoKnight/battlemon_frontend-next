@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import { Modal } from 'sveltestrap';
   import near from '$src/utils/near'
   export let tokenId: string;

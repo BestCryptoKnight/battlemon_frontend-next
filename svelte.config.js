@@ -13,16 +13,17 @@ const config = {
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
 		adapter: adapter(),
-		target: '#svelte',
 		vite: {
+			// ssr: {
+			// 	noExternal: [
+			// 		'@near-wallet-selector/*'
+			// 	]
+			// },
 			resolve: {
 				alias: {
 					$lib: resolve('src/lib'),
 					$src: resolve('src')
 				}
-			},
-			define: {
-				global: {}
 			}
 		}
 	}

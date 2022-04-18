@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import { onMount } from 'svelte'
   import threeStore from './store'
   import lemons from './lemons'

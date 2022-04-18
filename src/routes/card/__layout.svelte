@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import Layout from '$src/components/layout/Layout.svelte'
 </script>
 
