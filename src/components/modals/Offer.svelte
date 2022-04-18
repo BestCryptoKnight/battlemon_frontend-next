@@ -8,7 +8,7 @@
   let amount: number;
 
   const formHandler = async () => {
-    await $near.api.bidNft(tokenId, amount)
+    await $near.api.bidNft($near.user.id, tokenId, amount)
   }
 </script>
 

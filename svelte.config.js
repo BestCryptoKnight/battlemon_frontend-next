@@ -20,6 +20,9 @@ const config = {
 					$lib: resolve('src/lib'),
 					$src: resolve('src')
 				}
+			},
+			define: {
+				global: {}
 			}
 		}
 	}

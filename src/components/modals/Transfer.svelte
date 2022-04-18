@@ -8,7 +8,7 @@
   let accountId: string;
 
   const formHandler = async () => {
-    const result = await $near.api.transferNft(tokenId, accountId)
+    const result = await $near.api.transferNft($near.user.id, tokenId, accountId)
     console.log(result)
   }
 </script>

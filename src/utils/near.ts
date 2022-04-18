@@ -2,6 +2,7 @@ import { writable } from "svelte/store";
 import NearApi from './api'
 import { getConfig } from './config'
 import type { NearConfig } from './config'
+import { Buffer } from 'buffer';
 
 const nearStore = writable<NearProps>({
   connect: nearConnect,
@@ -27,48 +28,65 @@ interface NearProps {
 }
 
 async function nearConnect(): Promise<void> {
-  const nearApi = (await import('near-api-esm')).default
-  const keyStore = new nearApi.keyStores.BrowserLocalStorageKeyStore()
-  const config = getConfig(location.href)
-  const near = await nearApi.connect(Object.assign({ deps: { keyStore } }, config))
-  const walletConnection = new nearApi.WalletConnection(near, config.marketContract)
+  window.Buffer = Buffer;
+  const { keyStores, connect, providers} = await import('near-api-js')
+  const keyStore = new keyStores.BrowserLocalStorageKeyStore()
+  const config = getConfig(location.href)  
+  const near = await connect({ keyStore, headers: {}, ...config })
 
-  const marketContract = new nearApi.Contract(walletConnection.account(), config.marketContract, {
-    viewMethods: [
-      'list_asks',
-      'list_bids'
+  const NearWalletSelector =  (await import("@near-wallet-selector/core")).default;
+  const { setupNearWallet } = await import("@near-wallet-selector/near-wallet");
+  const { setupSender } = await import("@near-wallet-selector/sender");
+  
+
+
+  const nftWallet = await NearWalletSelector.init({
+    network: "testnet",
+    contractId: config.nftContract,
+    wallets: [
+      setupNearWallet(),
+      setupSender()
     ],
-    changeMethods: [
-      'buy',
-      'bid'
-    ]
-  })
-
-  const nftContract = new nearApi.Contract(walletConnection.account(), config.nftContract, {
-    viewMethods: [
-      'nft_token',
-      'nft_tokens',
-      'nft_tokens_for_owner'
+  });
+  
+  const marketWallet = await NearWalletSelector.init({
+    network: "testnet",
+    contractId: config.marketContract,
+    wallets: [
+      setupNearWallet(),
+      setupSender()
     ],
-    changeMethods: [
-      'nft_approve',
-      'nft_transfer'
-    ]
-  })
+  });
 
-  const api = new NearApi({ near, walletConnection, config, marketContract, nftContract })
 
-  const user = await api.getUser()
+  const provider = new providers.JsonRpcProvider({ url: config.nodeUrl });
+  const api = new NearApi({ near, config, provider, marketWallet, nftWallet })
+
+  const signedIn = await marketWallet.isSignedIn()
+  let user = await api.getUser()
+
   nearStore.update(n => {
     return { 
       ...n,
       config,
       api, 
       connected: true,
-      signedIn: !!user.id,
+      signedIn: signedIn,
       user
     }
   })
+
+  marketWallet.on('signIn', async (accounts) => {
+    user = await api.getUser()
+    nearStore.update(n => {
+      return { 
+        ...n,
+        signedIn: signedIn,
+        user
+      }
+    })
+  })
+  
 }
 
 

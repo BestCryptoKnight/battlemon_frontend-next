@@ -8,7 +8,7 @@
   let amount: number;
 
   const formHandler = async () => {
-    const result = await $near.api.sellNft(tokenId, amount)
+    const result = await $near.api.sellNft($near.user.id, tokenId, amount)
     console.log(result)
   }
 </script>

@@ -6,6 +6,7 @@
   import Coolers from '$src/components/threejs/Coolers.svelte'
   import Loader from '$src/components/layout/Loader.svelte';
   import Mills from '$src/components/threejs/Mills.svelte';
+  import Auth from '$src/components/layout/Auth.svelte'
   
   
   onMount(async () => {
@@ -63,7 +64,7 @@
       left:50%;
       transform: translateX(-50%);
       top:0;
-      z-index: 10;
+      z-index: 1;
       width: 110%;
       height: 120%;
       max-width: 2000px;
@@ -186,3 +187,6 @@
     </div>
   
   </div>
+  <div class="auth-home" style="position: absolute; z-index: 20;">
+    <Auth light={true} />
+  </div>  
