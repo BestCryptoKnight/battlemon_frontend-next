@@ -29,7 +29,7 @@ onMount(async () => {
   }
   .layer {
     position: absolute;
-    cursor: pointer;
+    cursor: pointer;    
   }
   .layer .img-hover {
     position: absolute;
@@ -52,19 +52,19 @@ onMount(async () => {
       <img class="img-fluid img-hover" src="/img/home/arena-glow.png" alt="Arena Glow" />
       <img class="img-fluid" src="/img/home/arena.png" alt="Arena" />
     </div>
-    <div class="layer" style="top: 53%; width: 23%; transform: translateY(-63%); right: 22%;">
+    <div class="layer stake" style="top: 53%; width: 23%; margin-top: -16%; right: 22%; animation: soaring-stake 4.5s infinite;">
       <img class="img-fluid img-hover" src="/img/home/stake-glow.png" alt="Stake Glow" />
       <img class="img-fluid" src="/img/home/stake.png" alt="Stake" />
     </div>
-    <div class="layer" style="top: 55%; width: 36%; transform: translateY(-55%); right: -3%;" on:click={() => goto('/shop')}>
+    <div class="layer" style="top: 55%; width: 36%; margin-top: -22%; right: -3%; animation: soaring-stake 5s infinite;" on:click={() => goto('/shop')}>
       <img class="img-fluid img-hover" src="/img/home/shop-glow.png" alt="Shop Glow" />
       <img class="img-fluid" src="/img/home/shop.png" alt="Shop" />
     </div>
-    <div class="layer" style="top: 53%; width: 23%; transform: translateY(-63%); left: 22%;">
+    <div class="layer" style="top: 53%; width: 23%; margin-top: -13%; left: 22%; animation: soaring-stake 5.5s infinite;">
       <img class="img-fluid img-hover" src="/img/home/burn-glow.png" alt="Burn Glow" />
       <img class="img-fluid" src="/img/home/burn.png" alt="Burn" />
     </div>
-    <div class="layer" style="top: 53%; width: 32%; transform: translateY(-56%); left: -3%;">
+    <div class="layer" style="top: 53%; width: 32%; margin-top: -21%; left: -3%; animation: soaring-stake 6s infinite;">
       <img class="img-fluid img-hover" src="/img/home/factory-glow.png" alt="Factory Glow" />
       <img class="img-fluid" src="/img/home/factory.png" alt="Factory" />
     </div>

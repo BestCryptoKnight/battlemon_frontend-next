@@ -286,3 +286,13 @@ h1, h2, h3 {
     border-radius: 8px;
     background-color:rgba(0,0,0,0.2);
 }
+
+
+@keyframes soaring-stake {
+  0%,100%{
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0px, -6px);
+  }
+}
