@@ -1,10 +1,8 @@
 <script lang="ts">
   import near from '$src/utils/near'
-  import ClickOutside from 'svelte-click-outside';
   export let light: boolean = false
 
   let openUserMenu: boolean = false;
-  let elUserMenu: HTMLElement = null;
 </script>
 
 <style>
@@ -17,21 +15,20 @@
   }
 </style>
 
-<ClickOutside on:clickoutside={() => openUserMenu = false} exclude={[elUserMenu]} />
 
 {#if $near.connected}
   {#if !$near.signedIn }
     {#if light}
-      <button class="btn btn-light" style="width: 15vw; max-width: 198px;" on:click={() => $near.api.signIn()}>
+      <button class="btn btn-light" style="width: 15vw; max-width: 198px;" on:click={() => $near.api?.signIn()}>
         Sign In
       </button>
     {:else}
-      <button class="btn btn-primary" on:click={() => $near.api.signIn()}>
+      <button class="btn btn-primary" on:click={() => $near.api?.signIn()}>
         Sign In
       </button>
     {/if}
   {:else}
-    <div bind:this={elUserMenu} class:active={openUserMenu} class="pa-preview login-form-toggle button" on:click={() => !openUserMenu ? openUserMenu = true : null}> 
+    <div class:active={openUserMenu} class="pa-preview login-form-toggle button" on:click={() => !openUserMenu ? openUserMenu = true : null}> 
       {#if openUserMenu}
         <div class="button-opacity" on:click={() => openUserMenu = false}>&nbsp;</div>
       {/if}

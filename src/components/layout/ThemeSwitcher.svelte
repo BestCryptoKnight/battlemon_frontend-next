@@ -1,7 +1,7 @@
 <script lang="ts">
   import Switch from '$src/components/form/Switch.svelte'
   let themeColor = typeof localStorage !== 'undefined' && localStorage.getItem('theme-color')
-  export let light = themeColor && themeColor == 'light';
+  export let light = themeColor && themeColor == 'light' ? true : false;
 
   const toggleTheme = () => {
     const currentTheme = light ? 'light' : 'dark';
