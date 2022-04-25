@@ -5,7 +5,7 @@
     const { Model } = await import('$src/components/threejs/mills')
     new Model({
       dom: 'shop',
-      model: '/constructor/assets/models/vetrak.glb'
+      model: '/models/windmill_propeller.glb'
     })
   })
 </script>
@@ -14,9 +14,10 @@
   .shop {
     position: absolute;
     right: 0;
-    top: -100px;
+    
+    bottom: 0px;
     width: 100%;
-    height: 100%;
+    height: 110%;
   }
 </style>
 

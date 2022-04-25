@@ -4,6 +4,8 @@ import { onMount } from 'svelte'
 import Logo from '$src/components/layout/Logo.svelte'
 import Auth from '$src/components/layout/Auth.svelte'
 import near from '$src/utils/near'
+import Loader from '$src/components/layout/Loader.svelte';
+import Mills from '$src/components/threejs/Mills.svelte';
 
 
 onMount(async () => {
@@ -59,6 +61,7 @@ onMount(async () => {
     <div class="layer" style="top: 55%; width: 36%; margin-top: -22%; right: -3%; animation: soaring-stake 5s infinite;" on:click={() => goto('/shop')}>
       <img class="img-fluid img-hover" src="/img/home/shop-glow.png" alt="Shop Glow" />
       <img class="img-fluid" src="/img/home/shop.png" alt="Shop" />
+      <Mills />
     </div>
     <div class="layer" style="top: 53%; width: 23%; margin-top: -13%; left: 22%; animation: soaring-stake 5.5s infinite;">
       <img class="img-fluid img-hover" src="/img/home/burn-glow.png" alt="Burn Glow" />
@@ -70,6 +73,7 @@ onMount(async () => {
     </div>
   </div>
 
+  <Loader />
 
   <a href="/" class="logo-home">
     <Logo height={24} />
