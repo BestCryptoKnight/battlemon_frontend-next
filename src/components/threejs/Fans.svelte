@@ -2,16 +2,16 @@
   import { onMount } from 'svelte'
 
   onMount(async () => {
-    const { Model } = await import('$src/components/threejs/coolers')
+    const { Model } = await import('$src/components/threejs/fans')
     new Model({
-      dom: 'factory',
-      model: '/models/factory_fan.glb'
+      dom: 'fans',
+      model: '/models/bottom_house_fan.glb'
     })
   })
 </script>
 
 <style>
-  .factory {
+  .fans {
     position: absolute;
     left: 0;
     top: 0;
@@ -20,5 +20,5 @@
   }
 </style>
 
-<div class="factory" id="factory">
+<div class="fans" id="fans">
 </div>

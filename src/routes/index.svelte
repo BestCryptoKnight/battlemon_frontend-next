@@ -8,6 +8,8 @@ import Loader from '$src/components/layout/Loader.svelte';
 import Mills from '$src/components/threejs/Mills.svelte';
 import Arena from '$src/components/threejs/Arena.svelte';
 import Coin from '$src/components/threejs/Coin.svelte';
+import Coolers from '$src/components/threejs/Coolers.svelte';
+import Fans from '$src/components/threejs/Fans.svelte';
 
 
 onMount(async () => {
@@ -51,7 +53,9 @@ onMount(async () => {
 <div class="home">
   <div class="home-inner">
     <div class="layer" style="top: 63%; width: 100%;">
-      <img class="img-fluid" src="/img/home/bottom-city.png" alt="Bottom City" />
+      <img class="img-fluid" src="/img/home/bottom-city.png" alt="Bottom City" style="position: absolute;" />
+      <img class="img-fluid" src="/img/home/bottom-city-front.png" alt="Bottom City" style="position: relative;" />
+      <Fans />
     </div>
     <div class="layer" style="top: 30%; width: 48%; transform: translate(-50%, -85%); left: 50%; max-width: 700px;" on:click={() => goto('/arena')}>
       <img class="img-fluid" src="/img/home/arena-back.png" alt="Arena" style="position: absolute; width: 100%;" />
@@ -75,7 +79,9 @@ onMount(async () => {
     </div>
     <div class="layer" style="top: 53%; width: 32%; margin-top: -21%; left: -3%; animation: soaring-stake 6s infinite;">
       <img class="img-fluid img-hover" src="/img/home/factory-glow.png" alt="Factory Glow" />
-      <img class="img-fluid" src="/img/home/factory.png" alt="Factory" />
+      <img class="img-fluid" src="/img/home/factory.png" alt="Factory" style="position: absolute;" />
+      <img class="img-fluid" src="/img/home/factory-front.png" alt="Factory"  style="position: relative;" />
+      <Coolers />
     </div>
   </div>
 
