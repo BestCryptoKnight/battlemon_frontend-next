@@ -14,11 +14,11 @@ export class Model {
 
   constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)!
-    this.isAnimating = false;
     this.camera = new PerspectiveCamera(cam, 1);
+    this.isAnimating = false;
 
     this.scene = new Scene();
-    this.scene.translateY(3.6)
+    this.scene.translateY(0.81)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -28,9 +28,9 @@ export class Model {
 
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
-      gltf.scene.name = 'arena'
-      gltf.scene.scale.set(0.07, 0.07, 0.07)
-      gltf.scene.translateY(-2.59)
+      gltf.scene.name = 'coin'
+      gltf.scene.scale.set(0.10, 0.10, 0.10)
+      gltf.scene.translateY(0)
       this.scene.add(gltf.scene)
     });
 
@@ -51,9 +51,9 @@ export class Model {
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
     this.controls.autoRotate = true;
-    this.controls.autoRotateSpeed = 1.3;
+    this.controls.autoRotateSpeed = 48.3;
 
-    this.light = new DirectionalLight(0xCCCCCC, 15.5);
+    this.light = new DirectionalLight(0xFFFFFF, 55.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 

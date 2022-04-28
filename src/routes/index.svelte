@@ -6,6 +6,8 @@ import Auth from '$src/components/layout/Auth.svelte'
 import near from '$src/utils/near'
 import Loader from '$src/components/layout/Loader.svelte';
 import Mills from '$src/components/threejs/Mills.svelte';
+import Arena from '$src/components/threejs/Arena.svelte';
+import Coin from '$src/components/threejs/Coin.svelte';
 
 
 onMount(async () => {
@@ -37,6 +39,7 @@ onMount(async () => {
     position: absolute;
     transition: all 0.3s;
     opacity: 0;
+    z-index: 100;
   }
   .layer:hover .img-hover {
     opacity: 1;
@@ -51,12 +54,15 @@ onMount(async () => {
       <img class="img-fluid" src="/img/home/bottom-city.png" alt="Bottom City" />
     </div>
     <div class="layer" style="top: 30%; width: 48%; transform: translate(-50%, -85%); left: 50%; max-width: 700px;" on:click={() => goto('/arena')}>
-      <img class="img-fluid img-hover" src="/img/home/arena-glow.png" alt="Arena Glow" />
-      <img class="img-fluid" src="/img/home/arena.png" alt="Arena" />
+      <img class="img-fluid" src="/img/home/arena-back.png" alt="Arena" style="position: absolute; width: 100%;" />
+      <Arena />
+      <img class="img-fluid" src="/img/home/arena-front.png" alt="Arena" style="position: relative; z-index: 99; width: 100%;" />
+      <img class="img-fluid img-hover" src="/img/home/arena-glow.png" alt="Arena Glow" style="position: absolute; width: 100%; z-index: 199; left: 0;"  />
     </div>
     <div class="layer stake" style="top: 53%; width: 23%; margin-top: -16%; right: 22%; animation: soaring-stake 4.5s infinite;">
+      <Coin />
       <img class="img-fluid img-hover" src="/img/home/stake-glow.png" alt="Stake Glow" />
-      <img class="img-fluid" src="/img/home/stake.png" alt="Stake" />
+      <img class="img-fluid" src="/img/home/stake.png" alt="Stake" style="position: relative;" />
     </div>
     <div class="layer" style="top: 55%; width: 36%; margin-top: -22%; right: -3%; animation: soaring-stake 5s infinite;" on:click={() => goto('/shop')}>
       <img class="img-fluid img-hover" src="/img/home/shop-glow.png" alt="Shop Glow" />
