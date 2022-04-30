@@ -11,9 +11,10 @@ export class Model {
   private isAnimating: boolean
 
   constructor({ dom, model }: { dom: string, model: string }) {
-    this.dom = document.getElementById(dom)
+    this.dom = document.getElementById(dom)!
     this.camera = new PerspectiveCamera(30, 1);
     this.camera.position.set(0,0,30)
+    this.isAnimating = false;
 
     this.scene = new Scene();
 
@@ -59,7 +60,7 @@ export class Model {
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);
-      document.getElementById('loader').style.opacity = '0';
+      document.getElementById('loader')!.style.opacity = '0';
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();
@@ -77,8 +78,8 @@ export class Model {
 
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
-    this.scene.getObjectByName('cooler1').rotation.z -= 0.012;
-    this.scene.getObjectByName('cooler2').rotation.z -= 0.015;
+    this.scene.getObjectByName('cooler1')!.rotation.z -= 0.012;
+    this.scene.getObjectByName('cooler2')!.rotation.z -= 0.015;
     this.renderer.render(this.scene, this.camera);
   }
 }

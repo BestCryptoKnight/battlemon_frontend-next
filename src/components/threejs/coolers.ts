@@ -1,4 +1,4 @@
-import { LoadingManager, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, Vector3 } from "three"
+import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, Vector3 } from "three"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export class Model {
@@ -11,9 +11,10 @@ export class Model {
   private isAnimating: boolean
 
   constructor({ dom, model }: { dom: string, model: string }) {
-    this.dom = document.getElementById(dom)
+    this.dom = document.getElementById(dom)!
     this.camera = new PerspectiveCamera(30, 1);
     this.camera.position.set(0,0,30)
+    this.isAnimating = false;
 
     this.scene = new Scene();
 
@@ -45,6 +46,8 @@ export class Model {
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
 
+    this.renderer.outputEncoding = sRGBEncoding;
+    this.renderer.physicallyCorrectLights = true
     this.renderer.setClearColor(0x00CCCC, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
@@ -73,8 +76,8 @@ export class Model {
 
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
-    this.scene.getObjectByName('cooler1').rotation.z -= 0.022;
-    this.scene.getObjectByName('cooler2').rotation.z -= 0.019;
+    this.scene.getObjectByName('cooler1')!.rotation.z -= 0.022;
+    this.scene.getObjectByName('cooler2')!.rotation.z -= 0.019;
     this.renderer.render(this.scene, this.camera);
   }
 }
