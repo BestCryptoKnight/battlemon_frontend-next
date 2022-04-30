@@ -18,7 +18,7 @@ export class Model {
     this.isAnimating = false;
 
     this.scene = new Scene();
-    this.scene.translateY(0.37)
+    this.scene.translateY(0.366)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -45,7 +45,7 @@ export class Model {
     this.controls = new OrbitControls(this.camera, this.dom)
     this.camera.position.set(camPos[0], camPos[1], camPos[2]);
     this.controls.update();
-    const polarAngle = Math.PI / 1.9
+    const polarAngle = Math.PI / 1.92
     this.controls.minPolarAngle = polarAngle;
     this.controls.maxPolarAngle = polarAngle;
     this.controls.enableRotate = false;

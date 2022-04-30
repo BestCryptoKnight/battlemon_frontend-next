@@ -5,7 +5,7 @@
     const { Model } = await import('$src/components/threejs/mixer')
     new Model({
       dom: 'mixer',
-      arena: '/models/burn_craft_mixer_lightning.glb',
+      arena: '/models/burn_craft_mixer.glb',
       cam: 5,
       camPos: [10, -15, -25]
     })
