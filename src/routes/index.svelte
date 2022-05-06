@@ -10,6 +10,7 @@ import Arena from '$src/components/threejs/Arena.svelte';
 import Coin from '$src/components/threejs/Coin.svelte';
 import Coolers from '$src/components/threejs/Coolers.svelte';
 import Fans from '$src/components/threejs/Fans.svelte';
+import Mixer from '$src/components/threejs/Mixer.svelte';
 
 
 onMount(async () => {
@@ -54,8 +55,8 @@ onMount(async () => {
   <div class="home-inner">
     <div class="layer" style="top: 63%; width: 100%;">
       <img class="img-fluid" src="/img/home/bottom-city.png" alt="Bottom City" style="position: absolute;" />
-      <img class="img-fluid" src="/img/home/bottom-city-front.png" alt="Bottom City" style="position: relative;" />
       <Fans />
+      <!-- <img class="img-fluid" src="/img/home/bottom-city-front.png" alt="Bottom City" style="position: relative; z-index: 199;" /> -->
     </div>
     <div class="layer" style="top: 30%; width: 48%; transform: translate(-50%, -85%); left: 50%; max-width: 700px;" on:click={() => goto('/arena')}>
       <img class="img-fluid" src="/img/home/arena-back.png" alt="Arena" style="position: absolute; width: 100%;" />
@@ -74,14 +75,15 @@ onMount(async () => {
       <Mills />
     </div>
     <div class="layer" style="top: 53%; width: 23%; margin-top: -13%; left: 22%; animation: soaring-stake 5.5s infinite;">
-      <img class="img-fluid img-hover" src="/img/home/burn-glow.png" alt="Burn Glow" />
-      <img class="img-fluid" src="/img/home/burn.png" alt="Burn" />
+      <img class="img-fluid img-hover" src="/img/home/craft_back_windows.png" alt="Craft Glow" />
+      <Mixer />
+      <img class="img-fluid" src="/img/home/craft_back.png" alt="Craft" style="position: relative;" />
     </div>
     <div class="layer" style="top: 53%; width: 32%; margin-top: -21%; left: -3%; animation: soaring-stake 6s infinite;">
       <img class="img-fluid img-hover" src="/img/home/factory-glow.png" alt="Factory Glow" />
       <img class="img-fluid" src="/img/home/factory.png" alt="Factory" style="position: absolute;" />
-      <img class="img-fluid" src="/img/home/factory-front.png" alt="Factory"  style="position: relative;" />
       <Coolers />
+      <img class="img-fluid" src="/img/home/factory-front.png" alt="Factory"  style="position: relative; z-index: 199;" />
     </div>
   </div>
 

@@ -1,4 +1,5 @@
-import { LoadingManager, DirectionalLight, sRGBEncoding, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export class Model {
@@ -6,17 +7,18 @@ export class Model {
   private scene: Scene;
   private renderer: WebGLRenderer;
   private dom: HTMLElement
+  private controls: OrbitControls
   private light: DirectionalLight
   private loader: GLTFLoader
   private isAnimating: boolean
 
-  constructor({ dom, model }: { dom: string, model: string }) {
+  constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)!
+    this.camera = new PerspectiveCamera(cam, 1);
     this.isAnimating = false;
-    this.camera = new PerspectiveCamera(30, 1);
-    this.camera.position.set(0,0,30)
 
     this.scene = new Scene();
+    this.scene.translateY(0.366)
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -25,42 +27,40 @@ export class Model {
     };
 
     this.loader = new GLTFLoader(manager);
-    this.loader.load(model, (gltf) => {
-      const cooler1 = gltf.scene
-      const cooler2 = gltf.scene.clone()
-
-      cooler1.name = 'cooler1'
-      cooler1.position.set(3.33, 2.66, 0)
-      cooler1.rotateY(-0.2)
-      const cooler1scale = 0.52
-      cooler1.scale.set(cooler1scale, cooler1scale, cooler1scale)
-      this.scene.add(cooler1)
-
-      cooler2.name = 'cooler2'
-      cooler2.position.set(1.80, 5.67, 0)
-      cooler2.rotateY(-0.2)
-      const cooler2scale = 0.54
-      cooler2.scale.set(cooler2scale, cooler2scale, cooler2scale)
-      this.scene.add(cooler2)
+    this.loader.load(arena, (gltf) => {
+      gltf.scene.name = 'coin'
+      gltf.scene.scale.set(0.10, 0.10, 0.10)
+      gltf.scene.translateY(0)
+      this.scene.add(gltf.scene)
     });
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
 
     this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.physicallyCorrectLights = true
-    this.renderer.toneMappingExposure = 100
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
 
-    this.light = new DirectionalLight(0xFFFFFF, 4.2);
-    this.light.position.set(1, 5, 50);
+    this.controls = new OrbitControls(this.camera, this.dom)
+    this.camera.position.set(camPos[0], camPos[1], camPos[2]);
+    this.controls.update();
+    const polarAngle = Math.PI / 1.92
+    this.controls.minPolarAngle = polarAngle;
+    this.controls.maxPolarAngle = polarAngle;
+    this.controls.enableRotate = false;
+    this.controls.enableZoom = false;
+    this.controls.enablePan = false;
+    this.controls.autoRotate = true;
+    this.controls.autoRotateSpeed = 28.3;
+
+    this.light = new DirectionalLight(0xFFFFFF, 2.1);
+    this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);
-      const loader = document.getElementById('loader')
-      loader ? loader.style.opacity = '0' : null
+      document.getElementById('loader')!.style.opacity = '0';
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();
@@ -73,13 +73,14 @@ export class Model {
   private onWindowResize(): void {
     this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
+
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
   }
 
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
-    this.scene.getObjectByName('cooler1')!.rotation.z -= 0.012;
-    this.scene.getObjectByName('cooler2')!.rotation.z -= 0.010;
+    this.controls.update();
+    this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.renderer.render(this.scene, this.camera);
   }
 }

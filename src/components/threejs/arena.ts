@@ -36,6 +36,7 @@ export class Model {
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
 
+    this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.physicallyCorrectLights = true
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -53,7 +54,7 @@ export class Model {
     this.controls.autoRotate = true;
     this.controls.autoRotateSpeed = 1.3;
 
-    this.light = new DirectionalLight(0xCCCCCC, 15.5);
+    this.light = new DirectionalLight(0xCCCCCC, 10.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
