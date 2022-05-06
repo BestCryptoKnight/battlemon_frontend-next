@@ -1,9 +1,12 @@
-import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, SkeletonHelper, Clock, AnimationObjectGroup } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { LemonSettings } from './lemons'
+
+
+const clock = new Clock()
 
 export class Model {
   private camera: PerspectiveCamera;
@@ -15,6 +18,8 @@ export class Model {
   private isAnimating: boolean
   private lemonSettings: LemonSettings
   private isArena: boolean
+  private mixer: AnimationMixer
+  private animatedObjects: AnimationObjectGroup
   private sceneObjects: {
     [key: string]: Group
   }
@@ -37,10 +42,12 @@ export class Model {
     this.isArena = arenaBg
     this.scene = new Scene();
     this.scene.translateY(translateY)
+    
+    this.mixer = new AnimationMixer( this.scene )
 
-    this.scale = 1.8
+    this.scale = 1.5
     this.weaponCoord = [101.12, 101.05, 0]
-    this.light = 3.8
+    this.light = 4.8
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -54,18 +61,35 @@ export class Model {
     dracoLoader.setDecoderPath( '/draco/' );
     this.loader.setDRACOLoader( dracoLoader );
 
-    Object.entries(this.lemonSettings.model).forEach(([key,model]) => {
-      this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
-        this.addObject(gltf, key)
-      });
-    })
-    this.loader.load(leftWeapon, (gltf) => {
-      this.addObject(gltf, 'leftWeapon')
+    let animation: GLTF
+    this.animatedObjects = new AnimationObjectGroup()
+
+    this.loader.load(`/constructor/assets/lemons/anim/ThirdPersonIdle1.glb`, (anim) => {
+      animation = anim
+
+
+      Object.entries(this.lemonSettings.model).forEach(([key,model]) => {
+        this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
+          this.animatedObjects.add(gltf.scene)
+          this.addObject(gltf, key)
+        });
+        
+      })
+       
+      this.addObject(anim, 'anim')
+
     });
-    this.loader.load(rightWeapon, (gltf) => {
-      gltf.scene.scale.multiply(new Vector3(-1, 1, 1))
-      this.addObject(gltf, 'rightWeapon')
-    });
+
+    
+
+
+    // this.loader.load(leftWeapon, (gltf) => {
+    //   this.addObject(gltf, 'leftWeapon')
+    // });
+    // this.loader.load(rightWeapon, (gltf) => {
+    //   gltf.scene.scale.multiply(new Vector3(-1, 1, 1))
+    //   this.addObject(gltf, 'rightWeapon')
+    // });
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true  });
 
@@ -135,6 +159,15 @@ export class Model {
       const loader = document.getElementById('loader')
       if (loader) loader.style.opacity = '0';
       if (callback) callback()
+
+          const animationAction = this.mixer.clipAction(animation.animations[0], this.animatedObjects)
+          console.log(animationAction)
+          animationAction.play();
+          // let mixer = new AnimationMixer( animation.scene )
+          // const animationAction = mixer.clipAction(animation.scene.animations[0])
+          // animationAction.play();
+          // console.log(animationAction)
+
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();
@@ -151,6 +184,7 @@ export class Model {
       Object.entries(lemonSettings.model).forEach(([key,model]) => {
         this.scene.remove(this.sceneObjects[key]);
         this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
+          this.animatedObjects.add(gltf.scene)
           this.addObject(gltf, key)
           resolve()
         });
@@ -216,8 +250,10 @@ export class Model {
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
   }
 
+
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
+    this.mixer.update(clock.getDelta())
     this.controls.update();
     this.sceneLights.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
     this.sceneLights.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);
