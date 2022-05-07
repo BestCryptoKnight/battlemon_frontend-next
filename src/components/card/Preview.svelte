@@ -4,6 +4,7 @@
 
   export let shortNft = null; 
   export let fullNft = null;
+  fullNft.metadata.media = '/img/example.png'
   
   onMount(async () => {
     if (shortNft) {

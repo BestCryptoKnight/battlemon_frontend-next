@@ -11,6 +11,8 @@ export declare class Model {
     private isAnimating;
     private lemonSettings;
     private isArena;
+    private mixer;
+    private animatedObjects;
     private sceneObjects;
     private sceneLights;
     scale: number;

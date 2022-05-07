@@ -9,6 +9,7 @@ const cloth: string = params.get('cloth') || ''
 const eyes: string = params.get('eyes') || ''
 const head: string = params.get('head') || ''
 const teeth: string = params.get('teeth') || ''
+const back: string = params.get('back') || ''
 
 const lemonSettings: LemonSettings = {
   model: {
@@ -17,7 +18,8 @@ const lemonSettings: LemonSettings = {
     cloth,
     eyes,
     head,
-    teeth
+    teeth,
+    back
   }
 }
 
@@ -25,7 +27,7 @@ const model = new Model({
     dom: 'threejs',
     rightWeapon: '/constructor/assets/models/turel.glb',
     leftWeapon: '/constructor/assets/models/turel.glb',
-    cam: 12,
+    cam: 10,
     globalScale: 1.15,
     translateY: -1.43,
     background: `/constructor/assets/postaments/${background}.png`,

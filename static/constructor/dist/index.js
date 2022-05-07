@@ -42691,6 +42691,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+var clock = new three.Clock();
 var Model = /** @class */ (function () {
     /**
      * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
@@ -42706,9 +42707,10 @@ var Model = /** @class */ (function () {
         this.isArena = arenaBg;
         this.scene = new three.Scene();
         this.scene.translateY(translateY);
-        this.scale = 1.8;
+        this.mixer = new three.AnimationMixer(this.scene);
+        this.scale = 1.5;
         this.weaponCoord = [101.12, 101.05, 0];
-        this.light = 3.8;
+        this.light = 4.8;
         var manager = new three.LoadingManager();
         manager.onProgress = function (item, loaded, total) {
             var percents = (loaded / total * 100) + '%';
@@ -42718,19 +42720,26 @@ var Model = /** @class */ (function () {
         var dracoLoader = new DRACOLoader();
         dracoLoader.setDecoderPath('/draco/');
         this.loader.setDRACOLoader(dracoLoader);
-        Object.entries(this.lemonSettings.model).forEach(function (_a) {
-            var key = _a[0], model = _a[1];
-            _this.loader.load("/constructor/assets/lemons/".concat(key, "/").concat(model, ".glb"), function (gltf) {
-                _this.addObject(gltf, key);
+        var animation;
+        this.animatedObjects = new three.AnimationObjectGroup();
+        this.loader.load("/constructor/assets/lemons/anim/ThirdPersonIdle1.glb", function (anim) {
+            animation = anim;
+            Object.entries(_this.lemonSettings.model).forEach(function (_a) {
+                var key = _a[0], model = _a[1];
+                _this.loader.load("/constructor/assets/lemons/".concat(key, "/").concat(model, ".glb"), function (gltf) {
+                    _this.animatedObjects.add(gltf.scene);
+                    _this.addObject(gltf, key);
+                });
             });
+            _this.addObject(anim, 'anim');
         });
-        this.loader.load(leftWeapon, function (gltf) {
-            _this.addObject(gltf, 'leftWeapon');
-        });
-        this.loader.load(rightWeapon, function (gltf) {
-            gltf.scene.scale.multiply(new three.Vector3(-1, 1, 1));
-            _this.addObject(gltf, 'rightWeapon');
-        });
+        // this.loader.load(leftWeapon, (gltf) => {
+        //   this.addObject(gltf, 'leftWeapon')
+        // });
+        // this.loader.load(rightWeapon, (gltf) => {
+        //   gltf.scene.scale.multiply(new Vector3(-1, 1, 1))
+        //   this.addObject(gltf, 'rightWeapon')
+        // });
         this.renderer = new three.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
         this.renderer.outputEncoding = three.LinearEncoding;
         this.renderer.physicallyCorrectLights = true;
@@ -42772,7 +42781,7 @@ var Model = /** @class */ (function () {
                 this.controls.maxAzimuthAngle = 0;
             }
             this.controls.enableZoom = false;
-            this.controls.autoRotate = true;
+            //this.controls.autoRotate = true;
         }
         if (background) {
             var map = new three.TextureLoader(manager).load(background);
@@ -42791,6 +42800,13 @@ var Model = /** @class */ (function () {
                 loader.style.opacity = '0';
             if (callback)
                 callback();
+            var animationAction = _this.mixer.clipAction(animation.animations[0], _this.animatedObjects);
+            console.log(animationAction);
+            animationAction.play();
+            // let mixer = new AnimationMixer( animation.scene )
+            // const animationAction = mixer.clipAction(animation.scene.animations[0])
+            // animationAction.play();
+            // console.log(animationAction)
             window.addEventListener("resize", _this.onWindowResize.bind(_this), false);
             if (!_this.isAnimating) {
                 _this.animate();
@@ -42809,6 +42825,7 @@ var Model = /** @class */ (function () {
                             var key = _a[0], model = _a[1];
                             _this.scene.remove(_this.sceneObjects[key]);
                             _this.loader.load("/constructor/assets/lemons/".concat(key, "/").concat(model, ".glb"), function (gltf) {
+                                _this.animatedObjects.add(gltf.scene);
                                 _this.addObject(gltf, key);
                                 resolve();
                             });
@@ -42878,6 +42895,7 @@ var Model = /** @class */ (function () {
     };
     Model.prototype.animate = function () {
         requestAnimationFrame(this.animate.bind(this));
+        this.mixer.update(clock.getDelta());
         this.controls.update();
         this.sceneLights.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
         this.sceneLights.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);
@@ -42897,6 +42915,7 @@ var cloth = params.get('cloth') || '';
 var eyes = params.get('eyes') || '';
 var head = params.get('head') || '';
 var teeth = params.get('teeth') || '';
+var back = params.get('back') || '';
 var lemonSettings = {
     model: {
         exo: exo,
@@ -42904,14 +42923,15 @@ var lemonSettings = {
         cloth: cloth,
         eyes: eyes,
         head: head,
-        teeth: teeth
+        teeth: teeth,
+        back: back
     }
 };
 var model = new Model({
     dom: 'threejs',
     rightWeapon: '/constructor/assets/models/turel.glb',
     leftWeapon: '/constructor/assets/models/turel.glb',
-    cam: 12,
+    cam: 10,
     globalScale: 1.15,
     translateY: -1.43,
     background: "/constructor/assets/postaments/".concat(background, ".png"),

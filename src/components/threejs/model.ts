@@ -1,4 +1,4 @@
-import { TextureLoader, Vector3, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, SkeletonHelper, Clock, AnimationObjectGroup } from "three"
+import { TextureLoader, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, AnimationObjectGroup } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'

@@ -1,10 +1,12 @@
 export interface LemonModel {
     exo: string;
-    cap: string;
-    cloth: string;
-    eyes: string;
-    head: string;
-    teeth: string;
+    cap?: string;
+    cloth?: string;
+    eyes?: string;
+    head?: string;
+    teeth?: string;
+    anim?: string;
+    back?: string;
 }
 export interface LemonSettings {
     model: LemonModel;
