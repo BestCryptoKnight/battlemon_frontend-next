@@ -14,7 +14,8 @@
 <style>
   .inventory-wrap {
     position: absolute;
-    background-color: var(--primary);
+    background: var(--primary-lighten);
+    border-radius: 15px;
     inset: -1px;
     display: flex;
     top: 0;

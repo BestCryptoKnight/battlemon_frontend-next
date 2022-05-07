@@ -107,7 +107,7 @@ import weapon from '$src/components/svg/weapon';
 
 <style>
   .disabled {
-    opacity: 0.2;
+    opacity: 0.5;
     pointer-events: none;
   }
   @media screen and (max-width:768px) {

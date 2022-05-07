@@ -139,7 +139,7 @@ export class Model {
         this.controls.maxAzimuthAngle = 0
       }
       this.controls.enableZoom = false;
-      this.controls.autoRotate = true;
+      //this.controls.autoRotate = true;
     }
 
     if (background) {

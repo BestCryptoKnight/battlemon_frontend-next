@@ -9,13 +9,13 @@ import download from '../svg/download';
   const lemonSettings = Object.values(lemons)[nft.token_id % 4]
 
   const backgrounds = [
-    '/constructor/assets/postaments/red.png',
-    '/constructor/assets/postaments/red.png',
-    '/constructor/assets/postaments/red.png',
-    '/constructor/assets/postaments/red.png',
-    '/constructor/assets/postaments/red.png',
-    '/constructor/assets/postaments/red.png',
-    '/constructor/assets/postaments/red.png'
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
   ]
 
   onMount(async () => {

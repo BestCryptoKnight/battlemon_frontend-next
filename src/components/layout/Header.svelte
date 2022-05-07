@@ -4,7 +4,6 @@
   import { page } from '$app/stores';
   import Logo from './Logo.svelte';
   import Auth from './Auth.svelte';
-  import ThemeSwitcher from '$src/components/layout/ThemeSwitcher.svelte'
 </script>
 
 <header class:nav-open={openMainMenu}>
@@ -18,9 +17,7 @@
     
       <a href="/" class="logo-home text-center" style="position: static;">
         <Logo height={23} />
-      </a>		
-      
-      <ThemeSwitcher />
+      </a>
 
       {#if $near.connected}
         <div class="nav-wrap">

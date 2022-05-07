@@ -17,8 +17,13 @@
   white-space: nowrap;
 }
 
+html {
+  background: url('/img/home/main.jpg') center center no-repeat;
+  background-size: cover;
+}
 body {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: rgba(0,0,0,0.1);
 }
 
 h1 {
@@ -103,9 +108,6 @@ h1, h2, h3 {
   background: var(--primary-lighten);
   border-radius: 15px;
 }
-.modal.position-static .modal-content {
-  background-color: var(--opacity-bg);
-}
 .modal.position-static .modal-dialog-scrollable {
   height: 100%;
 }
@@ -142,6 +144,10 @@ h1, h2, h3 {
   border-bottom-right-radius: 15px;
   border: 1px solid var(--inverse);
   border-color: transparent var(--inverse) var(--inverse) var(--inverse);
+}
+
+.tab-pane {
+  background-color: #000;
 }
 /* End Tabs */
 
