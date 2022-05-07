@@ -62,7 +62,7 @@ onMount(async () => {
     dom: 'threejs',
     rightWeapon: '/constructor/assets/models/turel.glb',
     leftWeapon: '/constructor/assets/models/turel.glb',
-    cam: 70,
+    cam: 90,
     globalScale: 6,
     translateY: -6.87,
     arenaBg: true,
@@ -161,7 +161,7 @@ onMount(async () => {
       </button>
     </div>
 
-    <div class="right-col">
+    <!-- <div class="right-col">
       <div class="trials-block">
         <div class="trials-hoverable">
           <h2>
@@ -271,7 +271,7 @@ onMount(async () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="auth-home d-flex">
       <Auth light={true} />
