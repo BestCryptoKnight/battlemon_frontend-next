@@ -86,7 +86,7 @@ onMount(async () => {
       <Coolers />
       <img class="img-fluid" src="/img/home/factory-front.png" alt="Factory"  style="position: relative; z-index: 199;" />
     </div>
-    <div class="layer" style="top: 65%; width: 17%; left: 43%; animation: soaring-stake 6s infinite;">
+    <div class="layer" style="top: 61%; width: 19%; left: 43%; animation: soaring-stake 6s infinite;">
       <DownloadBuilding />
     </div>
   </div>

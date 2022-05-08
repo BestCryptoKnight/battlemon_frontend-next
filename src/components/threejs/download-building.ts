@@ -30,9 +30,12 @@ export class Model {
 
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
-      gltf.scene.name = 'coin'
+      gltf.scene.name = 'building'
       gltf.scene.scale.set(0.45,0.45,0.45)
       gltf.scene.translateY(0)
+      gltf.scene.rotateY(-0.05)
+      gltf.scene.rotateX(-0.2)
+      gltf.scene.rotateZ(0.2)
       this.scene.add(gltf.scene)
     });
 
@@ -53,10 +56,10 @@ export class Model {
     this.controls.enableRotate = false;
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
-    this.controls.autoRotate = true;
-    this.controls.autoRotateSpeed = 11.3;
+    // this.controls.autoRotate = true;
+    // this.controls.autoRotateSpeed = 11.3;
 
-    this.light = new DirectionalLight(0xFFFFFF, 25.5);
+    this.light = new DirectionalLight(0xFFFFFF, 22.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
@@ -83,16 +86,16 @@ export class Model {
     requestAnimationFrame(this.animate.bind(this));
     
     this.controls.update()
-    const angle = this.controls.getAzimuthalAngle();
-    if (!this.turnAnimation && angle > 0 && angle < 2) {
-      this.controls.autoRotateSpeed = -1 * this.controls.autoRotateSpeed;
-      this.turnAnimation = true;
-    }
-    if (this.turnAnimation && angle < 0 && angle > -2) {
-      this.controls.autoRotateSpeed = -1 * this.controls.autoRotateSpeed;
-      this.turnAnimation = false;
-    }
-    console.log(angle)
+    // const angle = this.controls.getAzimuthalAngle();
+    // if (!this.turnAnimation && angle > 0 && angle < 2) {
+    //   this.controls.autoRotateSpeed = -1 * this.controls.autoRotateSpeed;
+    //   this.turnAnimation = true;
+    // }
+    // if (this.turnAnimation && angle < 0 && angle > -2) {
+    //   this.controls.autoRotateSpeed = -1 * this.controls.autoRotateSpeed;
+    //   this.turnAnimation = false;
+    // }
+    // console.log(angle)
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.renderer.render(this.scene, this.camera);
   }
