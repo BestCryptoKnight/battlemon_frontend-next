@@ -11,6 +11,7 @@ import Coin from '$src/components/threejs/Coin.svelte';
 import Coolers from '$src/components/threejs/Coolers.svelte';
 import Fans from '$src/components/threejs/Fans.svelte';
 import Mixer from '$src/components/threejs/Mixer.svelte';
+import DownloadBuilding from '$src/components/threejs/DownloadBuilding.svelte';
 
 
 onMount(async () => {
@@ -84,6 +85,9 @@ onMount(async () => {
       <img class="img-fluid" src="/img/home/factory.png" alt="Factory" style="position: absolute;" />
       <Coolers />
       <img class="img-fluid" src="/img/home/factory-front.png" alt="Factory"  style="position: relative; z-index: 199;" />
+    </div>
+    <div class="layer" style="top: 63%; width: 22%; left: 40%; animation: soaring-stake 6s infinite;">
+      <DownloadBuilding />
     </div>
   </div>
 

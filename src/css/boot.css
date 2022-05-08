@@ -19,6 +19,7 @@
 
 html {
   background: url('/img/home/main.jpg') center center no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 }
 body {
