@@ -5,6 +5,7 @@
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
   import { fromNear } from '$src/utils/api';
+  import DownloadBuilding from '$src/components/threejs/DownloadBuilding.svelte';
 
   let listNft = []
 
@@ -25,9 +26,6 @@
 <section class="catalog">
   <Filter />
   <div class="catalog-inner">
-    <div class="mx-auto" style="max-width: 600px; top: -40px; position: relative;">
-      <img src="/img/lemon-party.png" alt="lemon-party" class="img-fluid" />
-    </div>
     <div class="text-center">
       <TopMenu root="shop" />
     </div>
@@ -55,7 +53,7 @@
             </div>
           {:else}
             <div class="near-value justify-content-center mt-3 pb-3" style="font-size: 22px;">
-              <b style="color: #585656;">not sale</b>
+              <b style="color: #f0f0f0;">not sale</b>
             </div>
           {/if}
         </div>
@@ -63,3 +61,7 @@
     </div>
   </div>
 </section>
+
+<div style="position: fixed; right: 0; bottom: 0; width: 300px; height: 300px;">
+  <DownloadBuilding />
+</div>

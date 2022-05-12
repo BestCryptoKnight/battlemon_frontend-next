@@ -17,13 +17,23 @@
   white-space: nowrap;
 }
 
+@font-face {
+  font-family: 'bitbybit';
+  src: url('/fonts/bitbybit/bitbybit.eot');
+  src: url('/fonts/bitbybit/bitbybit.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/bitbybit/bitbybit.woff2') format('woff2'),
+       url('/fonts/bitbybit/bitbybit.woff') format('woff')
+}
+
 html {
-  background: url('/img/home/main.jpg') center center no-repeat;
+  background: url('/img/bg.jpg') center bottom no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 body {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "bitbybit", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: url('/img/bg_opacity.png') center top repeat-y;
+  background-size: contain;
   background-color: rgba(0,0,0,0.1);
 }
 

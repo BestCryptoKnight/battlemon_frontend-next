@@ -65,7 +65,8 @@ export class Model {
 
     manager.onLoad = () => {
       this.dom.appendChild(this.renderer.domElement);
-      document.getElementById('loader')!.style.opacity = '0';
+      const loader = document.getElementById('loader')
+      if (loader) loader.style.opacity = '0';
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();

@@ -782,14 +782,6 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	}
 }
 
-@font-face {
-	font-family: Caard-LN;
-	src: url(/fonts/Caard-LN.woff2) format('woff2'), url(/fonts/Caard-LN.woff) format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap
-}
-
 @media screen and (min-width:769px) {
 	:root {
 		--container-indent: 30px

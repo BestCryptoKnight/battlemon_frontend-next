@@ -167,7 +167,7 @@ import weapon from '$src/components/svg/weapon';
         {:else}
           {#if nft.owner_id !== $near.user.id}
             <div class="near-value justify-content-center mt-5 pb-3">
-              <b style="color: #585656;">not sale</b>
+              <b style="color: #f0f0f0;">not sale</b>
             </div>
           {/if}
         {/if}
