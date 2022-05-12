@@ -1,5 +1,5 @@
 export interface LemonModel {
-  exo: string
+  exo?: string
   cap?: string
   cloth?: string
   eyes?: string
@@ -7,6 +7,7 @@ export interface LemonModel {
   teeth?: string
   anim?: string
   back?: string
+  full?: string
 }
 
 export interface LemonSettings {
@@ -21,9 +22,7 @@ export interface Lemons {
 const lemons: Lemons = {
   classic: {
     model: {
-      exo: 'BTLMN_ARM1_Body',
-      cap: 'BTLMN_ARM1_Hat',
-      back: 'BTLMN_ARM1_Back',
+      full: 'BTLMN_ARM1_A1'
       // cloth: 'ARM1_Cloth_MA01',
       // eyes: 'ARM1_Eyes_Z01',
       // head: 'ARM1_Head_Z01',
@@ -32,9 +31,7 @@ const lemons: Lemons = {
   },
   octopus: {
     model: {
-      exo: 'BTLMN_ARM1_Body',
-      cap: 'BTLMN_ARM1_Hat',
-      back: 'BTLMN_ARM1_Back',
+      full: 'BTLMN_ARM1_A2'
       // cloth: 'ARM1_Cloth_MA01',
       // eyes: 'ARM1_Eyes_B01',
       // head: 'ARM1_Head_B01',
@@ -43,9 +40,7 @@ const lemons: Lemons = {
   },
   gaul: {
     model: {
-      exo: 'BTLMN_ARM1_Body',
-      cap: 'BTLMN_ARM1_Hat',
-      back: 'BTLMN_ARM1_Back',
+      full: 'BTLMN_ARM1_A3'
       // cloth: 'ARM1_Cloth_MA01',
       // eyes: 'ARM1_Eyes_Z01',
       // head: 'ARM1_Head_B01',
@@ -54,9 +49,7 @@ const lemons: Lemons = {
   },
   magnet: {
     model: {
-      exo: 'BTLMN_ARM1_Body',
-      cap: 'BTLMN_ARM1_Hat',
-      back: 'BTLMN_ARM1_Back',
+      full: 'BTLMN_ARM1_A4'
       // cloth: 'ARM1_Cloth_MA01',
       // eyes: 'ARM1_Eyes_A01',
       // head: 'ARM1_Head_A01',

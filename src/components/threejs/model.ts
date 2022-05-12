@@ -1,4 +1,4 @@
-import { TextureLoader, LoadingManager, CubeTextureLoader, LinearEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, AnimationObjectGroup } from "three"
+import { TextureLoader, LoadingManager, CubeTextureLoader, sRGBEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, AnimationObjectGroup } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
@@ -45,9 +45,9 @@ export class Model {
     
     this.mixer = new AnimationMixer( this.scene )
 
-    this.scale = 1.5
+    this.scale = 0.017
     this.weaponCoord = [101.12, 101.05, 0]
-    this.light = 4.8
+    this.light = 3.8
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
@@ -61,24 +61,24 @@ export class Model {
     dracoLoader.setDecoderPath( '/draco/' );
     this.loader.setDRACOLoader( dracoLoader );
 
-    let animation: GLTF
-    this.animatedObjects = new AnimationObjectGroup()
+    // let animation: GLTF
+    // this.animatedObjects = new AnimationObjectGroup()
 
-    this.loader.load(`/constructor/assets/lemons/anim/ThirdPersonIdle1.glb`, (anim) => {
-      animation = anim
+    // this.loader.load(`/constructor/assets/lemons/anim/ThirdPersonIdle1.glb`, (anim) => {
+    //   animation = anim
 
 
       Object.entries(this.lemonSettings.model).forEach(([key,model]) => {
         this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
-          this.animatedObjects.add(gltf.scene)
+          //this.animatedObjects.add(gltf.scene)
           this.addObject(gltf, key)
         });
         
       })
        
-      this.addObject(anim, 'anim')
+    //   this.addObject(anim, 'anim')
 
-    });
+    // });
 
     
 
@@ -93,7 +93,7 @@ export class Model {
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true  });
 
-    this.renderer.outputEncoding = LinearEncoding;
+    this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.physicallyCorrectLights = true
     this.renderer.toneMappingExposure = 0.5
     this.renderer.setClearColor(0x000000, 0); // the default
@@ -160,13 +160,10 @@ export class Model {
       if (loader) loader.style.opacity = '0';
       if (callback) callback()
 
-          const animationAction = this.mixer.clipAction(animation.animations[0], this.animatedObjects)
-          console.log(animationAction)
-          animationAction.play();
-          // let mixer = new AnimationMixer( animation.scene )
-          // const animationAction = mixer.clipAction(animation.scene.animations[0])
-          // animationAction.play();
+          // const animationAction = this.mixer.clipAction(animation.animations[0], this.animatedObjects)
           // console.log(animationAction)
+          // animationAction.play();
+
 
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
@@ -184,7 +181,7 @@ export class Model {
       Object.entries(lemonSettings.model).forEach(([key,model]) => {
         this.scene.remove(this.sceneObjects[key]);
         this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
-          this.animatedObjects.add(gltf.scene)
+          //this.animatedObjects.add(gltf.scene)
           this.addObject(gltf, key)
           resolve()
         });

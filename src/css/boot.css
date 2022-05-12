@@ -25,6 +25,52 @@
        url('/fonts/bitbybit/bitbybit.woff') format('woff')
 }
 
+
+.parallax {
+  height: 100vh;
+  perspective: 1px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform-style: preserve-3d;
+}
+.parallax__section {
+  height: 100vh;
+  position: relative;
+  transform-style: preserve-3d;
+}
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.parallax__layer--back {
+  transform: translateZ(-2px) scale(3);
+  background: url('/img/parallax2.png') center bottom no-repeat;
+  background-size: cover;
+}
+.parallax__layer--base {
+  transform: translateZ(-1px) scale(2);
+  background: url('/img/parallax2.png') center bottom no-repeat;
+  background-size: cover;
+}
+.parallax__layer--front {
+  background: url('/img/parallax1.png') center bottom no-repeat;
+  background-size: cover;
+
+}
+
+
+#svelte > main {
+  position: relative;
+  z-index: 100;
+}
+.footer {
+  position: relative;
+  z-index: 100;
+}
+
 html {
   background: url('/img/bg.jpg') center bottom no-repeat;
   background-attachment: fixed;
@@ -32,8 +78,6 @@ html {
 }
 body {
   font-family: "bitbybit", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: url('/img/bg_opacity.png') center top repeat-y;
-  background-size: contain;
   background-color: rgba(0,0,0,0.1);
 }
 
