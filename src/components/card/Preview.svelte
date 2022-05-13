@@ -1,10 +1,10 @@
-<script>
+<script type="ts">
   import { onMount } from 'svelte'
   import near from '$src/utils/near'
+  import Lemon from '$src/components/threejs/Lemon.svelte'
 
   export let shortNft = null; 
   export let fullNft = null;
-  fullNft.metadata.media = '/img/example.png'
   
   onMount(async () => {
     if (shortNft) {
@@ -15,8 +15,8 @@
 
 {#if fullNft}
   <div class="img-box">
-    <a href={`/card/${fullNft.token_id}`}>
-      <img class="cursor-pointer" src={fullNft.metadata.media} alt={fullNft.metadata.title} />
+    <a href={`/card/${fullNft.token_id}`} style="user-select: none;-webkit-user-drag: none;">
+      <Lemon nft={fullNft} />
     </a>
   </div>
 {/if}

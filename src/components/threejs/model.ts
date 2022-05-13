@@ -5,14 +5,13 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import type { LemonSettings } from './lemons'
 
-
-const clock = new Clock()
-
 export class Model {
   private camera: PerspectiveCamera;
   private scene: Scene;
   private renderer: WebGLRenderer;
-  private dom: HTMLElement
+  private domThreejs: HTMLElement
+  private domLoader: HTMLElement
+  private clock: Clock
   private controls: OrbitControls
   private loader: GLTFLoader
   private isAnimating: boolean
@@ -33,19 +32,22 @@ export class Model {
   /**
    * Based off the three.js docs: https://threejs.org/examples/?q=cube#webgl_geometry_cube
    */
-  constructor({ dom, rightWeapon, leftWeapon, translateY, cam, arenaBg, globalScale, lemonSettings, background, rotate = true, callback }: { dom: string, rightWeapon: string, leftWeapon: string, cam: number, translateY: number, arenaBg?: boolean, globalScale: number, lemonSettings: LemonSettings, background?: string, rotate?: boolean, callback?: () => void}) {
-    this.dom = document.getElementById(dom)
-    this.camera = new PerspectiveCamera(cam, this.dom.offsetWidth / this.dom.offsetHeight);
+  constructor({ dom, loader, rightWeapon, leftWeapon, translateY, cam, arenaBg, globalScale, lemonSettings, background, rotate = true, callback }: { dom: HTMLElement, loader: HTMLElement, rightWeapon: string, leftWeapon: string, cam: number, translateY: number, arenaBg?: boolean, globalScale: number, lemonSettings: LemonSettings, background?: string, rotate?: boolean, callback?: () => void}) {
+    this.domThreejs = dom
+    this.camera = new PerspectiveCamera(cam, this.domThreejs.offsetWidth / this.domThreejs.offsetHeight);
+    this.domLoader = loader
     this.sceneObjects = {};
     this.sceneLights = {};
+    this.isAnimating = false;
     this.lemonSettings = lemonSettings
-    this.isArena = arenaBg
+    this.isArena = arenaBg;
+    this.clock = new Clock()
     this.scene = new Scene();
     this.scene.translateY(translateY)
     
     this.mixer = new AnimationMixer( this.scene )
 
-    this.scale = 0.017
+    this.scale = 0.020
     this.weaponCoord = [101.12, 101.05, 0]
     this.light = 3.8
 
@@ -61,7 +63,6 @@ export class Model {
     dracoLoader.setDecoderPath( '/draco/' );
     this.loader.setDRACOLoader( dracoLoader );
 
-    let animation: GLTF
     this.animatedObjects = new AnimationObjectGroup()
 
     // this.loader.load(`/constructor/assets/lemons/anim/ThirdPersonIdle1.glb`, (anim) => {
@@ -70,9 +71,16 @@ export class Model {
 
       Object.entries(this.lemonSettings.model).forEach(([key,model]) => {
         this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
-          animation = gltf
-          this.animatedObjects.add(gltf.scene)
+
           this.addObject(gltf, key)
+
+          var action = this.mixer.clipAction( gltf.animations[ 0 ] );
+          action.play();
+
+          // const animationAction = this.mixer.clipAction(gltf.animations[0], gltf.scene)
+          // animationAction.play();
+
+
         });
         
       })
@@ -99,9 +107,9 @@ export class Model {
     this.renderer.toneMappingExposure = 0.5
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
+    this.renderer.setSize(this.domThreejs.offsetWidth, this.domThreejs.offsetHeight);
 
-    this.controls = new OrbitControls(this.camera, this.dom)
+    this.controls = new OrbitControls(this.camera, this.domThreejs)
     this.camera.position.set(0, 0, 25);
     this.controls.update();
     this.controls.enablePan = false;
@@ -156,16 +164,9 @@ export class Model {
     this.scene.add(this.sceneLights.light2);
 
     manager.onLoad = () => {
-      this.dom.appendChild(this.renderer.domElement);
-      const loader = document.getElementById('loader')
-      if (loader) loader.style.opacity = '0';
+      this.domThreejs.appendChild(this.renderer.domElement);
+      this.domLoader.style.opacity = '0';
       if (callback) callback()
-
-          const animationAction = this.mixer.clipAction(animation.animations[0], this.animatedObjects)
-          console.log(animationAction)
-          animationAction.play();
-
-
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
       if (!this.isAnimating) {
         this.animate();
@@ -176,7 +177,7 @@ export class Model {
   }
 
   async changeLemon(lemonSettings: LemonSettings): Promise<void> {
-    document.getElementById('loader').style.opacity = '1';
+    this.domLoader.style.opacity = '1';
     this.lemonSettings = lemonSettings;
     return new Promise((resolve) => {
       Object.entries(lemonSettings.model).forEach(([key,model]) => {
@@ -229,7 +230,7 @@ export class Model {
   }
 
   async changeEquipment(name: string, item: { image: string, model: string, scale: number }): Promise<void> {
-    document.getElementById('loader').style.opacity = '1';
+    this.domLoader.style.opacity = '1';
     return new Promise((resolve) => {
       const objectToRemove = this.scene.getObjectByName(name);
       this.loader.load(item.model, (gltf) => {
@@ -242,16 +243,17 @@ export class Model {
   }
 
   private onWindowResize(): void {
-    this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
+    this.camera.aspect = this.domThreejs.offsetWidth / this.domThreejs.offsetHeight;
     this.camera.updateProjectionMatrix();
     
-    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
+    this.renderer.setSize(this.domThreejs.offsetWidth, this.domThreejs.offsetHeight);
   }
 
 
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
-    this.mixer.update(clock.getDelta())
+    const delta = this.clock.getDelta();
+    this.mixer.update(delta)
     this.controls.update();
     this.sceneLights.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
     this.sceneLights.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);

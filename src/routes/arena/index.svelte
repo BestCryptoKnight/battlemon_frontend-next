@@ -31,6 +31,8 @@ let model: Model | null = null
 let listNft = []
 let heroesDom = null
 let currentNft = null
+let threeEl;
+let loaderEl: HTMLElement;
 
 const changeLemon = (nft) => async (e) => {
   e.preventDefault();
@@ -59,7 +61,8 @@ onMount(async () => {
   let lemonSettings = Object.values(lemons)[currentNft.token_id % 4]
   const { Model } = await import('$src/components/threejs/model')
   model = new Model({
-    dom: 'threejs',
+    dom: threeEl!,
+    loader: loaderEl,
     rightWeapon: '/constructor/assets/models/turel.glb',
     leftWeapon: '/constructor/assets/models/turel.glb',
     cam: 90,
@@ -73,7 +76,7 @@ onMount(async () => {
 
 <div class="arena">
   <div class="threejs-container">
-    <div id="threejs" class="threejs"></div>
+    <div class="threejs" bind:this={threeEl}></div>
 
     <div class="three-buttons d-flex">
       <button class="btn btn-light d-flex mx-1 active" style="padding-left: 13px; padding-right: 13px;" on:click={toggleHeroes}>
@@ -95,7 +98,7 @@ onMount(async () => {
       <a href={'https://t.me/Battlemon'}>{@html telegram}</a>
     </div>
     
-    <div bind:this={heroesDom} class="d-flex my-heroes-block">
+    <!-- <div bind:this={heroesDom} class="d-flex my-heroes-block">
       <TabContent class="d-flex flex-column w-100">
         <TabPane tabId="nft" tab="NFT" active class="h-100">
           <div class="my-heroes-block-bg">
@@ -120,7 +123,7 @@ onMount(async () => {
           </div>
         </TabPane>
       </TabContent>
-    </div>
+    </div> -->
 
     <a href="/" class="logo-home">
       <Logo height={24} />
@@ -277,6 +280,8 @@ onMount(async () => {
       <Auth light={true} />
     </div>    
 
-    <Loader />
+    <div bind:this={loaderEl}>
+      <Loader />
+    </div>
   </div>
 </div>

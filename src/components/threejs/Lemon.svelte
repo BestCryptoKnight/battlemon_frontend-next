@@ -5,6 +5,8 @@
 import download from '../svg/download';
 
   export let nft;
+  let threeEl: HTMLElement;
+  let loaderEl: HTMLElement;
 
   const lemonSettings = Object.values(lemons)[nft.token_id % 4]
 
@@ -21,12 +23,13 @@ import download from '../svg/download';
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/model')
     const model = new Model({
-        dom: 'threejs',
+        dom: threeEl!,
+        loader: loaderEl!,
         rightWeapon: '/constructor/assets/models/turel.glb',
         leftWeapon: '/constructor/assets/models/turel.glb',
         cam: 12,
         globalScale: 1.15,
-        translateY: -1.43,
+        translateY: -2.13,
         background: backgrounds[nft.token_id % 7],
         lemonSettings
     })
@@ -50,10 +53,10 @@ import download from '../svg/download';
 
 <!-- <div style="width: 30px; height: 30px; position: absolute; z-index: 100; left: 35px; top: 25px; color: rgba(255,255,255,0.3); cursor: pointer;" on:click={() => {$threeStore.model.screenShot(nft.token_id)}}>{@html download}</div> -->
 <div class="threejs-container">
-  <div id="threejs" class="threejs">
+  <div class="threejs" bind:this={threeEl}>
     
   </div>
-  <div id="loader" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+  <div bind:this={loaderEl} style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none;">
     <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   </div>
 </div>
