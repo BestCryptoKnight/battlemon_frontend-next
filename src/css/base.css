@@ -445,9 +445,6 @@ a:hover {
 	cursor: pointer
 }
 
-header {
-	padding: 24px 0 35px
-}
 
 .header-inner .nav-toggle.active .line:before {
 	top: 0
@@ -499,7 +496,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	height: 45px;
 	position: relative;
 	padding: 0 20px 0 26px;
-	font-size: 15px;
+	font-size: 17px;
 	margin-bottom: 30px;
 	border-top: none;
 	border-left: none;
@@ -787,7 +784,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 		--container-indent: 30px
 	}
 	body {
-		font-size: 15px
+		font-size: 16px
 	}
 	main {
 		padding-top: 30px;

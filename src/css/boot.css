@@ -25,52 +25,6 @@
        url('/fonts/bitbybit/bitbybit.woff') format('woff')
 }
 
-
-.parallax {
-  height: 100vh;
-  perspective: 1px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  transform-style: preserve-3d;
-}
-.parallax__section {
-  height: 100vh;
-  position: relative;
-  transform-style: preserve-3d;
-}
-.parallax__layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.parallax__layer--back {
-  transform: translateZ(-2px) scale(3);
-  background: url('/img/parallax2.png') center bottom no-repeat;
-  background-size: cover;
-}
-.parallax__layer--base {
-  transform: translateZ(-1px) scale(2);
-  background: url('/img/parallax2.png') center bottom no-repeat;
-  background-size: cover;
-}
-.parallax__layer--front {
-  background: url('/img/parallax1.png') center bottom no-repeat;
-  background-size: cover;
-
-}
-
-
-#svelte > main {
-  position: relative;
-  z-index: 100;
-}
-.footer {
-  position: relative;
-  z-index: 100;
-}
-
 html {
   background: url('/img/bg.jpg') center bottom no-repeat;
   background-attachment: fixed;
@@ -152,6 +106,23 @@ h1, h2, h3 {
   font-size: 21px;
 }
 
+header::before {
+  height: 80px;
+  content: "";
+  display: block;
+}
+header .header-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: fixed !important;
+  left: 0;
+  top:0;
+  right: 0;
+  transition: all 0.5s;
+}
+header .header-container.black {
+  background: #000;
+}
  
 .modal-header {
   border: none;

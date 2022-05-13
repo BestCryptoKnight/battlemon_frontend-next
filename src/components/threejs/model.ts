@@ -61,8 +61,8 @@ export class Model {
     dracoLoader.setDecoderPath( '/draco/' );
     this.loader.setDRACOLoader( dracoLoader );
 
-    // let animation: GLTF
-    // this.animatedObjects = new AnimationObjectGroup()
+    let animation: GLTF
+    this.animatedObjects = new AnimationObjectGroup()
 
     // this.loader.load(`/constructor/assets/lemons/anim/ThirdPersonIdle1.glb`, (anim) => {
     //   animation = anim
@@ -70,7 +70,8 @@ export class Model {
 
       Object.entries(this.lemonSettings.model).forEach(([key,model]) => {
         this.loader.load(`/constructor/assets/lemons/${key}/${model}.glb`, (gltf) => {
-          //this.animatedObjects.add(gltf.scene)
+          animation = gltf
+          this.animatedObjects.add(gltf.scene)
           this.addObject(gltf, key)
         });
         
@@ -160,9 +161,9 @@ export class Model {
       if (loader) loader.style.opacity = '0';
       if (callback) callback()
 
-          // const animationAction = this.mixer.clipAction(animation.animations[0], this.animatedObjects)
-          // console.log(animationAction)
-          // animationAction.play();
+          const animationAction = this.mixer.clipAction(animation.animations[0], this.animatedObjects)
+          console.log(animationAction)
+          animationAction.play();
 
 
       window.addEventListener("resize", this.onWindowResize.bind(this), false);
