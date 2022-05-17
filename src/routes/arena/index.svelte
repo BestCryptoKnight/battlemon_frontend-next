@@ -78,207 +78,108 @@ onMount(async () => {
   <div class="threejs-container">
     <div class="threejs" bind:this={threeEl}></div>
 
-    <div class="three-buttons d-flex">
-      <button class="btn btn-light d-flex mx-1 active" style="padding-left: 13px; padding-right: 13px;" on:click={toggleHeroes}>
-        <div class="icon pointer-events-none" style="min-width: 32px;">{@html lemon(32,30)}</div>
-      </button>
-      <button class="btn btn-light d-flex mx-1" style="padding-left: 13px; padding-right: 13px;">
-        <div class="icon" style="min-width: 32px;">{@html weapon(30,30)}</div>
-      </button>
-      <button class="btn btn-light d-flex mx-1" style="padding-left: 16px; padding-right: 16px;">
-        <div class="icon" style="min-width: 25px;">{@html bag(25,30)}</div>
-      </button>
-    </div>
 
-    <div class="socials">
-      <a href={'https://twitter.com/BATTLEM0N'}>{@html twitter}</a>
-      <a href={'https://medium.com/@Battlemon'}>{@html medium}</a>
-      <a href={'https://github.com/battlemon-project'}>{@html github}</a>
-      <a href={'https://dsc.gg/battlemon'}>{@html discord}</a>
-      <a href={'https://t.me/Battlemon'}>{@html telegram}</a>
-    </div>
+    <div class="container position-relative">
+
+      <div class="juice">
+        JUICE &nbsp; 32 940
+      </div>
+
+      <div class="three-buttons d-flex">
+        <button class="btn btn-light d-flex mx-1 active" style="padding-left: 13px; padding-right: 13px;" on:click={toggleHeroes}>
+          <div class="icon pointer-events-none" style="min-width: 32px;">{@html lemon(32,30)}</div>
+        </button>
+        <button class="btn btn-light d-flex mx-1" style="padding-left: 13px; padding-right: 13px;">
+          <div class="icon" style="min-width: 32px;">{@html weapon(30,30)}</div>
+        </button>
+        <button class="btn btn-light d-flex mx-1" style="padding-left: 16px; padding-right: 16px;">
+          <div class="icon" style="min-width: 25px;">{@html bag(25,30)}</div>
+        </button>
+      </div>
+
+      <div class="socials">
+        <a href={'https://twitter.com/BATTLEM0N'}>{@html twitter}</a>
+        <a href={'https://medium.com/@Battlemon'}>{@html medium}</a>
+        <a href={'https://github.com/battlemon-project'}>{@html github}</a>
+        <a href={'https://dsc.gg/battlemon'}>{@html discord}</a>
+        <a href={'https://t.me/Battlemon'}>{@html telegram}</a>
+      </div>
+      
+      <header>
+        <div class="header-container" style="background: none;">
+          <div class="container">
+            <div class="header-inner">
+              <a href="/" class="logo-home text-center">
+                <Logo height={23} />
+              </a>		
     
-    <!-- <div bind:this={heroesDom} class="d-flex my-heroes-block">
-      <TabContent class="d-flex flex-column w-100">
-        <TabPane tabId="nft" tab="NFT" active class="h-100">
-          <div class="my-heroes-block-bg">
-            {#each listNft as nft}
-              <div class="col-12 cursor-pointer my-heroes-link" on:click={changeLemon(nft)} class:active={currentNft === nft}>
-                <div class="pointer-events-none">
-                  <Preview fullNft={nft} />
-                </div>
+              <div class="top-menu d-flex">
+                <a class="btn btn-light d-flex one-width" href="/shop">
+                  <span class="icon" style="min-width: 22px; ">{@html shop}</span>
+                  <span class="w-100">Shop</span>
+                </a>
+                <button class="btn btn-light d-flex one-width">
+                  <span class="icon" style="min-width: 27px; ">{@html battlepass}</span>
+                  <span class="w-100 nowrap">Battle pass</span>
+                </button>
+                <button class="btn btn-light d-flex one-width">
+                  <span class="icon" style="min-width: 21px; ">{@html guild}</span>
+                  <span class="w-100">Guild</span>
+                </button>
+                <button class="btn btn-light d-flex one-width">
+                  <span class="icon" style="min-width: 26px; ">{@html progress}</span>
+                  <span class="w-100">Progress</span>
+                </button>
+                <button class="btn btn-light d-flex">
+                  <span class="icon" style="min-width: 16px; ">{@html statistic}</span>
+                </button>
+                <button class="btn btn-light d-flex">
+                  <span class="icon" style="min-width: 20px; ">{@html people}</span>
+                </button>
+                <button class="btn btn-light d-flex">
+                  <span class="icon" style="min-width: 20px; ">{@html settings}</span>
+                </button>
+                <button class="btn btn-light d-flex">
+                  <span class="icon" style="min-width: 20px; ">{@html world}</span>
+                </button>
               </div>
-            {/each}
+
+              {#if $near.connected}
+                <Auth light={true} />
+              {/if}
+            </div>
           </div>
-        </TabPane>
-        <TabPane tabId="game" tab="Game" class="h-100">
-          <div class="my-heroes-block-bg">
-            {#each listNft.slice(3,6) as nft}
-              <div class="col-12 cursor-pointer my-heroes-link" on:click={changeLemon(nft)} class:active={currentNft === nft}>
-                <div class="pointer-events-none">
-                  <Preview fullNft={nft} />
+        </div>
+      </header>
+    </div>
+      <!-- <div bind:this={heroesDom} class="d-flex my-heroes-block">
+        <TabContent class="d-flex flex-column w-100">
+          <TabPane tabId="nft" tab="NFT" active class="h-100">
+            <div class="my-heroes-block-bg">
+              {#each listNft as nft}
+                <div class="col-12 cursor-pointer my-heroes-link" on:click={changeLemon(nft)} class:active={currentNft === nft}>
+                  <div class="pointer-events-none">
+                    <Preview fullNft={nft} />
+                  </div>
                 </div>
-              </div>
-            {/each}
-          </div>
-        </TabPane>
-      </TabContent>
-    </div> -->
-
-    <a href="/" class="logo-home">
-      <Logo height={24} />
-    </a>		
-
-    <div class="juice">
-      JUICE &nbsp; 32 940
-    </div>
-
-    <div class="top-menu d-flex">
-      <a class="btn btn-light d-flex one-width" href="/shop">
-        <span class="icon" style="min-width: 22px; ">{@html shop}</span>
-        <span class="w-100">Shop</span>
-      </a>
-      <button class="btn btn-light d-flex one-width">
-        <span class="icon" style="min-width: 27px; ">{@html battlepass}</span>
-        <span class="w-100 nowrap">Battle pass</span>
-      </button>
-      <button class="btn btn-light d-flex one-width">
-        <span class="icon" style="min-width: 21px; ">{@html guild}</span>
-        <span class="w-100">Guild</span>
-      </button>
-      <button class="btn btn-light d-flex one-width">
-        <span class="icon" style="min-width: 26px; ">{@html progress}</span>
-        <span class="w-100">Progress</span>
-      </button>
-      <button class="btn btn-light d-flex">
-        <span class="icon" style="min-width: 16px; ">{@html statistic}</span>
-      </button>
-      <button class="btn btn-light d-flex">
-        <span class="icon" style="min-width: 20px; ">{@html people}</span>
-      </button>
-      <button class="btn btn-light d-flex">
-        <span class="icon" style="min-width: 20px; ">{@html settings}</span>
-      </button>
-      <button class="btn btn-light d-flex">
-        <span class="icon" style="min-width: 20px; ">{@html world}</span>
-      </button>
-    </div>
-
-    <!-- <div class="right-col">
-      <div class="trials-block">
-        <div class="trials-hoverable">
-          <h2>
-            Task
-          </h2>
-          <div class="trial">
-            <h3>Defeat the Viking enemy in "Capture" battle mode 10 times</h3>
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 80%;"><span>8/10</span></div>
+              {/each}
             </div>
-          </div>
-          <div class="text-center">
-            <a class="more" href={'#'}>Open</a>
-          </div>
-        </div>
-        <div class="trials-hoverable">
-          <h2>
-            Trials of the Day
-          </h2>
-          <div class="trial">
-            <h3>Win 5 fights</h3>
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 66%;"><span>3/5</span></div>
+          </TabPane>
+          <TabPane tabId="game" tab="Game" class="h-100">
+            <div class="my-heroes-block-bg">
+              {#each listNft.slice(3,6) as nft}
+                <div class="col-12 cursor-pointer my-heroes-link" on:click={changeLemon(nft)} class:active={currentNft === nft}>
+                  <div class="pointer-events-none">
+                    <Preview fullNft={nft} />
+                  </div>
+                </div>
+              {/each}
             </div>
-          </div>
-          <div class="trial">
-            <h3>Increase the rank of weapons</h3>
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 100%;"><span>1/1</span></div>
-            </div>
-          </div>
-          <div class="trial">
-            <h3>Play 7 matches</h3>
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 15%;"><span>1/7</span></div>
-            </div>
-          </div>
-          <div class="text-center">
-            <a class="more" href={'#'}>View all</a>
-          </div>
-        </div>
-      </div>
-    </div>
+          </TabPane>
+        </TabContent>
+      </div> -->
 
-    <div class="fight-block">
-      <div class="countdown"><Countdown /></div>
-      <a href="http://161.156.38.90:5050/" class="fight-btn">
-        <img src="/img/fight1.png" alt="Fight" />
-      </a>
-    </div>
-
-    <div class="props">
-      <div class="level">
-        <div class="row">
-          <div class="col-6 level-text orange">15</div>
-          <div class="col-6 level-text text-end gray">16</div>
-        </div>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 75%;"></div>
-        </div>
-      </div>
-      <div class="props-stats">
-        <div class="row">
-          <div class="col-6 left-col">
-            <table class="w-100">
-              <tr>
-                <td class="text-end">Class</td>
-                <td class="w-100 px-4">
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 80%;"></div>
-                  </div>
-                </td>
-                <td>Heavy</td>
-              </tr>
-              <tr>
-                <td class="text-end">Attack</td>
-                <td class="w-100 px-4">
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 71%;"></div>
-                  </div>
-                </td>
-                <td>71%</td>
-              </tr>
-            </table>
-          </div>
-          <div class="col-6">
-            <table class="w-100">
-              <tr>
-                <td class="text-end">Move</td>
-                <td class="w-100 px-4">
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 25%;"></div>
-                  </div>
-                </td>
-                <td>Slow</td>
-              </tr>
-              <tr>
-                <td class="text-end">Protection</td>
-                <td class="w-100 px-4">
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 97%;"></div>
-                  </div>
-                </td>
-                <td>97%</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="auth-home d-flex">
-      <Auth light={true} />
-    </div>    
+    
 
     <div bind:this={loaderEl}>
       <Loader />

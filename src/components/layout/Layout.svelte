@@ -11,7 +11,7 @@
 
 <Header />	
 <main>
-  <div class='container' style="min-height: calc(100vh - 340px)">
+  <div class='container' style="min-height: calc(100vh - 340px); padding-top: 80px;">
     {#if $near.connected}
       <slot></slot>
     {/if}

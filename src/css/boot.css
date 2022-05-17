@@ -17,22 +17,16 @@
   white-space: nowrap;
 }
 
-@font-face {
-  font-family: 'bitbybit';
-  src: url('/fonts/bitbybit/bitbybit.eot');
-  src: url('/fonts/bitbybit/bitbybit.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/bitbybit/bitbybit.woff2') format('woff2'),
-       url('/fonts/bitbybit/bitbybit.woff') format('woff')
-}
-
 html {
-  background: url('/img/bg.jpg') center bottom no-repeat;
+  background: url('/img/main.jpg') center top no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
 body {
-  font-family: "bitbybit", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: rgba(0,0,0,0.1);
+  background: url('/img/mountains.png') center bottom no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -106,22 +100,18 @@ h1, h2, h3 {
   font-size: 21px;
 }
 
-header::before {
-  height: 80px;
-  content: "";
-  display: block;
-}
 header .header-container {
   padding-top: 15px;
   padding-bottom: 15px;
+  height: 80px;
   position: fixed !important;
   left: 0;
   top:0;
   right: 0;
   transition: all 0.5s;
-}
-header .header-container.black {
-  background: #000;
+  background: url('/img/main.jpg') center top no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
  
 .modal-header {
@@ -273,14 +263,11 @@ header .header-container.black {
 
 
 .logo-home {
-  position: absolute;
-  left: 3%;
   color: #f0f0f0;
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 10px;
   height: 45.25px;
-  top: 3.8%;
   width: 15vw;
   max-width: 198px;
   text-align: center;
@@ -298,11 +285,8 @@ header .header-container.black {
 }
 .auth-home {
   margin-top: 1px;
-  position: absolute;
   width: 15vw;
   max-width: 198px;
-  top: 3.8%;
-  right: 3%;
 }
 
 ::-webkit-scrollbar {
@@ -327,4 +311,23 @@ header .header-container.black {
   50% {
     transform: translate(0px, -6px);
   }
+}
+
+@media only screen and (min-width : 1200px) {
+  .container { max-width: 1500px; } 
+}
+
+.top-menu {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.top-menu .btn {
+    margin: 0 5px;
+  }
+.top-menu .btn .icon {
+  position: relative; top: -2px;
+}
+.top-menu .btn .icon+span {
+  margin-left: 10px;
 }

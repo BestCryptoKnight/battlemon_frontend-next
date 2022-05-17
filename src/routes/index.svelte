@@ -92,14 +92,21 @@ onMount(async () => {
   </div>
 
   <Loader />
+  <header>
+    <div class="header-container" style="background: none;">
+      <div class="container">
+        <div class="header-inner">
+          <a href="/" class="logo-home text-center" style="position: static;">
+            <Logo height={23} />
+          </a>		
 
-  <a href="/" class="logo-home">
-    <Logo height={24} />
-  </a>		
-
-  <div class="auth-home">
-    <Auth light={true} />
-  </div>  
+          {#if $near.connected}
+              <Auth light={true} />
+          {/if}
+        </div>
+      </div>
+    </div>
+  </header>
 
 
 </div>

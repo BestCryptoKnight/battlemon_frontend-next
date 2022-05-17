@@ -496,7 +496,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	height: 45px;
 	position: relative;
 	padding: 0 20px 0 26px;
-	font-size: 17px;
+	font-size: 15px;
 	margin-bottom: 30px;
 	border-top: none;
 	border-left: none;
@@ -523,7 +523,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 }
 
 .catalog-filter .details:not(:first-child) {
-	margin-top: 27px
+	margin-top: 12px
 }
 .catalog-filter .details ul {
 	display: none;
@@ -784,7 +784,7 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 		--container-indent: 30px
 	}
 	body {
-		font-size: 16px
+		font-size: 15px
 	}
 	main {
 		padding-top: 30px;
@@ -863,9 +863,9 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 54px;
-	color: #4cc551;
+	color: #FFF;
 	margin-top: clamp(30px, 2.083333333333333vw, 40px)
 }
 
@@ -898,7 +898,6 @@ header.fixed .header-inner .nav-toggle.active .line:nth-child(3) {
 
 
 .footer {
-	background-color: #000
 }
 
 @media screen and (max-width:768px) {

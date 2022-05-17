@@ -28,7 +28,7 @@
       </button>
     {/if}
   {:else}
-    <div class:active={openUserMenu} class="pa-preview login-form-toggle button" on:click={() => !openUserMenu ? openUserMenu = true : null}> 
+    <div style='max-width: 198px;' class:active={openUserMenu} class="pa-preview login-form-toggle button" on:click={() => !openUserMenu ? openUserMenu = true : null}> 
       {#if openUserMenu}
         <div class="button-opacity" on:click={() => openUserMenu = false}>&nbsp;</div>
       {/if}
