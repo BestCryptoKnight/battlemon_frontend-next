@@ -1,4 +1,4 @@
-import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { LoadingManager, BackSide, Material, Mesh, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, FrontSide } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
@@ -30,6 +30,10 @@ export class Model {
 
     this.loader = new GLTFLoader(manager);
     this.loader.load(arena, (gltf) => {
+      const border = gltf.scene.getObjectByName('border') as Mesh
+      const material = border.material as Material
+      material.side = FrontSide
+      //border.visible = false
       gltf.scene.name = 'building'
       gltf.scene.scale.set(0.45,0.45,0.45)
       gltf.scene.translateY(0)

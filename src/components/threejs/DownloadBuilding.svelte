@@ -13,7 +13,7 @@
     const { Model } = await import('$src/components/threejs/download-building')
     new Model({
       dom: 'download-building',
-      arena: '/models/dowload_building.glb',
+      arena: '/models/DC_b.glb',
       cam: 3,
       camPos: [-12, -50, -10]
     })
