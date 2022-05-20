@@ -1,13 +1,13 @@
 <script>
   import { onMount } from 'svelte'
-
+  
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/homecity')
     new Model({
       dom: 'homecity',
       arena: '/models/MainMenu_Stripes_animated.glb',
-      cam: 26,
-      camPos: [0, 0, 220]
+      cam: 40,
+      camPos: [0, 0, 114]
     })
   })
 </script>

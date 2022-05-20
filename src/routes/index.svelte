@@ -1,5 +1,4 @@
 <script lang="ts">
-import { goto } from '$app/navigation';
 import { onMount } from 'svelte'
 import Logo from '$src/components/layout/Logo.svelte'
 import Auth from '$src/components/layout/Auth.svelte'
@@ -31,7 +30,6 @@ onMount(async () => {
   }
   .layer {
     position: absolute;
-    cursor: pointer;    
   }
 
 </style>
