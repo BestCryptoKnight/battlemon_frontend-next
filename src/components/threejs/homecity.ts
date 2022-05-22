@@ -82,7 +82,7 @@ export class Model {
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
 
-    this.light = new DirectionalLight(0xCCCCCC, 8.5);
+    this.light = new DirectionalLight(0xCCCCCC, 9.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
