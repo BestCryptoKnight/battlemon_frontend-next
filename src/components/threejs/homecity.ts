@@ -1,6 +1,7 @@
-import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2 } from "three"
+import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { clientLink } from '$src/utils/helpers'
 import { goto } from '$app/navigation';
 
@@ -10,7 +11,7 @@ export class Model {
   private renderer: WebGLRenderer;
   private dom: HTMLElement
   private controls: OrbitControls
-  private light: DirectionalLight
+  private light: DirectionalLight | AmbientLight
   private loader: GLTFLoader
   private isAnimating: boolean
   private mixer: AnimationMixer
@@ -48,6 +49,12 @@ export class Model {
     };
 
     this.loader = new GLTFLoader(manager);
+
+
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath( '/draco/' );
+    this.loader.setDRACOLoader( dracoLoader );
+
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
       //gltf.scene.rotateY(0.05)
@@ -82,7 +89,7 @@ export class Model {
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
 
-    this.light = new DirectionalLight(0xCCCCCC, 9.5);
+    this.light = new DirectionalLight(0xFFFFFF, 5.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
@@ -141,8 +148,8 @@ export class Model {
           hovered = 'arena'
           break;
         }
-        if (object.name.indexOf('car_mesh') >= 0) {
-          hovered = 'car_mesh'
+        if (object.name.indexOf('download_client') >= 0) {
+          hovered = 'download_client'
           break;
         }
       }
@@ -180,6 +187,7 @@ export class Model {
         this.scene.getObjectByName('stake_stroke')!.visible = false
         this.scene.getObjectByName('shop_stroke')!.visible = false
         this.scene.getObjectByName('arena_stroke')!.visible = false
+        this.scene.getObjectByName('download_client_stroke')!.visible = false
       } else {
         document.body.style.cursor = 'pointer';
       }
@@ -200,7 +208,8 @@ export class Model {
         this.scene.getObjectByName('arena_stroke')!.visible = true
         document.onclick = () => goto('/arena')
       }
-      if (hovered == 'car_mesh') {
+      if (hovered == 'download_client') {
+        this.scene.getObjectByName('download_client_stroke')!.visible = true
         document.onclick = () => {
           location.href = clientLink()
         }
