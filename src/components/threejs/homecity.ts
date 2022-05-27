@@ -1,7 +1,8 @@
-import { LoadingManager, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight } from "three"
+import { LoadingManager, sRGBEncoding, DirectionalLight, EquirectangularReflectionMapping,PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import { clientLink } from '$src/utils/helpers'
 import { goto } from '$app/navigation';
 
@@ -48,9 +49,8 @@ export class Model {
       const percents = (loaded / total * 100) + '%';
     };
 
+
     this.loader = new GLTFLoader(manager);
-
-
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath( '/draco/' );
     this.loader.setDRACOLoader( dracoLoader );
@@ -89,19 +89,34 @@ export class Model {
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
 
-    this.light = new DirectionalLight(0xFFFFFF, 5.5);
+    this.light = new DirectionalLight(0xFFFFFF, 2.5);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(this.light);
 
-    manager.onLoad = () => {
-      this.dom.appendChild(this.renderer.domElement);
-      document.getElementById('loader')!.style.opacity = '0';
-      window.addEventListener("resize", this.onWindowResize.bind(this), false);
-      if (!this.isAnimating) {
-        this.animate();
-        this.isAnimating = true
-      }
-    };
+
+
+
+    new RGBELoader()
+      .setPath( '/models/' )
+      .load( 'venice_sunset_1k.hdr', ( texture ) => {
+
+      texture.mapping = EquirectangularReflectionMapping;
+
+      this.scene.background = texture;
+      this.scene.environment = texture;
+
+      manager.onLoad = () => {
+        this.dom.appendChild(this.renderer.domElement);
+        document.getElementById('loader')!.style.opacity = '0';
+        window.addEventListener("resize", this.onWindowResize.bind(this), false);
+        if (!this.isAnimating) {
+          this.animate();
+          this.isAnimating = true
+        }
+      };
+
+    });
+
 
   }
 
