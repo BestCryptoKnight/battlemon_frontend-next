@@ -14,10 +14,10 @@ onMount(async () => {
 
 <style>
   .home {
-    background: #54798d ;
-    background-image: url(/img/home/main.jpg);
+    background: #000 ;
+    /* background-image: url(/img/home/main.jpg);
     background-size: cover;
-    background-position: center;
+    background-position: center; */
     overflow: hidden; 
     height: 100vh;
     padding: 0 30px;
