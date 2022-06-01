@@ -20,11 +20,11 @@ onMount(async () => {
     background-position: center; */
     overflow: hidden; 
     height: 100vh;
-    padding: 0 30px;
+    width: 100vw; 
   }
   .home-inner {
     height: 100vh;
-    max-width: 1760px; 
+    width: 101vw; 
     position: relative;
     margin: 0 auto; 
   }

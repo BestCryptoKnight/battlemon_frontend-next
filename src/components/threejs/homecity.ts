@@ -25,7 +25,9 @@ export class Model {
   constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)!
     this.isAnimating = false;
-    this.camera = new PerspectiveCamera(cam, 1);
+    
+    const {aspect, fov} = this.cameraParams()
+    this.camera = new PerspectiveCamera(fov, aspect);
 
     this.scene = new Scene();
     this.mixer = new AnimationMixer( this.scene )
@@ -34,12 +36,12 @@ export class Model {
     this.pointer = new Vector2()
     this.pointerOver = '';
     this.pointerLeave = '';
-    this.scene.translateY(14.6)
+    this.scene.translateY(-4.6)
 
     var rect = this.dom.getBoundingClientRect();
     const onPointerMove = (event: MouseEvent) => {
       this.pointer.x = ( (event.clientX - rect.left) / this.dom.offsetWidth ) * 2 - 1;
-      this.pointer.y = - ( (event.clientY - rect.top) / this.dom.offsetWidth ) * 2 + 1;
+      this.pointer.y = - ( (event.clientY - rect.top) / this.dom.offsetHeight ) * 2 + 1;
     }
 
     window.addEventListener( 'pointermove', onPointerMove );
@@ -58,7 +60,7 @@ export class Model {
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
       //gltf.scene.rotateY(0.05)
-      gltf.scene.rotateX(0.31)
+      gltf.scene.rotateX(0.16)
       // gltf.scene.rotateZ(0.2)
       this.scene.add(gltf.scene)
 
@@ -77,7 +79,7 @@ export class Model {
     this.renderer.physicallyCorrectLights = true
     this.renderer.setClearColor(0x000000, 0); // the default
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
+    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
 
     this.controls = new OrbitControls(this.camera, this.dom)
     this.camera.position.set(camPos[0], camPos[1], camPos[2]);
@@ -120,11 +122,73 @@ export class Model {
 
   }
 
+  private cameraParams(): { aspect: number, fov: number } {
+    let delta = 1;
+    const width = this.dom.offsetWidth
+    const aspect = width / this.dom.offsetHeight;
+    if (width > 2200) {
+      delta = 1
+    } else if (width > 2100) {
+      delta = 0.95
+    } else if (width > 2000) {
+      delta = 0.9
+    } else if (width > 2000) {
+      delta = 0.85
+    } else if (width > 1900) {
+      delta = 0.82
+    } else if (width > 1800) {
+      delta = 0.8
+    } else if (width > 1700) {
+      delta = 0.77
+    } else if (width > 1600) {
+      delta = 0.75
+    } else if (width > 1500) {
+      delta = 0.73
+    } else if (width > 1400) {
+      delta = 0.71
+    } else if (width > 1300) {
+      delta = 0.69
+    } else if (width > 1200) {
+      delta = 0.67
+    } else if (width > 1100) {
+      delta = 0.65
+    } else if (width > 1000) {
+      delta = 0.64
+    } else if (width > 900) {
+      delta = 0.63
+    } else {
+      delta = 0
+    }
+    // if (this.dom.offsetWidth < 1600) {
+    //   delta = delta -
+    // } else if (this.dom.offsetWidth < 1800) {
+    //   delta = 0.7
+    // } else if (this.dom.offsetWidth < 2000) {
+    //   delta = 0.8
+    // }
+    console.log(aspect)
+
+    let fov = 32;
+
+    if (aspect > 1 && delta) {
+      fov = delta*54/aspect
+    } else if (aspect > 1) {
+      fov = 20
+    }
+
+    return {
+      aspect,
+      fov
+    }
+  }
+
   private onWindowResize(): void {
-    this.camera.aspect = 1;
+    const {aspect, fov} = this.cameraParams()
+    this.camera.aspect = aspect;
+    this.camera.fov = fov;
     this.camera.updateProjectionMatrix();
 
-    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetWidth);
+    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
   }
 
   private animate(): void {

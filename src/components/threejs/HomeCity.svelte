@@ -6,8 +6,8 @@
     new Model({
       dom: 'homecity',
       arena: '/models/MainMenu_Stripes_animated.glb',
-      cam: 40,
-      camPos: [0, 0, 114]
+      cam: 28,
+      camPos: [0, -10, 120]
     })
   })
 </script>
