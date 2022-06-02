@@ -191,6 +191,23 @@ export class Model {
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
   }
 
+  private hoverLayers(hovered?: string): void {
+    this.scene.getObjectByName('factory_stroke')!.visible = hovered == 'factory'
+    this.scene.getObjectByName('craft_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('craft_manipulator_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('craft_manipulator7_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('craft_manipulator8_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('stake_stroke')!.visible = hovered == 'stake'
+    this.scene.getObjectByName('stake_coin_stroke')!.visible = hovered == 'stake'
+    this.scene.getObjectByName('shop_stroke')!.visible = hovered == 'shop'
+    this.scene.getObjectByName('windmill_stroke_01')!.visible = hovered == 'shop'
+    this.scene.getObjectByName('windmill_stroke_02')!.visible = hovered == 'shop'
+    this.scene.getObjectByName('arena_stroke')!.visible = hovered == 'arena'
+    this.scene.getObjectByName('arena_rotator_a_stroke')!.visible = hovered == 'arena'
+    this.scene.getObjectByName('download_client_car_stroke')!.visible = hovered == 'download_client'
+    this.scene.getObjectByName('download_client_car_adv_stroke')!.visible = hovered == 'download_client'
+  }
+
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
     const delta = this.clock.getDelta();
@@ -201,8 +218,6 @@ export class Model {
     this.raycaster.setFromCamera( this.pointer, this.camera );
 
     let intersects = this.raycaster.intersectObjects(this.scene.children, true);
-
-    
     let hovered = 'none'
 
     if (intersects.length > 0) {
@@ -210,102 +225,44 @@ export class Model {
         if (object.name.indexOf('factory_') >= 0) {
           hovered = 'factory'
           break;
-        }
+        } else
         if (object.name.indexOf('craft_') >= 0) {
           hovered = 'craft'
           break;
-        }
+        } else
         if (object.name.indexOf('stake_') >= 0) {
           hovered = 'stake'
           break;
-        }
+        } else
         if (object.name.indexOf('shop_') >= 0) {
           hovered = 'shop'
           break;
-        }
+        } else
         if (object.name.indexOf('arena_') >= 0) {
           hovered = 'arena'
           break;
-        }
+        } else
         if (object.name.indexOf('download_client') >= 0) {
           hovered = 'download_client'
           break;
         }
       }
-
-      // if (hovered.length && hovered != this.pointerOver) {
-      //   this.pointerOver = hovered
-      //   this.pointerLeave = ''
-      //   console.log(this.pointerOver)
-      // } 
-      // console.log(hovered)
-      // if (!hovered.length && !this.pointerLeave.length) {
-      //   this.pointerLeave = 'leave'
-      //   this.pointerOver = ''
-      //   console.log('leave')
-      // }
-
-      // if (intersects.find(i => i.object.name.includes('factory_') && this.pointerOver != 'factory')) {
-      //   this.pointerOver = 'factory'
-      //   console.log(this.pointerOver)
-      // } else if (intersects.find(i => i.object.name.includes('craft_') && this.pointerOver != 'craft')) {
-      //   this.pointerOver = 'craft'
-      //   console.log(this.pointerOver)
-      // } else if (!['factory','craft','other'].includes(this.pointerOver)) {
-      //   this.pointerOver = 'other'
-      //   console.log(this.pointerOver)
-      // }
     }
 
     if (this.pointerOver != hovered) {
       if (hovered == 'none') {
         document.onclick = () => {}
         document.body.style.cursor = 'default';
-        this.scene.getObjectByName('factory_stroke')!.visible = false
-        this.scene.getObjectByName('craft_stroke')!.visible = false
-        this.scene.getObjectByName('stake_stroke')!.visible = false
-        this.scene.getObjectByName('shop_stroke')!.visible = false
-        this.scene.getObjectByName('arena_stroke')!.visible = false
-        this.scene.getObjectByName('download_client_stroke')!.visible = false
+        this.hoverLayers();
       } else {
         document.body.style.cursor = 'pointer';
       }
-      if (hovered == 'factory') {
-        this.scene.getObjectByName('factory_stroke')!.visible = true
-      }
-      if (hovered == 'craft') {
-        this.scene.getObjectByName('craft_stroke')!.visible = true
-      }
-      if (hovered == 'stake') {
-        this.scene.getObjectByName('stake_stroke')!.visible = true
-      }
-      if (hovered == 'shop') {
-        this.scene.getObjectByName('shop_stroke')!.visible = true
-        document.onclick = () => goto('/shop')
-      }
-      if (hovered == 'arena') {
-        this.scene.getObjectByName('arena_stroke')!.visible = true
-        document.onclick = () => goto('/arena')
-      }
-      if (hovered == 'download_client') {
-        this.scene.getObjectByName('download_client_stroke')!.visible = true
-        document.onclick = () => {
-          location.href = clientLink()
-        }
-        //document.body.style.cursor = 'pointer';
-      }
+      
+      this.hoverLayers(hovered);
     } 
     
     
     this.pointerOver = hovered
-
-
-    // if (this.pointerOver.length > 0) {
-    //   this.pointerOver = ''
-    //   console.log('leave')
-    // }
-
-
     this.renderer.render(this.scene, this.camera);
   }
 }
