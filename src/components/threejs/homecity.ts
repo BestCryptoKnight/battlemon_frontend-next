@@ -259,6 +259,9 @@ export class Model {
       }
       
       this.hoverLayers(hovered);
+      if (hovered == 'shop') document.onclick = () => goto('/shop')
+      if (hovered == 'arena') document.onclick = () => goto('/arena')
+      if (hovered == 'download_client') document.onclick = () => location.href = clientLink()
     } 
     
     
