@@ -5,7 +5,7 @@
     const { Model } = await import('$src/components/threejs/homecity')
     new Model({
       dom: 'homecity',
-      arena: '/models/MainMenu_Stripes_animated.glb',
+      arena: '/models/MainMenu_Stripes_Export_lemonprise.glb',
       cam: 28,
       camPos: [0, -10, 120]
     })
