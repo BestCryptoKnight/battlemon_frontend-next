@@ -189,20 +189,22 @@ export class Model {
   }
 
   private hoverLayers(hovered?: string): void {
-    // this.scene.getObjectByName('factory_stroke')!.visible = hovered == 'factory'
-    // this.scene.getObjectByName('craft_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('craft_manipulator_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('craft_manipulator7_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('craft_manipulator8_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('stake_stroke')!.visible = hovered == 'stake'
-    // this.scene.getObjectByName('stake_coin_stroke')!.visible = hovered == 'stake'
-    // this.scene.getObjectByName('shop_stroke')!.visible = hovered == 'shop'
-    // this.scene.getObjectByName('windmill_stroke_01')!.visible = hovered == 'shop'
-    // this.scene.getObjectByName('windmill_stroke_02')!.visible = hovered == 'shop'
-    // this.scene.getObjectByName('arena_stroke')!.visible = hovered == 'arena'
-    // this.scene.getObjectByName('arena_rotator_a_stroke')!.visible = hovered == 'arena'
-    // this.scene.getObjectByName('download_client_car_stroke')!.visible = hovered == 'download_client'
-    // this.scene.getObjectByName('download_client_car_adv_stroke')!.visible = hovered == 'download_client'
+    this.scene.getObjectByName('factory_stroke')!.visible = hovered == 'factory'
+    this.scene.getObjectByName('craft_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('craft_manipulator_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('craft_manipulator7_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('craft_manipulator8_stroke')!.visible = hovered == 'craft'
+    this.scene.getObjectByName('stake_stroke')!.visible = hovered == 'stake'
+    this.scene.getObjectByName('stake_coin_stroke')!.visible = hovered == 'stake'
+    this.scene.getObjectByName('shop_stroke')!.visible = hovered == 'shop'
+    this.scene.getObjectByName('windmill_stroke_01')!.visible = hovered == 'shop'
+    this.scene.getObjectByName('windmill_stroke_02')!.visible = hovered == 'shop'
+    this.scene.getObjectByName('arena_stroke')!.visible = hovered == 'arena'
+    this.scene.getObjectByName('arena_rotator_a_stroke')!.visible = hovered == 'arena'
+    this.scene.getObjectByName('download_client_car_stroke')!.visible = hovered == 'download_client'
+    this.scene.getObjectByName('download_client_car_adv_stroke')!.visible = hovered == 'download_client'
+    this.scene.getObjectByName('lemterprise_stroke')!.visible = hovered == 'lemterprise'
+    this.scene.getObjectByName('engines_stroke')!.visible = hovered == 'lemterprise'
   }
 
   private animate(): void {
@@ -237,6 +239,10 @@ export class Model {
         } else
         if (object.name.indexOf('arena_') >= 0) {
           hovered = 'arena'
+          break;
+        } else
+        if (object.name.indexOf('lemterprise_') >= 0 || object.name.indexOf('engines_') >= 0 ) {
+          hovered = 'lemterprise'
           break;
         } else
         if (object.name.indexOf('download_client') >= 0) {
