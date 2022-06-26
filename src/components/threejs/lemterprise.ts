@@ -1,4 +1,4 @@
-import { LoadingManager, sRGBEncoding, DirectionalLight, EquirectangularReflectionMapping,PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight } from "three"
+import { LoadingManager, sRGBEncoding, DirectionalLight, EquirectangularReflectionMapping,PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight, CubeTextureLoader } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
@@ -64,10 +64,10 @@ export class Model {
       // gltf.scene.rotateZ(0.2)
       this.scene.add(gltf.scene)
 
-      gltf.animations.forEach(anim => {
-        var action = this.mixer.clipAction( anim );
-        action.play();
-      })
+      // gltf.animations.forEach(anim => {
+      //   var action = this.mixer.clipAction( anim );
+      //   action.play();
+      // })
     });
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
@@ -101,13 +101,27 @@ export class Model {
 
       texture.mapping = EquirectangularReflectionMapping;
 
-      this.scene.background = texture;
+      this.scene.background = new CubeTextureLoader()
+      .setPath('/img/arena/')
+      .load([
+        'px.png',
+        'nx.png',
+        'py.png',
+        'ny.png',
+        'pz.png',
+        'nz.png'
+      ]);
       this.scene.environment = texture;
+
 
       manager.onLoad = () => {
         this.dom.appendChild(this.renderer.domElement);
         document.getElementById('loader')!.style.opacity = '0';
         window.addEventListener("resize", this.onWindowResize.bind(this), false);
+        this.camera = this.scene.getObjectByName('lemterprise_camera_Orientation') as PerspectiveCamera
+        this.camera.aspect = aspect;
+        this.camera.fov = fov;
+        this.camera.updateProjectionMatrix();
         if (!this.isAnimating) {
           this.animate();
           this.isAnimating = true
@@ -120,58 +134,9 @@ export class Model {
   }
 
   private cameraParams(): { aspect: number, fov: number } {
-    let delta = 1;
     const width = this.dom.offsetWidth
     const aspect = width / this.dom.offsetHeight;
-    if (width > 2200) {
-      delta = 1
-    } else if (width > 2100) {
-      delta = 0.95
-    } else if (width > 2000) {
-      delta = 0.9
-    } else if (width > 2000) {
-      delta = 0.85
-    } else if (width > 1900) {
-      delta = 0.82
-    } else if (width > 1800) {
-      delta = 0.8
-    } else if (width > 1700) {
-      delta = 0.77
-    } else if (width > 1600) {
-      delta = 0.75
-    } else if (width > 1500) {
-      delta = 0.73
-    } else if (width > 1400) {
-      delta = 0.71
-    } else if (width > 1300) {
-      delta = 0.69
-    } else if (width > 1200) {
-      delta = 0.67
-    } else if (width > 1100) {
-      delta = 0.65
-    } else if (width > 1000) {
-      delta = 0.64
-    } else if (width > 900) {
-      delta = 0.63
-    } else {
-      delta = 0
-    }
-    // if (this.dom.offsetWidth < 1600) {
-    //   delta = delta -
-    // } else if (this.dom.offsetWidth < 1800) {
-    //   delta = 0.7
-    // } else if (this.dom.offsetWidth < 2000) {
-    //   delta = 0.8
-    // }
-    console.log(aspect)
-
-    let fov = 32;
-
-    if (aspect > 1 && delta) {
-      fov = delta*54/aspect
-    } else if (aspect > 1) {
-      fov = 20
-    }
+    let fov = 42;
 
     return {
       aspect,
@@ -189,22 +154,22 @@ export class Model {
   }
 
   private hoverLayers(hovered?: string): void {
-    this.scene.getObjectByName('factory_stroke')!.visible = hovered == 'factory'
-    this.scene.getObjectByName('craft_stroke')!.visible = hovered == 'craft'
-    this.scene.getObjectByName('craft_manipulator_stroke')!.visible = hovered == 'craft'
-    this.scene.getObjectByName('craft_manipulator7_stroke')!.visible = hovered == 'craft'
-    this.scene.getObjectByName('craft_manipulator8_stroke')!.visible = hovered == 'craft'
-    this.scene.getObjectByName('stake_stroke')!.visible = hovered == 'stake'
-    this.scene.getObjectByName('stake_coin_stroke')!.visible = hovered == 'stake'
-    this.scene.getObjectByName('shop_stroke')!.visible = hovered == 'shop'
-    this.scene.getObjectByName('windmill_stroke_01')!.visible = hovered == 'shop'
-    this.scene.getObjectByName('windmill_stroke_02')!.visible = hovered == 'shop'
-    this.scene.getObjectByName('arena_stroke')!.visible = hovered == 'arena'
-    this.scene.getObjectByName('arena_rotator_a_stroke')!.visible = hovered == 'arena'
-    this.scene.getObjectByName('download_client_car_stroke')!.visible = hovered == 'download_client'
-    this.scene.getObjectByName('download_client_car_adv_stroke')!.visible = hovered == 'download_client'
-    this.scene.getObjectByName('lemterprise_stroke')!.visible = hovered == 'lemterprise'
-    this.scene.getObjectByName('engines_stroke')!.visible = hovered == 'lemterprise'
+    // this.scene.getObjectByName('factory_stroke')!.visible = hovered == 'factory'
+    // this.scene.getObjectByName('craft_stroke')!.visible = hovered == 'craft'
+    // this.scene.getObjectByName('craft_manipulator_stroke')!.visible = hovered == 'craft'
+    // this.scene.getObjectByName('craft_manipulator7_stroke')!.visible = hovered == 'craft'
+    // this.scene.getObjectByName('craft_manipulator8_stroke')!.visible = hovered == 'craft'
+    // this.scene.getObjectByName('stake_stroke')!.visible = hovered == 'stake'
+    // this.scene.getObjectByName('stake_coin_stroke')!.visible = hovered == 'stake'
+    // this.scene.getObjectByName('shop_stroke')!.visible = hovered == 'shop'
+    // this.scene.getObjectByName('windmill_stroke_01')!.visible = hovered == 'shop'
+    // this.scene.getObjectByName('windmill_stroke_02')!.visible = hovered == 'shop'
+    // this.scene.getObjectByName('arena_stroke')!.visible = hovered == 'arena'
+    // this.scene.getObjectByName('arena_rotator_a_stroke')!.visible = hovered == 'arena'
+    // this.scene.getObjectByName('download_client_car_stroke')!.visible = hovered == 'download_client'
+    // this.scene.getObjectByName('download_client_car_adv_stroke')!.visible = hovered == 'download_client'
+    // this.scene.getObjectByName('lemterprise_stroke')!.visible = hovered == 'lemterprise'
+    // this.scene.getObjectByName('engines_stroke')!.visible = hovered == 'lemterprise'
   }
 
   private animate(): void {
@@ -265,7 +230,6 @@ export class Model {
       if (hovered == 'shop') document.onclick = () => goto('/shop')
       if (hovered == 'arena') document.onclick = () => goto('/arena')
       if (hovered == 'download_client') document.onclick = () => location.href = clientLink()
-      if (hovered == 'lemterprise') document.onclick = () => goto('/lemterprise')
     } 
     
     
