@@ -36,7 +36,6 @@ export class Model {
     this.pointer = new Vector2()
     this.pointerOver = '';
     this.pointerLeave = '';
-    this.scene.translateY(-4.6)
 
     var rect = this.dom.getBoundingClientRect();
     const onPointerMove = (event: MouseEvent) => {
@@ -60,8 +59,6 @@ export class Model {
     this.loader.load(arena, (gltf) => {
       gltf.scene.name = 'arena'
       //gltf.scene.rotateY(0.05)
-      gltf.scene.rotateX(0.16)
-      // gltf.scene.rotateZ(0.2)
       this.scene.add(gltf.scene)
 
       // gltf.animations.forEach(anim => {
@@ -87,6 +84,7 @@ export class Model {
     this.controls.enableRotate = false;
     this.controls.enableZoom = false;
     this.controls.enablePan = false;
+    
 
     this.light = new DirectionalLight(0xFFFFFF, 0.1);
     this.light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
@@ -121,6 +119,7 @@ export class Model {
         this.camera = this.scene.getObjectByName('lemterprise_camera_Orientation') as PerspectiveCamera
         this.camera.aspect = aspect;
         this.camera.fov = fov;
+        this.camera.setViewOffset(this.dom.offsetWidth, this.dom.offsetHeight, this.dom.offsetWidth / 7, 0, this.dom.offsetWidth, this.dom.offsetHeight)
         this.camera.updateProjectionMatrix();
         if (!this.isAnimating) {
           this.animate();
@@ -154,22 +153,11 @@ export class Model {
   }
 
   private hoverLayers(hovered?: string): void {
-    // this.scene.getObjectByName('factory_stroke')!.visible = hovered == 'factory'
-    // this.scene.getObjectByName('craft_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('craft_manipulator_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('craft_manipulator7_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('craft_manipulator8_stroke')!.visible = hovered == 'craft'
-    // this.scene.getObjectByName('stake_stroke')!.visible = hovered == 'stake'
-    // this.scene.getObjectByName('stake_coin_stroke')!.visible = hovered == 'stake'
-    // this.scene.getObjectByName('shop_stroke')!.visible = hovered == 'shop'
-    // this.scene.getObjectByName('windmill_stroke_01')!.visible = hovered == 'shop'
-    // this.scene.getObjectByName('windmill_stroke_02')!.visible = hovered == 'shop'
-    // this.scene.getObjectByName('arena_stroke')!.visible = hovered == 'arena'
-    // this.scene.getObjectByName('arena_rotator_a_stroke')!.visible = hovered == 'arena'
-    // this.scene.getObjectByName('download_client_car_stroke')!.visible = hovered == 'download_client'
-    // this.scene.getObjectByName('download_client_car_adv_stroke')!.visible = hovered == 'download_client'
-    // this.scene.getObjectByName('lemterprise_stroke')!.visible = hovered == 'lemterprise'
-    // this.scene.getObjectByName('engines_stroke')!.visible = hovered == 'lemterprise'
+    this.scene.getObjectByName('lemterprise_dissolve_a')!.visible = !(hovered == 'lemterprise_dissolve_a')
+    this.scene.getObjectByName('lemterprise_dissolve_b')!.visible = !(hovered == 'lemterprise_dissolve_b')
+    this.scene.getObjectByName('lemterprise_dissolve_c')!.visible = !(hovered == 'lemterprise_dissolve_c')
+    this.scene.getObjectByName('lemterprise_dissolve_d')!.visible = !(hovered == 'lemterprise_dissolve_d')
+    this.scene.getObjectByName('lemterprise_dissolve_e')!.visible = !(hovered == 'lemterprise_dissolve_e')
   }
 
   private animate(): void {
@@ -186,37 +174,30 @@ export class Model {
 
     if (intersects.length > 0) {
       for (let { object } of intersects) {
-        if (object.name.indexOf('factory_') >= 0) {
-          hovered = 'factory'
+        if (object.parent!.name.indexOf('lemterprise_dissolve_a') >= 0) {
+          hovered = 'lemterprise_dissolve_a'
           break;
         } else
-        if (object.name.indexOf('craft_') >= 0) {
-          hovered = 'craft'
+        if (object.parent!.name.indexOf('lemterprise_dissolve_b') >= 0) {
+          hovered = 'lemterprise_dissolve_b'
           break;
         } else
-        if (object.name.indexOf('stake_') >= 0) {
-          hovered = 'stake'
+        if (object.parent!.name.indexOf('lemterprise_dissolve_c') >= 0) {
+          hovered = 'lemterprise_dissolve_c'
           break;
         } else
-        if (object.name.indexOf('shop_') >= 0) {
-          hovered = 'shop'
+        if (object.parent!.name.indexOf('lemterprise_dissolve_d') >= 0) {
+          hovered = 'lemterprise_dissolve_d'
           break;
         } else
-        if (object.name.indexOf('arena_') >= 0) {
-          hovered = 'arena'
-          break;
-        } else
-        if (object.name.indexOf('lemterprise_') >= 0 || object.name.indexOf('engines_') >= 0 ) {
-          hovered = 'lemterprise'
-          break;
-        } else
-        if (object.name.indexOf('download_client') >= 0) {
-          hovered = 'download_client'
+        if (object.parent!.name.indexOf('lemterprise_dissolve_e') >= 0) {
+          hovered = 'lemterprise_dissolve_e'
           break;
         }
       }
     }
 
+    console.log(hovered)
     if (this.pointerOver != hovered) {
       if (hovered == 'none') {
         document.onclick = () => {}
