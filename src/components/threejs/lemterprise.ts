@@ -1,4 +1,4 @@
-import { LoadingManager, sRGBEncoding, DirectionalLight, EquirectangularReflectionMapping,PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight, CubeTextureLoader } from "three"
+import { LoadingManager, sRGBEncoding, DirectionalLight, EquirectangularReflectionMapping,PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Mesh, Material, FrontSide, Raycaster, Vector2, AmbientLight, CubeTextureLoader, AnimationClip, LoopOnce } from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
@@ -21,6 +21,7 @@ export class Model {
   private pointer: Vector2
   private pointerOver: string
   private pointerLeave: string
+  private animations: AnimationClip[]
 
   constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)!
@@ -36,6 +37,7 @@ export class Model {
     this.pointer = new Vector2()
     this.pointerOver = '';
     this.pointerLeave = '';
+    this.animations = []
 
     var rect = this.dom.getBoundingClientRect();
     const onPointerMove = (event: MouseEvent) => {
@@ -60,11 +62,7 @@ export class Model {
       gltf.scene.name = 'arena'
       //gltf.scene.rotateY(0.05)
       this.scene.add(gltf.scene)
-
-      // gltf.animations.forEach(anim => {
-      //   var action = this.mixer.clipAction( anim );
-      //   action.play();
-      // })
+      this.animations = gltf.animations
     });
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
@@ -160,6 +158,16 @@ export class Model {
     this.scene.getObjectByName('lemterprise_dissolve_e')!.visible = !(hovered == 'lemterprise_dissolve_e')
   }
 
+  private playAnimation(name: string) {
+    this.mixer.stopAllAction();
+    let anim = this.animations.find(anim => anim.name == name)
+    let action = this.mixer.clipAction( anim! );
+    action.setLoop(LoopOnce, 1)
+    action.clampWhenFinished = true;
+    action.play();
+    return action;
+  }
+
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
     const delta = this.clock.getDelta();
@@ -197,7 +205,6 @@ export class Model {
       }
     }
 
-    console.log(hovered)
     if (this.pointerOver != hovered) {
       if (hovered == 'none') {
         document.onclick = () => {}
@@ -208,9 +215,18 @@ export class Model {
       }
       
       this.hoverLayers(hovered);
-      if (hovered == 'shop') document.onclick = () => goto('/shop')
-      if (hovered == 'arena') document.onclick = () => goto('/arena')
-      if (hovered == 'download_client') document.onclick = () => location.href = clientLink()
+      if (hovered == 'lemterprise_dissolve_a') document.onclick = () => {
+        this.playAnimation('zoom_a');
+      }
+      if (hovered == 'lemterprise_dissolve_b') document.onclick = () => {
+        this.playAnimation('zoom_b')
+      }
+      if (hovered == 'lemterprise_dissolve_c') document.onclick = () => {
+        this.playAnimation('zoom_c')
+      }
+      if (hovered == 'lemterprise_dissolve_d') document.onclick = () => {
+        this.playAnimation('zoom_d')
+      }
     } 
     
     
