@@ -22,6 +22,7 @@ export class Model {
   private pointerOver: string
   private pointerLeave: string
   private animations: AnimationClip[]
+  private currentPoint: string | undefined
 
   constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)!
@@ -63,6 +64,25 @@ export class Model {
       //gltf.scene.rotateY(0.05)
       this.scene.add(gltf.scene)
       this.animations = gltf.animations
+
+      let initAnimation = gltf.animations.find(anim => anim.name == "zoom_initial");
+      let action = this.mixer.clipAction( initAnimation! );
+      action.setLoop(LoopOnce, 1)
+      action.clampWhenFinished = true;
+      action.play();
+
+      let finishedEvent = this.mixer.addEventListener( 'finished', ( e ) => {
+        this.scene.getObjectByName('lemterprise_dissolve_a')!.visible = false
+        this.scene.getObjectByName('lemterprise_dissolve_b')!.visible = false
+        this.scene.getObjectByName('lemterprise_dissolve_c')!.visible = false
+        this.scene.getObjectByName('lemterprise_dissolve_d')!.visible = false
+        this.scene.getObjectByName('lemterprise_dissolve_e')!.visible = false
+        finished()
+      } );
+      
+      const finished = () => {
+        this.mixer.removeEventListener('finished', finishedEvent!)
+      }
     });
 
     this.renderer = new WebGLRenderer({ antialias: true, alpha: true });
@@ -158,13 +178,23 @@ export class Model {
     this.scene.getObjectByName('lemterprise_dissolve_e')!.visible = !(hovered == 'lemterprise_dissolve_e')
   }
 
-  private playAnimation(name: string) {
+  private playAnimation(point: string) {
     this.mixer.stopAllAction();
-    let anim = this.animations.find(anim => anim.name == name)
+    let anim: AnimationClip | undefined;
+    if (this.currentPoint) {
+      anim = this.animations.find(anim => anim.name == `zoom_${point}${this.currentPoint}`)
+      if (!anim) {
+        anim = this.animations.find(anim => anim.name == `zoom_${this.currentPoint}${point}`)
+      }
+    } else {
+      anim = this.animations.find(anim => anim.name == `zoom_${point}`)
+    }
     let action = this.mixer.clipAction( anim! );
     action.setLoop(LoopOnce, 1)
     action.clampWhenFinished = true;
     action.play();
+    
+    this.currentPoint = point
     return action;
   }
 
@@ -197,11 +227,12 @@ export class Model {
         if (object.parent!.name.indexOf('lemterprise_dissolve_d') >= 0) {
           hovered = 'lemterprise_dissolve_d'
           break;
-        } else
-        if (object.parent!.name.indexOf('lemterprise_dissolve_e') >= 0) {
-          hovered = 'lemterprise_dissolve_e'
-          break;
-        }
+        } 
+        // else
+        // if (object.parent!.name.indexOf('lemterprise_dissolve_e') >= 0) {
+        //   hovered = 'lemterprise_dissolve_e'
+        //   break;
+        // }
       }
     }
 
@@ -209,23 +240,23 @@ export class Model {
       if (hovered == 'none') {
         document.onclick = () => {}
         document.body.style.cursor = 'default';
-        this.hoverLayers();
+        //this.hoverLayers();
       } else {
         document.body.style.cursor = 'pointer';
       }
       
-      this.hoverLayers(hovered);
+      //this.hoverLayers(hovered);
       if (hovered == 'lemterprise_dissolve_a') document.onclick = () => {
-        this.playAnimation('zoom_a');
+        this.playAnimation('a');
       }
       if (hovered == 'lemterprise_dissolve_b') document.onclick = () => {
-        this.playAnimation('zoom_b')
+        this.playAnimation('b')
       }
       if (hovered == 'lemterprise_dissolve_c') document.onclick = () => {
-        this.playAnimation('zoom_c')
+        this.playAnimation('c')
       }
       if (hovered == 'lemterprise_dissolve_d') document.onclick = () => {
-        this.playAnimation('zoom_d')
+        this.playAnimation('d')
       }
     } 
     
