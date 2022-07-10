@@ -6,6 +6,10 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import { clientLink } from '$src/utils/helpers'
 import { goto } from '$app/navigation';
 
+export interface Actions {
+  makeBackVisible: (visible: boolean) => void
+}
+
 export class Model {
   private camera: PerspectiveCamera;
   private scene: Scene;
@@ -23,8 +27,9 @@ export class Model {
   private pointerLeave: string
   private animations: AnimationClip[]
   private currentPoint: string | undefined
+  private actions: Actions
 
-  constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
+  constructor({ dom, arena, cam, camPos, actions }: { dom: string, arena: string, cam: number, camPos: number[], actions: Actions }) {
     this.dom = document.getElementById(dom)!
     this.isAnimating = false;
     
@@ -39,6 +44,7 @@ export class Model {
     this.pointerOver = '';
     this.pointerLeave = '';
     this.animations = []
+    this.actions = actions
 
     var rect = this.dom.getBoundingClientRect();
     const onPointerMove = (event: MouseEvent) => {
@@ -179,13 +185,11 @@ export class Model {
   }
 
   private playAnimation(point: string) {
+    this.actions.makeBackVisible(true)
     this.mixer.stopAllAction();
     let anim: AnimationClip | undefined;
     if (this.currentPoint) {
-      anim = this.animations.find(anim => anim.name == `zoom_${point}${this.currentPoint}`)
-      if (!anim) {
-        anim = this.animations.find(anim => anim.name == `zoom_${this.currentPoint}${point}`)
-      }
+      anim = this.animations.find(anim => anim.name == `zoom_${this.currentPoint}${point}`)
     } else {
       anim = this.animations.find(anim => anim.name == `zoom_${point}`)
     }
@@ -228,11 +232,11 @@ export class Model {
           hovered = 'lemterprise_dissolve_d'
           break;
         } 
-        // else
-        // if (object.parent!.name.indexOf('lemterprise_dissolve_e') >= 0) {
-        //   hovered = 'lemterprise_dissolve_e'
-        //   break;
-        // }
+        else
+        if (object.parent!.name.indexOf('lemterprise_dissolve_e') >= 0) {
+          hovered = 'lemterprise_dissolve_e'
+          break;
+        }
       }
     }
 
