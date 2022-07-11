@@ -3,11 +3,23 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-import { clientLink } from '$src/utils/helpers'
-import { goto } from '$app/navigation';
+
+
+import { writable } from "svelte/store";
+
+export const actions = writable<Actions>({
+  isBackVisible: false,
+  activateBack: false,
+  activateCapsule: undefined,
+  currentCapsule: undefined
+})
+
 
 export interface Actions {
-  makeBackVisible: (visible: boolean) => void
+  isBackVisible: boolean,
+  activateBack: boolean,
+  activateCapsule: string | undefined,
+  currentCapsule: string | undefined
 }
 
 export class Model {
@@ -27,9 +39,7 @@ export class Model {
   private pointerLeave: string
   private animations: AnimationClip[]
   private currentPoint: string | undefined
-  private actions: Actions
-
-  constructor({ dom, arena, cam, camPos, actions }: { dom: string, arena: string, cam: number, camPos: number[], actions: Actions }) {
+  constructor({ dom, arena, cam, camPos }: { dom: string, arena: string, cam: number, camPos: number[] }) {
     this.dom = document.getElementById(dom)!
     this.isAnimating = false;
     
@@ -44,7 +54,6 @@ export class Model {
     this.pointerOver = '';
     this.pointerLeave = '';
     this.animations = []
-    this.actions = actions
 
     var rect = this.dom.getBoundingClientRect();
     const onPointerMove = (event: MouseEvent) => {
@@ -151,9 +160,29 @@ export class Model {
         }
       };
 
+      actions.subscribe(acts => {
+        if (acts.activateBack) {
+          document.onclick = () => {}
+          this.goBack()
+          actions.update(acts => ({...acts, activateBack: false, isBackVisible: false}))
+        }
+        if (acts.activateCapsule) {
+          document.onclick = () => {}
+          this.goCapsule(acts.activateCapsule)
+          actions.update(acts => ({...acts, activateCapsule: undefined}))
+        }
+      });
     });
 
 
+  }
+
+  private goCapsule(capsule: string): void {
+    this.playAnimation(capsule);
+  }
+
+  private goBack(): void {
+    this.playAnimation(this.currentPoint!, true);
   }
 
   private cameraParams(): { aspect: number, fov: number } {
@@ -184,12 +213,20 @@ export class Model {
     this.scene.getObjectByName('lemterprise_dissolve_e')!.visible = !(hovered == 'lemterprise_dissolve_e')
   }
 
-  private playAnimation(point: string) {
-    this.actions.makeBackVisible(true)
-    this.mixer.stopAllAction();
+  private playAnimation(point: string, out: boolean = false) {
+    if (!this.currentPoint && !point) return
+    if (this.currentPoint && this.currentPoint == point && !out) return
+
     let anim: AnimationClip | undefined;
+    actions.update(acts => ({...acts, isBackVisible: true}))
+    this.mixer.stopAllAction();
+
     if (this.currentPoint) {
-      anim = this.animations.find(anim => anim.name == `zoom_${this.currentPoint}${point}`)
+      if (out) {
+        anim = this.animations.find(anim => anim.name == `zoom_${this.currentPoint}_out`)
+      } else {
+        anim = this.animations.find(anim => anim.name == `zoom_${this.currentPoint}${point}`)
+      }
     } else {
       anim = this.animations.find(anim => anim.name == `zoom_${point}`)
     }
@@ -198,7 +235,9 @@ export class Model {
     action.clampWhenFinished = true;
     action.play();
     
-    this.currentPoint = point
+    this.currentPoint = out ? undefined : point
+    
+    actions.update(acts => ({...acts, currentCapsule: this.currentPoint}))
     return action;
   }
 
@@ -261,6 +300,9 @@ export class Model {
       }
       if (hovered == 'lemterprise_dissolve_d') document.onclick = () => {
         this.playAnimation('d')
+      }
+      if (hovered == 'lemterprise_dissolve_e') document.onclick = () => {
+        this.playAnimation('e')
       }
     } 
     

@@ -1,23 +1,32 @@
 <script lang="ts">
-import { onMount } from 'svelte'
+import { onMount, onDestroy } from 'svelte'
 import Logo from '$src/components/layout/Logo.svelte'
 import Auth from '$src/components/layout/Auth.svelte'
 import near from '$src/utils/near'
 import Loader from '$src/components/layout/Loader.svelte';
 import Lemterprise from '$src/components/threejs/Lemterprise.svelte';
-import type { Actions } from '$src/components/threejs/lemterprise';
+import { actions } from '$src/components/threejs/lemterprise';
 
 let isBackVisible: boolean = false
 
-const actions: Actions = {
-    makeBackVisible: (visible: boolean) => {
-        isBackVisible = visible
-    }
+const unsubscribe = actions.subscribe(acts => {
+	isBackVisible = acts.isBackVisible
+});
+
+
+const goBack = () => {
+    actions.update(acts => ({...acts, activateBack: true}))
+}
+
+const goCapsule = (capsule: string) => () => {
+    actions.update(acts => ({...acts, activateCapsule: capsule}))
 }
 
 onMount(async () => {
     $near.connect()
 })
+
+onDestroy(unsubscribe);
 </script>
 
 <style>
@@ -52,7 +61,7 @@ onMount(async () => {
 <div class="home">
     <div class="home-inner">
     <div class="layer" style="top: 0%; width: 100%; height: 100vh;">
-        <Lemterprise actions={actions} />
+        <Lemterprise />
     </div>
     </div>
 
@@ -66,20 +75,20 @@ onMount(async () => {
                 </a>		
                 
                 <div class="top-menu d-flex">
-                    <button class="btn btn-light d-flex one-width">
-                    <span class="w-100 nowrap">Roadmap</span>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'b'} on:click|preventDefault={goCapsule('b')}>
+                        <span class="w-100 nowrap">Roadmap</span>
                     </button>
-                    <button class="btn btn-light d-flex one-width">
-                    <span class="w-100 nowrap">VIP Advisers</span>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'a'} on:click|preventDefault={goCapsule('a')}>
+                        <span class="w-100 nowrap">VIP Advisers</span>
                     </button>
-                    <button class="btn btn-light d-flex one-width">
-                    <span class="w-100 nowrap">Containers</span>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'd'} on:click|preventDefault={goCapsule('d')}>
+                        <span class="w-100 nowrap">Containers</span>
                     </button>
-                    <button class="btn btn-light d-flex one-width">
-                    <span class="w-100 nowrap">Fuel bay</span>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'e'} on:click|preventDefault={goCapsule('e')}>
+                        <span class="w-100 nowrap">Fuel bay</span>
                     </button>
-                    <button class="btn btn-light d-flex one-width">
-                    <span class="w-100 nowrap">Tail</span>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'c'} on:click|preventDefault={goCapsule('c')}>
+                        <span class="w-100 nowrap">Tail</span>
                     </button>
                 </div>
 
@@ -90,7 +99,7 @@ onMount(async () => {
             
             {#if isBackVisible}
                 <div class="header-inner">
-                    <button class="btn btn-light d-flex back-btn">
+                    <button class="btn btn-light d-flex back-btn" on:click|preventDefault={goBack}>
                         <span class="w-100 nowrap">
                             <span style="position: relative; top: 0px; left: -2px; font-size: 22px; line-height: 14px;">&larr</span> 
                             Return back

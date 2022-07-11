@@ -1,8 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import type { Actions } from '$src/components/threejs/lemterprise';
-
-  export let actions: Actions
   
   onMount(async () => {
     const { Model } = await import('$src/components/threejs/lemterprise')
@@ -10,8 +7,7 @@
       dom: 'lemterprise',
       arena: '/models/lemterprise_only.glb',
       cam: 28,
-      camPos: [0, -10, 120],
-      actions
+      camPos: [0, -10, 120]
     })
   })
 </script>
