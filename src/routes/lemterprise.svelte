@@ -85,7 +85,7 @@ onDestroy(unsubscribe);
                         <span class="w-100 nowrap">Containers</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'e'} on:click|preventDefault={goCapsule('e')}>
-                        <span class="w-100 nowrap">Fuel bay</span>
+                        <span class="w-100 nowrap">Backers</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'c'} on:click|preventDefault={goCapsule('c')}>
                         <span class="w-100 nowrap">Tail</span>
