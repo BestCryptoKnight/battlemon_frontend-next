@@ -1,5 +1,5 @@
 import { LoadingManager, DirectionalLight, sRGBEncoding, PerspectiveCamera, Scene, WebGLRenderer } from "three"
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 export class Model {
   private camera: PerspectiveCamera;

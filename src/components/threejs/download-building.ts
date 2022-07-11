@@ -1,6 +1,6 @@
 import { LoadingManager, BackSide, Material, Mesh, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, FrontSide } from "three"
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 export class Model {
   private camera: PerspectiveCamera;
