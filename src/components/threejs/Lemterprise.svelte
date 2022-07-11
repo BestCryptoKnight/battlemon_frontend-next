@@ -5,7 +5,7 @@
     const { Model } = await import('$src/components/threejs/lemterprise')
     new Model({
       dom: 'lemterprise',
-      arena: '/models/lemterprise_only.glb',
+      arena: '/models/lemterprise_only1.glb',
       cam: 28,
       camPos: [0, -10, 120]
     })
