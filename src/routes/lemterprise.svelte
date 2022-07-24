@@ -75,10 +75,10 @@ onDestroy(unsubscribe);
                 </a>		
                 
                 <div class="top-menu d-flex">
-                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'a'} on:click|preventDefault={goCapsule('c')}>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'a'} on:click|preventDefault={goCapsule('a')}>
                         <span class="w-100 nowrap">Team</span>
                     </button>
-                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'c'} on:click|preventDefault={goCapsule('a')}>
+                    <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'c'} on:click|preventDefault={goCapsule('c')}>
                         <span class="w-100 nowrap">Advisers</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'b'} on:click|preventDefault={goCapsule('b')}>
