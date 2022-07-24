@@ -79,16 +79,16 @@ onDestroy(unsubscribe);
                         <span class="w-100 nowrap">Roadmap</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'a'} on:click|preventDefault={goCapsule('a')}>
-                        <span class="w-100 nowrap">VIP Advisers</span>
+                        <span class="w-100 nowrap">Advisers</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'd'} on:click|preventDefault={goCapsule('d')}>
-                        <span class="w-100 nowrap">Containers</span>
+                        <span class="w-100 nowrap">Fuel Bay</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'e'} on:click|preventDefault={goCapsule('e')}>
-                        <span class="w-100 nowrap">Backers</span>
+                        <span class="w-100 nowrap">Tokenomics</span>
                     </button>
                     <button class="btn btn-light d-flex one-width" class:active={$actions.currentCapsule == 'c'} on:click|preventDefault={goCapsule('c')}>
-                        <span class="w-100 nowrap">Tail</span>
+                        <span class="w-100 nowrap">Team</span>
                     </button>
                 </div>
 
