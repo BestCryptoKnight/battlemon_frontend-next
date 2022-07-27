@@ -14,6 +14,9 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		adapter: adapter(),
 		vite: {
+			define: {
+					global: {}
+			},
 			// ssr: {
 			// 	noExternal: [
 			// 		'@near-wallet-selector/*'

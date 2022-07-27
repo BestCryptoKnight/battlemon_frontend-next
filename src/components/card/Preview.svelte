@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
   import { onMount } from 'svelte'
   import near from '$src/utils/near'
   import Lemon from '$src/components/threejs/Lemon.svelte'

@@ -13,12 +13,6 @@
   },
   "devDependencies": {
     "@lottiefiles/lottie-player": "^1.5.4",
-    "@near-wallet-selector/core": "^3.0.1",
-    "@near-wallet-selector/ledger": "^3.0.1",
-    "@near-wallet-selector/math-wallet": "^3.0.1",
-    "@near-wallet-selector/near-wallet": "^3.0.1",
-    "@near-wallet-selector/sender": "^3.0.1",
-    "@near-wallet-selector/wallet-connect": "^3.0.1",
     "@sveltejs/adapter-vercel": "^1.0.0-next.47",
     "@sveltejs/kit": "1.0.0-next.314",
     "@types/three": "^0.135.0",

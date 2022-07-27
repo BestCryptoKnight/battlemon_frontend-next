@@ -29,65 +29,48 @@ interface NearProps {
 
 async function nearConnect(): Promise<void> {
   window.Buffer = Buffer;
-  window.global = window;
-  const { keyStores, connect, providers} = await import('near-api-js')
+  const { keyStores, connect, Contract, WalletConnection} = await import('near-api-js')
   const keyStore = new keyStores.BrowserLocalStorageKeyStore()
-  const config = getConfig(location.href)  
-  const near = await connect({ keyStore, headers: {}, ...config })
+  const config = getConfig(location.href)
+  const near = await connect({ keyStore, ...config })
+  const walletConnection = new WalletConnection(near, config.marketContract)
 
-  const NearWalletSelector =  (await import("@near-wallet-selector/core")).default;
-  const { setupNearWallet } = await import("@near-wallet-selector/near-wallet");
-  const { setupSender } = await import("@near-wallet-selector/sender");
-  
-
-
-  const nftWallet = await NearWalletSelector.init({
-    network: "testnet",
-    contractId: config.nftContract,
-    wallets: [
-      setupNearWallet({ iconUrl: '/img/near-wallet-icon.png' }),
-      setupSender({ iconUrl: '/img/sender-icon.png' })
+  const marketContract = new Contract(walletConnection.account(), config.marketContract, {
+    viewMethods: [
+      'list_asks',
+      'list_bids'
     ],
-  });
-  
-  const marketWallet = await NearWalletSelector.init({
-    network: "testnet",
-    contractId: config.marketContract,
-    wallets: [
-      setupNearWallet({ iconUrl: '/img/near-wallet-icon.png' }),
-      setupSender({ iconUrl: '/img/sender-icon.png' })
+    changeMethods: [
+      'buy',
+      'bid'
+    ]
+  })
+
+  const nftContract = new Contract(walletConnection.account(), config.nftContract, {
+    viewMethods: [
+      'nft_token',
+      'nft_tokens',
+      'nft_tokens_for_owner'
     ],
-  });
+    changeMethods: [
+      'nft_approve',
+      'nft_transfer'
+    ]
+  })
 
+  const api = new NearApi({ near, walletConnection, config, marketContract, nftContract })
 
-  const provider = new providers.JsonRpcProvider({ url: config.nodeUrl });
-  const api = new NearApi({ near, config, provider, marketWallet, nftWallet })
-
-  const signedIn = await marketWallet.isSignedIn()
-  let user = await api.getUser()
-
+  const user = await api.getUser()
   nearStore.update(n => {
     return { 
       ...n,
       config,
       api, 
       connected: true,
-      signedIn: signedIn,
+      signedIn: !!user.id,
       user
     }
   })
-
-  marketWallet.on('signIn', async (accounts) => {
-    user = await api.getUser()
-    nearStore.update(n => {
-      return { 
-        ...n,
-        signedIn: signedIn,
-        user
-      }
-    })
-  })
-  
 }
 
 

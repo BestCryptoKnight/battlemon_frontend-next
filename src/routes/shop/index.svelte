@@ -5,21 +5,21 @@
   import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
   import { fromNear } from '$src/utils/api';
-  import DownloadBuilding from '$src/components/threejs/DownloadBuilding.svelte';
 
-  let listNft = []
+  let listNft: any[] = []
 
   onMount(async () => {
-    listNft = await $near.api.listNft({})
+    if (!$near.api) return;
+    let nfts = await $near.api.listNft({})
 
     const moreNft = await $near.api.listAsks()
-    listNft.forEach((nft, index) => {
-      const nftOnSale = moreNft.find(n => n.token_id == nft.token_id) || false
+    nfts.forEach((nft: any, index: number) => {
+      const nftOnSale = moreNft.find((n: any) => n.token_id == nft.token_id) || false
       if (nftOnSale) {
         nft.price = fromNear(nftOnSale.price).toFixed(2)
       }    
     })
-    listNft = listNft
+    listNft = nfts.slice(0,6)
   })
 </script>
 
@@ -61,7 +61,3 @@
     </div>
   </div>
 </section>
-
-<div style="position: fixed; bottom: 30px; width: 220px; margin: 0 0 0 -20px; height: 220px; z-index: 190;">
-  <DownloadBuilding />
-</div>

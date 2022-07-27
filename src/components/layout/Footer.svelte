@@ -38,7 +38,7 @@
         <li>
         <a class="svg-wrap" href="https://github.com/battlemon-project">
         <svg height="25" width="25" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15.77 17.46" style="enable-background:new 0 0 15.77 17.46;" xml:space="preserve">
-        <style type="text/css">
+        <style>
         .st0{fill:currentColor;}
         </style>
         <g>

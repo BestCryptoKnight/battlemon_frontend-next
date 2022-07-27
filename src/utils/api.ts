@@ -1,165 +1,84 @@
 import type { Near, WalletConnection, Contract } from 'near-api-js'
 import type { NearConfig } from './config'
-import type NearWalletSelector from "@near-wallet-selector/core";
-import type { JsonRpcProvider } from 'near-api-js/lib/providers';
-import type { CodeResult } from "near-api-js/lib/providers/provider";
-import nearStore from './near';
 
 export const fromNear = (amount: string): number => parseFloat(amount.slice(0, -20) || '0') / 10000
 export const toYoctoNear = (amount: number): string => (amount * 10e8) + '000000000000000' || '0'
 
 class NearApi {
-  readonly near: Near;
   readonly config: NearConfig;
-  readonly marketWallet: NearWalletSelector;
-  readonly nftWallet: NearWalletSelector;
-  readonly provider: JsonRpcProvider;
+  readonly near: Near;
+  readonly walletConnection: WalletConnection;
+  readonly marketContract: MarketContract;
+  readonly nftContract: NftContract;
 
-  constructor({ near, config, provider, marketWallet, nftWallet }: {
-    near: Near,
+  constructor({ near, walletConnection, config, marketContract, nftContract }: {
+    near: Near, 
+    walletConnection: WalletConnection, 
     config: NearConfig,
-    marketWallet: NearWalletSelector,
-    nftWallet: NearWalletSelector
-    provider: JsonRpcProvider
+    marketContract: MarketContract,
+    nftContract: NftContract
   }) {
-    this.near = near
+    this.near = near;
+    this.walletConnection = walletConnection
     this.config = config
-    this.provider = provider
-    this.marketWallet = marketWallet
-    this.nftWallet = nftWallet
+    this.marketContract = marketContract
+    this.nftContract = nftContract
   }
 
   signIn(): void {
-    this.marketWallet.show();
+    this.walletConnection.requestSignIn({
+      contractId: this.config.nftContract
+    })
   }
 
   signOut(): void {
-    this.marketWallet.signOut()
-    nearStore.update(n => {
-      return {
-        ...n,
-        signedIn: false,
-        user: {
-          id: null,
-          balance: null
-        }
-      }
-    })
+    this.walletConnection.signOut()
   }
 
   async getUser(): Promise<User> {
-    const accounts = await this.marketWallet.getAccounts()
-    const account = accounts[0];
-    let user = {
+    const accountId = await this.walletConnection.getAccountId()
+    if (!accountId) return {
       id: null,
       balance: null
     }
-
-    if (account) {
-      const userAccount = await this.near.account(account.accountId)
-      const balance = (await userAccount.getAccountBalance())
-
-      user = {
-        id: account.accountId,
-        balance: fromNear(balance.available).toFixed(2)
-      }
+    const userAccount = await this.near.account(accountId)
+    const balance = (await userAccount.getAccountBalance())
+    return {
+      id: accountId,
+      balance: fromNear(balance.available).toFixed(2)
     }
-
-    return user;
   }
 
   async listNft(params: { limit?: number, from_index?: number }): Promise<any> {
-    const data = await this.provider.query<CodeResult>({
-      request_type: "call_function",
-      account_id: this.nftWallet.getContractId(),
-      method_name: "nft_tokens",
-      args_base64: Buffer.from(JSON.stringify(params)).toString('base64'),
-      finality: "optimistic",
-    })
-
-    const result = JSON.parse(Buffer.from(data.result).toString())
-    return await result
+    return await this.nftContract.nft_tokens!(params)
   }
 
   async listAsks(): Promise<any> {
-    const data = await this.provider.query<CodeResult>({
-      request_type: "call_function",
-      account_id: this.marketWallet.getContractId(),
-      method_name: "list_asks",
-      args_base64: "",
-      finality: "optimistic",
-    })
-
-    const result = JSON.parse(Buffer.from(data.result).toString())
-    return await result
+    return await this.marketContract.list_asks!();
   }
 
   async listBids(token_id: string): Promise<any> {
-    const data = await this.provider.query<CodeResult>({
-      request_type: "call_function",
-      account_id: this.marketWallet.getContractId(),
-      method_name: "list_bids",
-      args_base64: Buffer.from(JSON.stringify({ token_id })).toString('base64'),
-      finality: "optimistic",
-    })
-
-    const result = JSON.parse(Buffer.from(data.result).toString())
-    return await result
+    return await this.marketContract.list_bids!({ token_id });
   }
 
   async nftInfo(token_id: string): Promise<any> {
-    const data = await this.provider.query<CodeResult>({
-      request_type: "call_function",
-      account_id: this.nftWallet.getContractId(),
-      method_name: "nft_token",
-      args_base64: Buffer.from(JSON.stringify({ token_id })).toString('base64'),
-      finality: "optimistic",
-    })
-
-    const result = JSON.parse(Buffer.from(data.result).toString())
-    return await result
+    const nft = await this.nftContract.nft_token!({ token_id: token_id })
+    return { ...nft }
   }
 
-  async buyNft(accountId: string, token_id: string, amount: number): Promise<any> {
-    await this.marketWallet.signAndSendTransaction({
-      signerId: accountId,
-      actions: [
-        {
-          type: "FunctionCall",
-          params: {
-            methodName: "buy",
-            args: { token_id },
-            gas: '300000000000000',
-            deposit: toYoctoNear(amount),
-          },
-        },
-      ],
-    })
+  async buyNft(token_id: string, amount: number): Promise<void> {
+    await this.marketContract.buy!({ token_id }, '200000000000000', toYoctoNear(amount))
   }
 
-  async transferNft(accountId: string, token_id: string, receiver_id: string): Promise<any> {
+  async transferNft(token_id: string, receiver_id: string): Promise<any> {
     const params = {
       token_id,
       receiver_id
     }
-
-    return await this.nftWallet.signAndSendTransaction({
-      signerId: accountId,
-      actions: [
-        {
-          type: "FunctionCall",
-          params: {
-            methodName: "nft_transfer",
-            args: params,
-            gas: '300000000000000',
-            deposit: '1',
-          },
-        },
-      ],
-    })
+    return await this.nftContract.nft_transfer!(params, '200000000000000', '1')
   }
 
-  async sellNft(accountId: string, token_id: string, amount: number): Promise<any> {
+  async sellNft(token_id: string, amount: number): Promise<any> {
     const params = {
       token_id,
       account_id: this.config.marketContract,
@@ -168,51 +87,15 @@ class NearApi {
         price: toYoctoNear(amount)
       })
     }
-
-    return await this.nftWallet.signAndSendTransaction({
-      signerId: accountId,
-      actions: [
-        {
-          type: "FunctionCall",
-          params: {
-            methodName: "nft_approve",
-            args: params,
-            gas: '300000000000000',
-            deposit: toYoctoNear(amount),
-          },
-        },
-      ],
-    })
+    return await this.nftContract.nft_approve!(params, '300000000000000', '1000000000000000000000')
   }
 
-  async bidNft(accountId: string, token_id: string, amount: number): Promise<void> {
-    await this.marketWallet.signAndSendTransaction({
-      signerId: accountId,
-      actions: [
-        {
-          type: "FunctionCall",
-          params: {
-            methodName: "bid",
-            args: { token_id },
-            gas: '300000000000000',
-            deposit: toYoctoNear(amount),
-          },
-        },
-      ],
-    })
+  async bidNft(token_id: string, amount: number): Promise<void> {
+    await this.marketContract.bid!({ token_id }, '200000000000000', toYoctoNear(amount))
   }
 
   async listNftByAccount(account_id: string): Promise<any> {
-    const data = await this.provider.query<CodeResult>({
-      request_type: "call_function",
-      account_id: this.nftWallet.getContractId(),
-      method_name: "nft_tokens_for_owner",
-      args_base64: Buffer.from(JSON.stringify({ account_id })).toString('base64'),
-      finality: "optimistic",
-    })
-
-    const result = JSON.parse(Buffer.from(data.result).toString())
-    return await result
+    return await this.nftContract.nft_tokens_for_owner!({ account_id })
   }
 
 }

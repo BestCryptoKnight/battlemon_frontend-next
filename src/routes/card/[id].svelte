@@ -28,7 +28,7 @@ import weapon from '$src/components/svg/weapon';
       nftProperties = [];
 
   const buyNft = async () => {
-    $near.api.buyNft($near.user.id, token_id, nft.price as number)
+    $near.api.buyNft(token_id, nft.price as number)
   }
 
   const sellNft = async () => {

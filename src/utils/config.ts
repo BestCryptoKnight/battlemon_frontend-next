@@ -5,6 +5,7 @@ export const getConfig = (url: string): NearConfig => {
     case 'production':
       return {
         networkId: 'testnet',
+        headers: {},
         nodeUrl: 'https://rpc.testnet.near.org',
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',
@@ -16,6 +17,7 @@ export const getConfig = (url: string): NearConfig => {
     default:
       return {
         networkId: 'testnet',
+        headers: {},
         nodeUrl: 'https://rpc.testnet.near.org',
         walletUrl: 'https://wallet.testnet.near.org',
         helperUrl: 'https://helper.testnet.near.org',
@@ -29,6 +31,7 @@ export const getConfig = (url: string): NearConfig => {
 export interface NearConfig {
   networkId: string,
   nodeUrl: string,
+  headers: { [key: string]: string | number; },
   nftContract: string,
   marketContract: string
   walletUrl: string,
