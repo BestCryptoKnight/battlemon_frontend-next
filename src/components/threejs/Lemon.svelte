@@ -2,9 +2,10 @@
   import { onMount } from 'svelte'
   import threeStore from './store'
   import lemons from './lemons'
-import download from '../svg/download';
+  import type { NFT } from '$src/utils/helpers'
 
-  export let nft;
+
+  export let nft: NFT;
   let threeEl: HTMLElement;
   let loaderEl: HTMLElement;
 

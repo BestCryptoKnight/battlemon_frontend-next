@@ -13,12 +13,15 @@
 import bag from '$src/components/svg/bag';
 import lemon from '$src/components/svg/lemon';
 import weapon from '$src/components/svg/weapon';
+  import type { NFT } from '$src/utils/helpers'
   
 
-  let { id: token_id }: {id: string} = $page.params
-  let nft = null, 
-      moreNft = null, 
-      nftOnSale = null,
+  let { id: token_id } = $page.params
+
+  let nft: NFT | null = null;
+
+  let moreNft = null, 
+      nftOnSale = false,
       listBids = null,
       openInventoryModal = null,
       openResourcesModal = null,
@@ -28,7 +31,7 @@ import weapon from '$src/components/svg/weapon';
       nftProperties = [];
 
   const buyNft = async () => {
-    $near.api.buyNft(token_id, nft.price as number)
+    $near.api!.buyNft(token_id, nft!.price as number)
   }
 
   const sellNft = async () => {
@@ -58,50 +61,12 @@ import weapon from '$src/components/svg/weapon';
   }
 
   onMount(async () => {
-    nft = await $near.api.nftInfo(token_id)
+    const response = await fetch(`/api.json?url=/rest/nft_tokens?token_id=${token_id}`);
+    nft = (await response.json()).rows[0];
+    console.log(nft)
+    if (!nft || !$near.api) return
 
-    const keysProperties = {
-      lemon_gen: 'Gen',
-      century: 'Century',
-      top: 'Top',
-      cyber_suit: 'Cyber suit',
-      background: 'Background',
-      expression: 'Expression',
-      eyes: 'Eyes',
-      hair: 'Hair',
-      accessory: 'Accessory',
-      type: 'Type'
-    }
-    nftProperties = Object.keys(nft.properties).map(key => {
-      const value = (nft.properties[key] + '').split('_').join(' ')
-      const title = keysProperties[key]
-      if (title) {
-        return {
-          title,
-          value
-        }
-      }
-    }).filter(a => a)
-
-    console.log(nftProperties)
-    moreNft = await $near.api.listAsks()
-    const listAllBids = await $near.api.listBids(token_id)
-    listBids = listAllBids.find(bids => bids[0] == token_id)
-
-    if (listBids) {
-      listBids = listBids[1]
-      listBids.forEach((bid, index) => {
-        const prevBid = listBids[index + 1]
-        if (prevBid) {
-          bid.difference = (bid.price * 100 / prevBid.price).toFixed()
-        }
-      });
-    }
-
-    nftOnSale = moreNft.find(n => n.token_id == nft.token_id) || false
-    if (nftOnSale) { 
-      nft.price = fromNear(nftOnSale.price).toFixed(2)
-    }    
+    listBids = await $near.api.listBids(token_id)
   })
 </script>
 
@@ -119,14 +84,14 @@ import weapon from '$src/components/svg/weapon';
 </style>
 
 <svelte:head>
-  <title>{nft?.metadata.title || ''}</title>
+  <title>{nft?.title || ''}</title>
 </svelte:head>
 
 <OfferModal tokenId={token_id} bind:isOpen={openOfferModal} />
 <TransferModal tokenId={token_id} bind:isOpen={openTransferModal} />
 <SellModal tokenId={token_id} bind:isOpen={openSellModal} />
 
-{#if nft && nftOnSale !== null } 
+{#if nft } 
   <section class="row">
     <div class="col-md-6 position-relative">
       <Lemon nft={nft} />
@@ -211,14 +176,15 @@ import weapon from '$src/components/svg/weapon';
             <div class="table-responsive">
               <table class="table table-borderless">
                 <tbody>
-                  {#each nftProperties as property}
-                    <tr>
-                      <td>{property.title}</td>
-                      <td style="text-transform: capitalize;">{property.value}</td>
-                      <td>{property.value.length}%</td>
-                      <td>in stock</td>
-                    </tr>
-                  {/each}
+                  {#if nft}
+                    {#each Object.entries(nft.model) as property}
+                      <tr>
+                        <td style="text-transform: capitalize;">{property[0]}</td>
+                        <td>{property[1]}</td>
+                        <td>in stock</td>
+                      </tr>
+                    {/each}
+                  {/if}
                   
                   
                 </tbody>

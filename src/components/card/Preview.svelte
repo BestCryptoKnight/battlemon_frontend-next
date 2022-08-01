@@ -1,22 +1,13 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import near from '$src/utils/near'
   import Lemon from '$src/components/threejs/Lemon.svelte'
+  import type { NFT } from '$src/utils/helpers'
 
-  export let shortNft = null; 
-  export let fullNft = null;
-  
-  onMount(async () => {
-    if (shortNft) {
-      fullNft = await $near.api.nftInfo(shortNft.token_id)
-    }
-  })
+  export let nft: NFT; 
 </script>
 
-{#if fullNft}
-  <div class="img-box">
-    <a href={`/card/${fullNft.token_id}`} style="user-select: none;-webkit-user-drag: none;">
-      <Lemon nft={fullNft} />
-    </a>
-  </div>
-{/if}
+
+<div class="img-box">
+  <a href={`/card/${nft.token_id}`} style="user-select: none;-webkit-user-drag: none;">
+    <Lemon nft={nft} />
+  </a>
+</div>

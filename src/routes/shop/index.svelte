@@ -2,24 +2,14 @@
   import { onMount } from 'svelte'
   import Filter from '$src/components/filter/Filter.svelte'
   import TopMenu from '$src/components/filter/TopMenu.svelte'
-  import near from '$src/utils/near'
   import Preview from '$src/components/card/Preview.svelte'
-  import { fromNear } from '$src/utils/api';
+  import type { NFT } from '$src/utils/helpers'
 
-  let listNft: any[] = []
+  let listNft: NFT[] = []
 
   onMount(async () => {
-    if (!$near.api) return;
-    let nfts = await $near.api.listNft({})
-
-    const moreNft = await $near.api.listAsks()
-    nfts.forEach((nft: any, index: number) => {
-      const nftOnSale = moreNft.find((n: any) => n.token_id == nft.token_id) || false
-      if (nftOnSale) {
-        nft.price = fromNear(nftOnSale.price).toFixed(2)
-      }    
-    })
-    listNft = nfts.slice(0,6)
+    const response = await fetch('/api.json?url=/rest/nft_tokens?limit=6');
+    listNft = (await response.json()).rows;
   })
 </script>
 
@@ -32,7 +22,7 @@
     <div class="row">
       {#each listNft as nft}
         <div class="col-12 col-md-4 mt-4">
-          <Preview fullNft={nft} />
+          <Preview {nft} />
           {#if nft.price}
             <div class="near-value justify-content-center mt-3 pb-3" style="font-size: 22px;">
               <span style="overflow-wrap:break-word;word-break: break-word;">{ nft.price }</span>

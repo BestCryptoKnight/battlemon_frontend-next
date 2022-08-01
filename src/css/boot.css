@@ -96,6 +96,8 @@ h1, h2, h3 {
 }
 
 .table {
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
   color: var(--inverse);
   font-size: 21px;
 }
@@ -162,9 +164,6 @@ header .header-container {
   border-color: transparent var(--inverse) var(--inverse) var(--inverse);
 }
 
-.tab-pane {
-  background-color: #000;
-}
 /* End Tabs */
 
 

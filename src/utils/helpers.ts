@@ -5,3 +5,25 @@ export const clientLink = () => {
   }
   return link
 }
+
+export interface NFT {
+  token_id: string,
+  owner_id: string,
+  title: string | null,
+  description: string | null,
+  media: string,
+  media_hash: string | null,
+  copies: string | null,
+  issued_at: string | null,
+  expires_at: string | null,
+  price?: number,
+  model: {
+    kind: string,
+    cap: string,
+    cloth: string,
+    exo: string,
+    eyes: string,
+    head: string,
+    teeth: string
+  }
+}
