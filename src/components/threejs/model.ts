@@ -120,7 +120,7 @@ export class Model {
       //this.camera.setViewOffset(this.dom.offsetWidth, this.dom.offsetHeight, this.dom.offsetWidth / 7, 0, this.dom.offsetWidth, this.dom.offsetHeight)
 
       this.scene.background = new CubeTextureLoader()
-        .setPath('/img/arena/')
+        .setPath('/img/hub/')
         .load([
           'px.png',
           'nx.png',

@@ -1,32 +1,39 @@
 <script lang="ts">
-import { onMount, onDestroy } from 'svelte'
-import Logo from '$src/components/layout/Logo.svelte'
-import Auth from '$src/components/layout/Auth.svelte'
-import near from '$src/utils/near'
-import Loader from '$src/components/layout/Loader.svelte';
-import Lemterprise from '$src/components/threejs/Lemterprise.svelte';
-import { actions } from '$src/components/threejs/lemterprise';
+  import { onMount, onDestroy } from 'svelte'
+  import Logo from '$src/components/layout/Logo.svelte'
+  import { near } from '$src/utils/near'
+  import Loader from '$src/components/Loader.svelte';
+  import Footer from '$src/components/Footer.svelte';
+  import { actions } from '$src/threejs/lemterprise';
 
-let isBackVisible: boolean = false
+  let isBackVisible: boolean = false
 
-const unsubscribe = actions.subscribe(acts => {
-	isBackVisible = acts.isBackVisible
-});
+  const unsubscribe = actions.subscribe(acts => {
+    isBackVisible = acts.isBackVisible
+  });
 
 
-const goBack = () => {
+  const goBack = () => {
     actions.update(acts => ({...acts, activateBack: true}))
-}
+  }
 
-const goCapsule = (capsule: string) => () => {
+  const goCapsule = (capsule: string) => () => {
     actions.update(acts => ({...acts, activateCapsule: capsule}))
-}
+  }
 
-onMount(async () => {
-    $near.connect()
-})
+  onMount(async () => {
+    await $near.connect()
 
-onDestroy(unsubscribe);
+    const { Model } = await import('$src/threejs/lemterprise')
+    new Model({
+      dom: 'threejs',
+      arena: '/models/lemterprise_only1.glb',
+      cam: 28,
+      camPos: [0, -10, 120]
+    })
+  })
+
+  onDestroy(unsubscribe);
 </script>
 
 <style>
@@ -59,15 +66,10 @@ onDestroy(unsubscribe);
 
 
 <div class="home">
-    <div class="home-inner">
-    <div class="layer" style="top: 0%; width: 100%; height: 100vh;">
-        <Lemterprise />
-    </div>
-    </div>
+  <div class="home-inner">
 
-    <Loader />
-    <header>
-    <div class="header-container" style="background: none;">
+    <div class="container sticky-top text-center" style="z-index: 980;">
+      <div class="header-container" style="background: none;">
         <div class="container">
             <div class="header-inner">
                 <a href="/" class="logo-home text-center" style="position: static;">
@@ -91,10 +93,6 @@ onDestroy(unsubscribe);
                         <span class="w-100 nowrap">Tokenomics</span>
                     </button>
                 </div>
-
-                {#if $near.connected}
-                    <Auth light={true} />
-                {/if}
             </div>
             
             {#if isBackVisible}
@@ -108,10 +106,14 @@ onDestroy(unsubscribe);
                 </div>
             {/if}
         </div>
-
-          
+      </div>
     </div>
-    </header>
 
+    <div class="layer" style="top: 0%; width: 100%; height: 100vh;">
+      <div id="threejs" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></div>
+    </div>
+  </div>
 
+  <Loader />
+  <Footer />
 </div>

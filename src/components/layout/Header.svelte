@@ -1,17 +1,10 @@
 <script lang="ts">
   let openMainMenu: boolean = false;
-  import near from '$src/utils/near'
+  import { near } from '$src/utils/near'
   import { page } from '$app/stores';
   import Logo from './Logo.svelte';
-  import Auth from './Auth.svelte';
-  import battlepass from '$src/components/svg/battlepass';
   import shop from '$src/components/svg/shop';
   import guild from '$src/components/svg/guild';
-  import progress from '$src/components/svg/progress';
-  import statistic from '$src/components/svg/statistic';
-  import people from '$src/components/svg/people';
-  import settings from '$src/components/svg/settings';
-  import world from '$src/components/svg/world';
   import lemon from '$src/components/svg/lemon'
 
   
@@ -33,7 +26,7 @@
 
 
         <div class="top-menu d-flex">
-          {#if $near.signedIn }
+          {#if $near.accountId }
             <a class="btn btn-light d-flex one-width" href="/kitchen" class:active={$page.url.pathname === '/kitchen'}>
               <span class="icon" style="min-width: 22px; ">{@html lemon(32,22)}</span>
               <span class="">Your&nbsp;Kitchen</span>
@@ -53,10 +46,6 @@
           </a>
 
         </div>
-
-        {#if $near.connected}
-          <Auth light={true} />
-        {/if}
       </div>
     </div>
   </div>

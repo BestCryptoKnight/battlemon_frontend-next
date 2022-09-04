@@ -1,18 +1,28 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import Loader from '$src/components/Loader.svelte';
   import Header from '$src/components/Header.svelte'
+  import Loader from '$src/components/Loader.svelte';
   import Footer from '$src/components/Footer.svelte';
-  import { near } from '$src/utils/near'
+  import type { LemonNFT } from '$src/threejs/lemon'
+  import { near, nftTokensForOwner, nftMintFull } from '$src/utils/near'
+
+  let lemons: LemonNFT[] = [];
 
   onMount(async () => {
     await $near.connect()
 
-    const { Model } = await import('$src/threejs/homepage')
+    if ($near.accountId) {
+      const nftTokens = await nftTokensForOwner($near.accountId) as LemonNFT[];
+      lemons = nftTokens.filter(token => token?.model?.kind === 'lemon')
+    }
+
+    const { Model } = await import('$src/threejs/hub')
     new Model({
+      lemons,
       dom: 'threejs',
-      model: '/models/MainMenu_Stripes_Export_lemonprise.glb?00001',
-      hdr: '/models/venice_sunset_1k.hdr?00001',
+      cam: 90,
+      globalScale: 6,
+      translateY: -6.87
     })
   })
 </script>
@@ -40,6 +50,11 @@
   <div class="home-inner">
     
     <Header />
+    <div class="container sticky-top text-center" style="z-index: 980;">
+      <button class="btn btn-lg btn-light px-4" on:click={nftMintFull}>
+        Mint new Lemon
+      </button>
+    </div>
     <div class="layer" style="top: 0%; width: 100%; height: 100vh;">
       <div id="threejs" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></div>
     </div>

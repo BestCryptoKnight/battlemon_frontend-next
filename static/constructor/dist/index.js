@@ -42756,7 +42756,7 @@ var Model = /** @class */ (function () {
             this.controls.maxDistance = 35;
             //this.camera.setViewOffset(this.dom.offsetWidth, this.dom.offsetHeight, this.dom.offsetWidth / 7, 0, this.dom.offsetWidth, this.dom.offsetHeight)
             this.scene.background = new three.CubeTextureLoader()
-                .setPath('/img/arena/')
+                .setPath('/img/hub/')
                 .load([
                 'px.png',
                 'nx.png',
