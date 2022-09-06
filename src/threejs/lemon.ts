@@ -1,5 +1,5 @@
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
-export const modelUrl = "/models/BTLMN_Outfits_Tier1_MP.glb"
+export const modelUrl = "/models/BTLMN_Outfits_Tier_MP_resave.glb"
 import type { LemonNFT } from '$src/utils/types'
 import type { Scene } from 'three'
 

@@ -17,7 +17,7 @@ export class Model {
   private loader: GLTFLoader
   private lemonModel!: GLTF
   private isAnimating: boolean
-  private mixer: AnimationMixer
+  private mixers: AnimationMixer[]
   private animatedObjects: AnimationObjectGroup
   private sceneLights: {
     [key: string]: DirectionalLight
@@ -35,7 +35,7 @@ export class Model {
     this.scene = new Scene();
     this.scene.translateY(translateY);
     
-    this.mixer = new AnimationMixer( this.scene )
+    this.mixers = []
 
     this.light = 3.8
 
@@ -121,12 +121,13 @@ export class Model {
       lemons.slice(-3).forEach((lemon, index) => {
         const clonedLemon = SkeletonUtils.clone(this.lemonModel.scene);
         wearLemonModel(clonedLemon, lemon);
-        clonedLemon.position.set(Pluses[index]!.position.x, Pluses[index]!.position.y, index * 300)
         clonedLemon.rotateY(Math.PI)
-        this.scene.add(clonedLemon)
+        Platforms[index]!.add(clonedLemon)
         
-        // const action = this.mixer.clipAction( this.lemonModel.animations[ 0 ] );
-        // action.play();
+        const mixer = new AnimationMixer( clonedLemon )
+        const action = mixer.clipAction( this.lemonModel.animations[ 0 ] );
+        action.play();
+        this.mixers.push(mixer)
       })
 
 
@@ -160,7 +161,7 @@ export class Model {
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
     const delta = this.clock.getDelta();
-    this.mixer.update(delta)
+    this.mixers.forEach(mixer => mixer.update(delta))
     this.controls.update();
     this.sceneLights.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
     this.sceneLights.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);
