@@ -3,7 +3,7 @@
   import Header from '$src/components/Header.svelte'
   import Loader from '$src/components/Loader.svelte';
   import Footer from '$src/components/Footer.svelte';
-  import type { LemonNFT } from '$src/threejs/lemon'
+  import type { LemonNFT } from '$src/utils/types'
   import { near, nftTokensForOwner, nftMintFull } from '$src/utils/near'
 
   let lemons: LemonNFT[] = [];
@@ -21,7 +21,7 @@
       lemons,
       dom: 'threejs',
       cam: 90,
-      globalScale: 6,
+      globalScale: 0.1,
       translateY: -6.87
     })
   })

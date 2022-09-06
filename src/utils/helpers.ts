@@ -5,3 +5,5 @@ export const clientLink = () => {
   }
   return link
 }
+
+export const assetsTimestamp = "020620220005"

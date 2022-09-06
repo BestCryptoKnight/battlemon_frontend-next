@@ -107,7 +107,7 @@ export const nftMintFull = async () => {
   const { accountId, nftContract, utils } = get(near)
   return await nftContract!.nft_mint_full({
     args: { receiver_id: accountId },
-    amount: utils.format.parseNearAmount("1"),
-    gas: "50000000000000"
+    amount: utils.format.parseNearAmount("0.1"),
+    gas: "150000000000000"
   });
 }
