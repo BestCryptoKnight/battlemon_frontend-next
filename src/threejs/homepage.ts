@@ -39,12 +39,11 @@ export class Model {
     this.scene.translateY(-4.6)
 
     var rect = this.dom.getBoundingClientRect();
-    const onPointerMove = (event: MouseEvent) => {
+    window.addEventListener( 'pointermove', (event: MouseEvent) => {
       this.pointer.x = ( (event.clientX - rect.left) / this.dom.offsetWidth ) * 2 - 1;
       this.pointer.y = - ( (event.clientY - rect.top) / this.dom.offsetHeight ) * 2 + 1;
-    }
+    });
 
-    window.addEventListener( 'pointermove', onPointerMove );
 
     const manager = new LoadingManager();
     manager.onProgress = function (item, loaded, total) {
