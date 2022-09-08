@@ -1,6 +1,7 @@
 import { writable, get } from "svelte/store";
 import { Buffer } from 'buffer';
 import type { Contract, WalletConnection } from "near-api-js";
+import swal from 'sweetalert';
 
 
 interface NftContract extends Contract {
@@ -105,6 +106,11 @@ export const nftTokensForOwner = async (accountId: string) => {
 
 export const nftMintFull = async () => {
   const { accountId, nftContract, utils } = get(near)
+  if (!accountId) {
+    const swalert = await swal( "Oops" ,  "Please, Sign In" ,  "error" )
+    
+    return
+  }
   return await nftContract!.nft_mint_full({
     args: { receiver_id: accountId },
     amount: utils.format.parseNearAmount("0.1"),

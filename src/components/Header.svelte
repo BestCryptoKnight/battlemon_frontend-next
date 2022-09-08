@@ -4,11 +4,8 @@
   import { near, signIn } from '$src/utils/near'
 
   const handleSignOut = () => {
-    // $near.wallet!.signOut(); 
-    // near.update(store => {
-    //   delete store.accountId
-    //   return store
-    // })
+    $near.wallet!.signOut(); 
+    location.href = location.href
   }
 
 </script>

@@ -552,6 +552,11 @@ error-polyfill@^0.1.3:
     o3 "^1.0.3"
     u3 "^0.1.1"
 
+es6-object-assign@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/es6-object-assign/-/es6-object-assign-1.1.0.tgz#c2c3582656247c39ea107cb1e6652b6f9f24523c"
+  integrity sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw==
+
 es6-promise@^3.1.2:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
@@ -1347,6 +1352,11 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
+promise-polyfill@^6.0.2:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-6.1.0.tgz#dfa96943ea9c121fca4de9b5868cb39d3472e057"
+  integrity sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ==
+
 punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
@@ -1663,6 +1673,14 @@ sveltestrap@^5.6.3:
   integrity sha512-/geTKJbPmJGzwHFKYC3NkUNDk/GKxrppgdSxcg58w/qcxs0S6RiN4PaQ1tgBKsdSrZDfbHfkFF+dybHAyUlV0A==
   dependencies:
     "@popperjs/core" "^2.9.2"
+
+sweetalert@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/sweetalert/-/sweetalert-2.1.2.tgz#010baaa80d0dbdc86f96bfcaa96b490728594b79"
+  integrity sha512-iWx7X4anRBNDa/a+AdTmvAzQtkN1+s4j/JJRWlHpYE8Qimkohs8/XnFcWeYHH2lMA8LRCa5tj2d244If3S/hzA==
+  dependencies:
+    es6-object-assign "^1.1.0"
+    promise-polyfill "^6.0.2"
 
 table@^6.0.9:
   version "6.7.3"

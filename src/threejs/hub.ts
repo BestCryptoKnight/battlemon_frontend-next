@@ -1,4 +1,4 @@
-import { TextureLoader, LoadingManager, CubeTextureLoader, sRGBEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, AnimationObjectGroup, Raycaster, Vector2 } from "three"
+import { TextureLoader, LoadingManager, CubeTextureLoader, sRGBEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, AnimationObjectGroup, Raycaster, Vector2, Vector3, Object3D, Quaternion } from "three"
 import { LoopOnce } from 'three/src/constants.js'
 import type { AnimationAction } from 'three/src/animation/AnimationAction'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -8,6 +8,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import type { LemonNFT } from '$src/utils/types'
 import { assetsTimestamp } from "$src/utils/helpers"
 import { modelUrl, wearLemonModel } from '$src/threejs/lemon'
+import { nftMintFull } from '$src/utils/near'
 
 interface Animations {
   [name: string]: AnimationAction
@@ -25,9 +26,12 @@ export class Model {
   private isAnimating: boolean
   private raycaster: Raycaster
   private pointer: Vector2
-  private mixers: AnimationMixer[]
+  private mixers: {
+    [name: string]: AnimationMixer
+  }
   private animations: Animations
   private pointerOver: string
+  private activePlatform: number
   private sceneLights: {
     [key: string]: DirectionalLight
   }
@@ -45,10 +49,11 @@ export class Model {
     this.scene.translateY(translateY);
     this.raycaster = new Raycaster()
     this.pointer = new Vector2()
-    this.mixers = []
+    this.mixers = {}
     this.animations = {}
     this.light = 3.8
     this.pointerOver = ''
+    this.activePlatform = 1
 
     var rect = this.dom.getBoundingClientRect();
     window.addEventListener( 'pointermove', (event: MouseEvent) => {
@@ -72,7 +77,7 @@ export class Model {
       this.lemonModel = gltf
     });
     
-    this.loader.load(`/models/BTLMN_LemonPlatfroems_A.glb?${assetsTimestamp}`, (gltf) => {
+    this.loader.load(`/models/BTLMN_LemonPlatforms.glb?${assetsTimestamp}`, (gltf) => {
       gltf.scene.name = 'postament'
       gltf.scene.position.setY(0.25)
       gltf.scene.scale.set(1, 1, 1)
@@ -88,7 +93,7 @@ export class Model {
         this.animations[anim] = action
       })
 
-      this.mixers.push(mixer)
+      this.mixers.platforms = mixer
     });
 
 
@@ -121,9 +126,7 @@ export class Model {
       this.controls = new OrbitControls(this.camera, this.dom)
       this.controls.update();
       this.controls.enablePan = false;
-      // this.controls.minDistance = 28;
-      // this.controls.maxDistance = 28;
-      // this.controls.maxPolarAngle = Math.PI / 1.7;
+      this.controls.enableRotate = false
 
       this.scene.scale.set(globalScale, globalScale, globalScale);
       this.sceneLights.light1 = new DirectionalLight(0xFFFFFF);
@@ -133,27 +136,27 @@ export class Model {
       this.scene.add(this.sceneLights.light2);
 
       const Platforms = [
-        this.scene.getObjectByName("LemonPos_3"),
+        this.scene.getObjectByName("LemonPos_1"),
         this.scene.getObjectByName("LemonPos_2"),
-        this.scene.getObjectByName("LemonPos_1")
+        this.scene.getObjectByName("LemonPos_3")
       ]
       const Pluses = [
-        this.scene.getObjectByName("Plus_3"),
+        this.scene.getObjectByName("Plus_1"),
         this.scene.getObjectByName("Plus_2"),
-        this.scene.getObjectByName("Plus_1")
+        this.scene.getObjectByName("Plus_3")
       ]
       
-      lemons.slice(-3).forEach((lemon, index) => {
+      lemons.slice(-3).reverse().forEach((lemon, index) => {
         const clonedLemon = SkeletonUtils.clone(this.lemonModel.scene);
         wearLemonModel(clonedLemon, lemon);
-        clonedLemon.rotateY(Math.PI)
+        clonedLemon.name = `Lemon${index + 1}`
         Platforms[index]!.add(clonedLemon)
         Pluses[index]!.visible = false
         
         const mixer = new AnimationMixer( clonedLemon )
         const action = mixer.clipAction( this.lemonModel.animations[ 0 ] );
         action.play();
-        this.mixers.push(mixer)
+        this.mixers[`lemon${index + 1}`] = mixer
       })
 
       this.dom.appendChild(this.renderer.domElement);
@@ -186,11 +189,10 @@ export class Model {
   private animate(): void {
     requestAnimationFrame(this.animate.bind(this));
     const delta = this.clock.getDelta();
-    this.mixers.forEach(mixer => mixer.update(delta))
+    Object.values(this.mixers).forEach(mixer => mixer.update(delta))
     this.controls.update();
     this.sceneLights.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
     this.sceneLights.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);
-
 
     this.raycaster.setFromCamera( this.pointer, this.camera );
     let intersects = this.raycaster.intersectObjects(this.scene.children, true);
@@ -198,20 +200,29 @@ export class Model {
 
     if (intersects.length > 0) {
       for (let { object } of intersects) {
-        if (object.name.indexOf('Cylinder002_1') >= 0) {
-          hovered = 'Platform_1'
+        if (object.name.indexOf('collider1') >= 0) {
+          hovered = 'Platform1'
           break;
         } else
-        if (object.name.indexOf('Cylinder_1') >= 0) {
-          hovered = 'Platform_2'
+        if (object.name.indexOf('collider2') >= 0) {
+          hovered = 'Platform2'
           break;
         } else 
-        if (object.name.indexOf('Cylinder001_1') >= 0) {
-          hovered = 'Platform_3'
+        if (object.name.indexOf('collider3') >= 0) {
+          hovered = 'Platform3'
           break;
         }
       }
     }
+    const quaternion = new Quaternion();
+    quaternion.setFromAxisAngle( new Vector3( 0, 1, 0 ), Math.PI );
+
+    this.scene.getObjectByName("Lemon1")?.lookAt(this.camera.position)
+    this.scene.getObjectByName("Lemon2")?.lookAt(this.camera.position)
+    this.scene.getObjectByName("Lemon3")?.lookAt(this.camera.position)
+    this.scene.getObjectByName("Plus_1")?.lookAt(this.camera.position)
+    this.scene.getObjectByName("Plus_2")?.lookAt(this.camera.position)
+    this.scene.getObjectByName("Plus_3")?.lookAt(this.camera.position)
 
     if (this.pointerOver != hovered) {
       if (hovered == 'none') {
@@ -221,14 +232,50 @@ export class Model {
         document.body.style.cursor = 'pointer';
       }
       
-      if (hovered == 'Platform_1') document.onclick = () => {
-        //this.animations['Backward1'].play()
+      if (hovered == 'Platform1') document.onclick = () => {    
+        if (!this.scene.getObjectByName("Lemon1")) {
+          nftMintFull()
+          return
+        }   
+        if (this.activePlatform == 2) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Backward3'].play()
+        }
+        if (this.activePlatform == 3) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Forward3'].play()
+        }
+        this.activePlatform = 1
       }
-      if (hovered == 'Platform_2') document.onclick = () => {
-        this.animations['Backward3'].play()
+      if (hovered == 'Platform2') document.onclick = () => {
+        if (!this.scene.getObjectByName("Lemon2")) {
+          nftMintFull()
+          return
+        }
+        if (this.activePlatform == 1) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Forward1'].play()
+        }
+        if (this.activePlatform == 3) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Backward2'].play()
+        }
+        this.activePlatform = 2
       }
-      if (hovered == 'Platform_3') document.onclick = () => {
-        this.animations['Backward2'].play()
+      if (hovered == 'Platform3') document.onclick = () => {
+        if (!this.scene.getObjectByName("Lemon3")) {
+          nftMintFull()
+          return
+        }
+        if (this.activePlatform == 1) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Backward1'].play()
+        }
+        if (this.activePlatform == 2) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Forward2'].play()
+        }
+        this.activePlatform = 3
       }
     } 
     this.pointerOver = hovered
