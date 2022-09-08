@@ -107,8 +107,8 @@ export const nftTokensForOwner = async (accountId: string) => {
 export const nftMintFull = async () => {
   const { accountId, nftContract, utils } = get(near)
   if (!accountId) {
-    const swalert = await swal( "Oops" ,  "Please, Sign In" ,  "error" )
-    
+    swal( "Oops" ,  "Please, Sign In" ,  "error" )
+    document.body.style.cursor = 'default';
     return
   }
   return await nftContract!.nft_mint_full({

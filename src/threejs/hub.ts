@@ -9,6 +9,7 @@ import type { LemonNFT } from '$src/utils/types'
 import { assetsTimestamp } from "$src/utils/helpers"
 import { modelUrl, wearLemonModel } from '$src/threejs/lemon'
 import { nftMintFull } from '$src/utils/near'
+import { InteractionManager } from "three.interactive";
 
 interface Animations {
   [name: string]: AnimationAction
@@ -26,6 +27,7 @@ export class Model {
   private isAnimating: boolean
   private raycaster: Raycaster
   private pointer: Vector2
+  private interactionManager!: InteractionManager
   private mixers: {
     [name: string]: AnimationMixer
   }
@@ -145,6 +147,19 @@ export class Model {
         this.scene.getObjectByName("Plus_2"),
         this.scene.getObjectByName("Plus_3")
       ]
+      const PlusesStroke = [
+        this.scene.getObjectByName("Plus_1_Stroke"),
+        this.scene.getObjectByName("Plus_2_Stroke"),
+        this.scene.getObjectByName("Plus_3_Stroke")
+      ]
+      PlusesStroke.forEach(stroke => {
+        if (stroke) stroke.visible = false
+      })
+      const Colliders = [
+        this.scene.getObjectByName("collider1"),
+        this.scene.getObjectByName("collider2"),
+        this.scene.getObjectByName("collider3")
+      ]
       
       lemons.slice(-3).reverse().forEach((lemon, index) => {
         const clonedLemon = SkeletonUtils.clone(this.lemonModel.scene);
@@ -158,6 +173,75 @@ export class Model {
         action.play();
         this.mixers[`lemon${index + 1}`] = mixer
       })
+
+      this.interactionManager = new InteractionManager(
+        this.renderer,
+        this.camera,
+        this.renderer.domElement,
+        true
+      );
+
+      Colliders.forEach((collider, index) => {
+        if (collider) {
+          this.interactionManager.add(collider)
+          collider.addEventListener("mouseenter", (event) => {
+            document.body.style.cursor = 'pointer';
+            if (PlusesStroke[index]) PlusesStroke[index]!.visible = true
+          })
+          collider.addEventListener("mouseleave", (event) => {
+            if (PlusesStroke[index]) PlusesStroke[index]!.visible = false
+          })
+        }
+      })
+
+      Colliders[0]?.addEventListener("mousedown", (event) => {
+        if (Pluses[0]?.visible) {
+          nftMintFull()
+          return
+        }
+        if (this.activePlatform == 2) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Backward3'].play()
+        }
+        if (this.activePlatform == 3) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Forward3'].play()
+        }
+        this.activePlatform = 1
+      });
+      
+      Colliders[1]?.addEventListener("mousedown", (event) => {
+        if (Pluses[1]?.visible) {
+          nftMintFull()
+          return
+        }
+        if (this.activePlatform == 1) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Forward1'].play()
+        }
+        if (this.activePlatform == 3) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Backward2'].play()
+        }
+        this.activePlatform = 2
+      });
+
+      Colliders[2]?.addEventListener("mousedown", (event) => {
+        if (Pluses[2]?.visible) {
+          nftMintFull()
+          return
+        }
+        if (this.activePlatform == 1) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Backward1'].play()
+        }
+        if (this.activePlatform == 2) {
+          this.mixers.platforms.stopAllAction()
+          this.animations['Forward2'].play()
+        }
+        this.activePlatform = 3
+      });
+
 
       this.dom.appendChild(this.renderer.domElement);
       document.getElementById('loader')!.style.opacity = '0';
@@ -193,30 +277,7 @@ export class Model {
     this.controls.update();
     this.sceneLights.light1.position.set(this.camera.position.x, this.camera.position.y + 50, this.camera.position.z);
     this.sceneLights.light2.position.set(this.camera.position.x, this.camera.position.y - 10, this.camera.position.z);
-
-    this.raycaster.setFromCamera( this.pointer, this.camera );
-    let intersects = this.raycaster.intersectObjects(this.scene.children, true);
-    let hovered = 'none'
-
-    if (intersects.length > 0) {
-      for (let { object } of intersects) {
-        if (object.name.indexOf('collider1') >= 0) {
-          hovered = 'Platform1'
-          break;
-        } else
-        if (object.name.indexOf('collider2') >= 0) {
-          hovered = 'Platform2'
-          break;
-        } else 
-        if (object.name.indexOf('collider3') >= 0) {
-          hovered = 'Platform3'
-          break;
-        }
-      }
-    }
-    const quaternion = new Quaternion();
-    quaternion.setFromAxisAngle( new Vector3( 0, 1, 0 ), Math.PI );
-
+    
     this.scene.getObjectByName("Lemon1")?.lookAt(this.camera.position)
     this.scene.getObjectByName("Lemon2")?.lookAt(this.camera.position)
     this.scene.getObjectByName("Lemon3")?.lookAt(this.camera.position)
@@ -224,63 +285,7 @@ export class Model {
     this.scene.getObjectByName("Plus_2")?.lookAt(this.camera.position)
     this.scene.getObjectByName("Plus_3")?.lookAt(this.camera.position)
 
-    if (this.pointerOver != hovered) {
-      if (hovered == 'none') {
-        document.onclick = () => {}
-        document.body.style.cursor = 'default';
-      } else {
-        document.body.style.cursor = 'pointer';
-      }
-      
-      if (hovered == 'Platform1') document.onclick = () => {    
-        if (!this.scene.getObjectByName("Lemon1")) {
-          nftMintFull()
-          return
-        }   
-        if (this.activePlatform == 2) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Backward3'].play()
-        }
-        if (this.activePlatform == 3) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Forward3'].play()
-        }
-        this.activePlatform = 1
-      }
-      if (hovered == 'Platform2') document.onclick = () => {
-        if (!this.scene.getObjectByName("Lemon2")) {
-          nftMintFull()
-          return
-        }
-        if (this.activePlatform == 1) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Forward1'].play()
-        }
-        if (this.activePlatform == 3) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Backward2'].play()
-        }
-        this.activePlatform = 2
-      }
-      if (hovered == 'Platform3') document.onclick = () => {
-        if (!this.scene.getObjectByName("Lemon3")) {
-          nftMintFull()
-          return
-        }
-        if (this.activePlatform == 1) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Backward1'].play()
-        }
-        if (this.activePlatform == 2) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Forward2'].play()
-        }
-        this.activePlatform = 3
-      }
-    } 
-    this.pointerOver = hovered
-
-
+    this.interactionManager.update();
     this.renderer.render(this.scene, this.camera);
   }
 }

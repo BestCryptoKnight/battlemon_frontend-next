@@ -1703,6 +1703,11 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+three.interactive@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/three.interactive/-/three.interactive-1.4.0.tgz#98ea045c74c7da6c62c7655f7e3ac9978d6d7eeb"
+  integrity sha512-8Ymkk0+MH34vsMUtc4jFl7NOE/YlUidzRqpQ3Mp2Iyv06tURyqGUOV4+Exmm9XbFYuezVIushKCwgtGOBnvL0g==
+
 three@^0.135.0:
   version "0.135.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.135.0.tgz#cff4ec8edd3c51ce9bc7e88d13e8eafed4d0ddfc"
