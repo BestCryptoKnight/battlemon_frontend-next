@@ -79,7 +79,7 @@
     {#if showMint}
       {#if tutorialStep == null}
         <button class="btn btn-lg btn-light px-4 py-3 ms-2" on:click={handleMintNft} style="position: fixed; z-index: 1040; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-          Mint new NFT
+          Mint NFT
         </button>
       {/if}
       {#if tutorialStep == 'nftHub'}

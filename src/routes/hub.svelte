@@ -61,7 +61,7 @@
     <Header />
     <div class="container sticky-top text-center" style="z-index: 980;">
       <button class="btn btn-lg btn-light px-4" on:click={nftMintFull}>
-        Mint new Lemon
+        Mint NFT
       </button>
     </div>
     <div class="layer" style="top: 0%; width: 100%; height: 100vh;">
