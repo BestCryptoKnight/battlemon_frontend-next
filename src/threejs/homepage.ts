@@ -6,6 +6,12 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import { clientLink } from '$src/utils/helpers'
 import { goto } from '$app/navigation';
 
+interface Events {
+  onLoadModels: () => void, 
+  onClickHub: () => void, 
+  onClickDownloadClient: () => void
+}
+
 export class Model {
   private camera: PerspectiveCamera;
   private scene: Scene;
@@ -21,9 +27,11 @@ export class Model {
   private pointer: Vector2
   private pointerOver: string
   private pointerLeave: string
+  private events: Events
 
-  constructor({ dom, model, hdr }: { dom: string, model: string, hdr: string }) {
+  constructor({ dom, model, hdr, events }: { dom: string, model: string, hdr: string, events: Events }) {
     this.dom = document.getElementById(dom)!
+    this.events = events
     this.isAnimating = false;
     
     const {aspect, fov} = this.cameraParams()
@@ -104,6 +112,7 @@ export class Model {
       this.scene.environment = texture;
 
       manager.onLoad = () => {
+        this.events.onLoadModels()
         this.dom.appendChild(this.renderer.domElement);
         document.getElementById('loader')!.style.opacity = '0';
         window.addEventListener("resize", this.onWindowResize.bind(this), false);
@@ -261,9 +270,19 @@ export class Model {
       }
       
       this.hoverLayers(hovered);
-      if (hovered == 'download_client') document.onclick = () => location.href = clientLink()
+      if (hovered == 'download_client') {
+        document.onclick = () => {
+          this.events.onClickDownloadClient()
+          location.href = clientLink()
+        }
+      }
       if (hovered == 'lemterprise') document.onclick = () => goto('/lemterprise')
-      if (hovered == 'arena') document.onclick = () => goto('/hub')
+      if (hovered == 'arena') {
+        document.onclick = () => {
+          this.events.onClickHub()
+          goto('/hub')
+        }
+      }
     } 
     
     

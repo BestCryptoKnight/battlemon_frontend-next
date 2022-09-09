@@ -28,6 +28,15 @@
 </script>
 
 <style>
+  :global(.swal-modal) {
+    background-color: rgba(255,255,255,0.84);
+    border: 2px solid white;
+  }
+  :global(.swal-button--cancel) {
+    background-color: #fff;
+    border: 1px solid #888;
+  }
+  
   .home {
     background: #000 ;
     overflow: hidden; 

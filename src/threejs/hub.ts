@@ -1,10 +1,11 @@
-import { TextureLoader, LoadingManager, CubeTextureLoader, sRGBEncoding, Group, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, AnimationObjectGroup, Raycaster, Vector2, Vector3, Object3D, Quaternion } from "three"
+import { LoadingManager, CubeTextureLoader, sRGBEncoding, DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, AnimationMixer, Clock, Raycaster, Vector2, EquirectangularReflectionMapping } from "three"
 import { LoopOnce } from 'three/src/constants.js'
 import type { AnimationAction } from 'three/src/animation/AnimationAction'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import type { LemonNFT } from '$src/utils/types'
 import { assetsTimestamp } from "$src/utils/helpers"
 import { modelUrl, wearLemonModel } from '$src/threejs/lemon'
@@ -53,7 +54,7 @@ export class Model {
     this.pointer = new Vector2()
     this.mixers = {}
     this.animations = {}
-    this.light = 3.8
+    this.light = 0.8
     this.pointerOver = ''
     this.activePlatform = 1
 
@@ -120,137 +121,144 @@ export class Model {
         'nz.png'
       ]);
 
+    new RGBELoader().load(`/models/winter_lake_01_1k.hdr?${assetsTimestamp}`, ( texture ) => {
+      texture.mapping = EquirectangularReflectionMapping;
+      //this.scene.background = texture;
+      this.scene.environment = texture;
 
-    manager.onLoad = () => {
-      this.camera = this.scene.getObjectByName("Camera1") as PerspectiveCamera
-      this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
-      this.camera.updateProjectionMatrix();
-      this.controls = new OrbitControls(this.camera, this.dom)
-      this.controls.update();
-      this.controls.enablePan = false;
-      this.controls.enableRotate = false
-
-      this.scene.scale.set(globalScale, globalScale, globalScale);
-      this.sceneLights.light1 = new DirectionalLight(0xFFFFFF);
-      this.sceneLights.light2 = new DirectionalLight(0xFFFFFF);
-      this.setLightSettings()
-      this.scene.add(this.sceneLights.light1);
-      this.scene.add(this.sceneLights.light2);
-
-      const Platforms = [
-        this.scene.getObjectByName("LemonPos_1"),
-        this.scene.getObjectByName("LemonPos_2"),
-        this.scene.getObjectByName("LemonPos_3")
-      ]
-      const Pluses = [
-        this.scene.getObjectByName("Plus_1"),
-        this.scene.getObjectByName("Plus_2"),
-        this.scene.getObjectByName("Plus_3")
-      ]
-      const PlusesStroke = [
-        this.scene.getObjectByName("Plus_1_Stroke"),
-        this.scene.getObjectByName("Plus_2_Stroke"),
-        this.scene.getObjectByName("Plus_3_Stroke")
-      ]
-      PlusesStroke.forEach(stroke => {
-        if (stroke) stroke.visible = false
-      })
-      const Colliders = [
-        this.scene.getObjectByName("collider1"),
-        this.scene.getObjectByName("collider2"),
-        this.scene.getObjectByName("collider3")
-      ]
-      
-      lemons.slice(-3).reverse().forEach((lemon, index) => {
-        const clonedLemon = SkeletonUtils.clone(this.lemonModel.scene);
-        wearLemonModel(clonedLemon, lemon);
-        clonedLemon.name = `Lemon${index + 1}`
-        Platforms[index]!.add(clonedLemon)
-        Pluses[index]!.visible = false
+      manager.onLoad = () => {
+        this.camera = this.scene.getObjectByName("Camera1") as PerspectiveCamera
+        this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
+        this.camera.updateProjectionMatrix();
+        this.controls = new OrbitControls(this.camera, this.dom)
+        this.controls.update();
+        this.controls.enablePan = false;
+        this.controls.enableRotate = false
+  
+        this.scene.scale.set(globalScale, globalScale, globalScale);
+        this.sceneLights.light1 = new DirectionalLight(0xFFFFFF);
+        this.sceneLights.light2 = new DirectionalLight(0xFFFFFF);
+        this.setLightSettings()
+        this.scene.add(this.sceneLights.light1);
+        this.scene.add(this.sceneLights.light2);
+  
+        const Platforms = [
+          this.scene.getObjectByName("LemonPos_1"),
+          this.scene.getObjectByName("LemonPos_2"),
+          this.scene.getObjectByName("LemonPos_3")
+        ]
+        const Pluses = [
+          this.scene.getObjectByName("Plus_1"),
+          this.scene.getObjectByName("Plus_2"),
+          this.scene.getObjectByName("Plus_3")
+        ]
+        const PlusesStroke = [
+          this.scene.getObjectByName("Plus_1_Stroke"),
+          this.scene.getObjectByName("Plus_2_Stroke"),
+          this.scene.getObjectByName("Plus_3_Stroke")
+        ]
+        PlusesStroke.forEach(stroke => {
+          if (stroke) stroke.visible = false
+        })
+        const Colliders = [
+          this.scene.getObjectByName("collider1"),
+          this.scene.getObjectByName("collider2"),
+          this.scene.getObjectByName("collider3")
+        ]
         
-        const mixer = new AnimationMixer( clonedLemon )
-        const action = mixer.clipAction( this.lemonModel.animations[ 0 ] );
-        action.play();
-        this.mixers[`lemon${index + 1}`] = mixer
-      })
+        lemons.slice(-3).reverse().forEach((lemon, index) => {
+          const clonedLemon = SkeletonUtils.clone(this.lemonModel.scene);
+          wearLemonModel(clonedLemon, lemon);
+          clonedLemon.name = `Lemon${index + 1}`
+          Platforms[index]!.add(clonedLemon)
+          Pluses[index]!.visible = false
+          
+          const mixer = new AnimationMixer( clonedLemon )
+          const action = mixer.clipAction( this.lemonModel.animations[ 0 ] );
+          action.play();
+          this.mixers[`lemon${index + 1}`] = mixer
+        })
+  
+        this.interactionManager = new InteractionManager(
+          this.renderer,
+          this.camera,
+          this.renderer.domElement,
+          true
+        );
+  
+        Colliders.forEach((collider, index) => {
+          if (collider) {
+            this.interactionManager.add(collider)
+            collider.addEventListener("mouseenter", (event) => {
+              document.body.style.cursor = 'pointer';
+              if (PlusesStroke[index]) PlusesStroke[index]!.visible = true
+            })
+            collider.addEventListener("mouseleave", (event) => {
+              if (PlusesStroke[index]) PlusesStroke[index]!.visible = false
+            })
+          }
+        })
+  
+        Colliders[0]?.addEventListener("mousedown", (event) => {
+          if (Pluses[0]?.visible) {
+            nftMintFull()
+            return
+          }
+          if (this.activePlatform == 2) {
+            this.mixers.platforms.stopAllAction()
+            this.animations['Backward3'].play()
+          }
+          if (this.activePlatform == 3) {
+            this.mixers.platforms.stopAllAction()
+            this.animations['Forward3'].play()
+          }
+          this.activePlatform = 1
+        });
+        
+        Colliders[1]?.addEventListener("mousedown", (event) => {
+          if (Pluses[1]?.visible) {
+            nftMintFull()
+            return
+          }
+          if (this.activePlatform == 1) {
+            this.mixers.platforms.stopAllAction()
+            this.animations['Forward1'].play()
+          }
+          if (this.activePlatform == 3) {
+            this.mixers.platforms.stopAllAction()
+            this.animations['Backward2'].play()
+          }
+          this.activePlatform = 2
+        });
+  
+        Colliders[2]?.addEventListener("mousedown", (event) => {
+          if (Pluses[2]?.visible) {
+            nftMintFull()
+            return
+          }
+          if (this.activePlatform == 1) {
+            this.mixers.platforms.stopAllAction()
+            this.animations['Backward1'].play()
+          }
+          if (this.activePlatform == 2) {
+            this.mixers.platforms.stopAllAction()
+            this.animations['Forward2'].play()
+          }
+          this.activePlatform = 3
+        });
+  
+  
+        this.dom.appendChild(this.renderer.domElement);
+        document.getElementById('loader')!.style.opacity = '0';
+        window.addEventListener("resize", this.onWindowResize.bind(this), false);
+        if (!this.isAnimating) {
+          this.animate();
+          this.isAnimating = true
+        }
+      };
 
-      this.interactionManager = new InteractionManager(
-        this.renderer,
-        this.camera,
-        this.renderer.domElement,
-        true
-      );
+    });
 
-      Colliders.forEach((collider, index) => {
-        if (collider) {
-          this.interactionManager.add(collider)
-          collider.addEventListener("mouseenter", (event) => {
-            document.body.style.cursor = 'pointer';
-            if (PlusesStroke[index]) PlusesStroke[index]!.visible = true
-          })
-          collider.addEventListener("mouseleave", (event) => {
-            if (PlusesStroke[index]) PlusesStroke[index]!.visible = false
-          })
-        }
-      })
-
-      Colliders[0]?.addEventListener("mousedown", (event) => {
-        if (Pluses[0]?.visible) {
-          nftMintFull()
-          return
-        }
-        if (this.activePlatform == 2) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Backward3'].play()
-        }
-        if (this.activePlatform == 3) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Forward3'].play()
-        }
-        this.activePlatform = 1
-      });
-      
-      Colliders[1]?.addEventListener("mousedown", (event) => {
-        if (Pluses[1]?.visible) {
-          nftMintFull()
-          return
-        }
-        if (this.activePlatform == 1) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Forward1'].play()
-        }
-        if (this.activePlatform == 3) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Backward2'].play()
-        }
-        this.activePlatform = 2
-      });
-
-      Colliders[2]?.addEventListener("mousedown", (event) => {
-        if (Pluses[2]?.visible) {
-          nftMintFull()
-          return
-        }
-        if (this.activePlatform == 1) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Backward1'].play()
-        }
-        if (this.activePlatform == 2) {
-          this.mixers.platforms.stopAllAction()
-          this.animations['Forward2'].play()
-        }
-        this.activePlatform = 3
-      });
-
-
-      this.dom.appendChild(this.renderer.domElement);
-      document.getElementById('loader')!.style.opacity = '0';
-      window.addEventListener("resize", this.onWindowResize.bind(this), false);
-      if (!this.isAnimating) {
-        this.animate();
-        this.isAnimating = true
-      }
-    };
 
   }
 
@@ -259,7 +267,7 @@ export class Model {
     this.sceneLights.light1.position.set(camPos.x, camPos.y + 50, camPos.z);
     this.sceneLights.light2.position.set(camPos.x, camPos.y + -10, camPos.z);
     this.sceneLights.light1.intensity = this.light
-    this.sceneLights.light2.intensity = this.light - 1.5
+    this.sceneLights.light2.intensity = this.light
   }
 
   private onWindowResize(): void {
