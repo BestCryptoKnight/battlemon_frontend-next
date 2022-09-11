@@ -15,7 +15,7 @@
     if ($near.accountId) {
       const nftTokens = await nftTokensForOwner($near.accountId) as LemonNFT[];
       lemons = nftTokens.filter(token => token?.model?.kind === 'lemon')
-      if (lemons.length < 3) {
+      if (lemons.length < 1) {
         showMint = true
       }
     } else {
@@ -68,7 +68,7 @@
     {#if showMint}
       <div class="container sticky-top text-center" style="z-index: 980;">
         <button class="btn btn-lg btn-light px-4" on:click={nftMintFull}>
-          Mint NFT
+          Mint NFT (Testnet)
         </button>
       </div>
     {/if}
