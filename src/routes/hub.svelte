@@ -7,6 +7,7 @@
   import { near, nftTokensForOwner, nftMintFull } from '$src/utils/near'
 
   let lemons: LemonNFT[] = [];
+  let showMint = false
 
   onMount(async () => {
     await $near.connect()
@@ -14,6 +15,11 @@
     if ($near.accountId) {
       const nftTokens = await nftTokensForOwner($near.accountId) as LemonNFT[];
       lemons = nftTokens.filter(token => token?.model?.kind === 'lemon')
+      if (lemons.length < 3) {
+        showMint = true
+      }
+    } else {
+      showMint = true
     }
 
     const { Model } = await import('$src/threejs/hub')
@@ -59,11 +65,13 @@
   <div class="home-inner">
     
     <Header />
-    <div class="container sticky-top text-center" style="z-index: 980;">
-      <button class="btn btn-lg btn-light px-4" on:click={nftMintFull}>
-        Mint NFT
-      </button>
-    </div>
+    {#if showMint}
+      <div class="container sticky-top text-center" style="z-index: 980;">
+        <button class="btn btn-lg btn-light px-4" on:click={nftMintFull}>
+          Mint NFT
+        </button>
+      </div>
+    {/if}
     <div class="layer" style="top: 0%; width: 100%; height: 100vh;">
       <div id="threejs" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;"></div>
     </div>

@@ -3,10 +3,12 @@
   import Loader from '$src/components/Loader.svelte';
   import Header from '$src/components/Header.svelte'
   import Footer from '$src/components/Footer.svelte';
-  import { near, nftMintFull } from '$src/utils/near'
+  import type { LemonNFT } from '$src/utils/types'
+  import { near, nftMintFull, nftTokensForOwner } from '$src/utils/near'
 
   let showMint = false
   let tutorialStep: string | null;
+  let lemons: LemonNFT[] = []
 
   const handleMintNft = () => {
     if ($near.accountId) {
@@ -20,6 +22,15 @@
 
     tutorialStep = localStorage.getItem('tutorialStep') || null;
 
+    if ($near.accountId) {
+      const nftTokens = await nftTokensForOwner($near.accountId) as LemonNFT[];
+      lemons = nftTokens.filter(token => token?.model?.kind === 'lemon')
+      if (lemons.length > 0 && tutorialStep == null) {
+        tutorialStep = 'nftHub';
+        localStorage.setItem('tutorialStep', 'nftHub');
+      }
+    }
+    
     const { Model } = await import('$src/threejs/homepage')
     const scene = new Model({
       dom: 'threejs',
