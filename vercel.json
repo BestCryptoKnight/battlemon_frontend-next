@@ -3,6 +3,10 @@
     {
       "source": "/card/:id",
       "destination": "/"
+    },
+    {
+      "source": "/hub",
+      "destination": "/"
     }
   ]
 }
