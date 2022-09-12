@@ -1,5 +1,5 @@
 import preprocess from 'svelte-preprocess';
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-static';
 import { resolve } from 'path';
 
 
@@ -12,7 +12,14 @@ const config = {
 	
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
-    adapter: adapter(),
+    adapter: adapter({
+      // default options are shown. On some platforms
+      // these options are set automatically — see below
+      pages: 'build',
+      assets: 'build',
+      fallback: 'index.html',
+      precompress: false
+    }),
 		vite: {
 			define: {
 					global: {}
