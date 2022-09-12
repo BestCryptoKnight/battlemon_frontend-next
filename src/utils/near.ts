@@ -49,7 +49,7 @@ async function nearConnection () {
     headers: {}
   };
 
-  const responseContracts = await fetch('/api?url=/rest/contracts');
+  const responseContracts = await fetch('https://api.battlemon.com/rest/contracts');
   const contracts = await responseContracts.json()
   const connection = await connect(connectionConfig);
   const wallet = new WalletConnection(connection, 'Battlemon')
