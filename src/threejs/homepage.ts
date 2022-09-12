@@ -276,7 +276,7 @@ export class Model {
           location.href = clientLink()
         }
       }
-      if (hovered == 'lemterprise') document.onclick = () => goto('/lemterprise')
+      //if (hovered == 'lemterprise') document.onclick = () => goto('/lemterprise')
       if (hovered == 'arena') {
         document.onclick = () => {
           this.events.onClickHub()
