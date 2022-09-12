@@ -6,4 +6,4 @@ export const clientLink = () => {
   return link
 }
 
-export const assetsTimestamp = "020620220006"
+export const assetsTimestamp = "020620220007"
